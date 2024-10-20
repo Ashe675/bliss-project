@@ -1,5 +1,6 @@
-import React from 'react';
-import {Container} from './Container'; // Asegúrate de que la ruta sea correcta
+import React from "react";
+import { Container } from "./Container"; // Asegúrate de que la ruta sea correcta
+import Image from "next/image";
 
 export const CallToAction: React.FC = () => {
   return (
@@ -14,66 +15,63 @@ export const CallToAction: React.FC = () => {
       <Container>
         <div className="relative">
           <div className="flex items-center justify-center -space-x-2">
-            <img
+          <Image
               loading="lazy"
               width="400"
               height="400"
-              src="./images/avatars/avatar.webp"
+              src="https://randomuser.me/api/portraits/men/32.jpg"
               alt="member photo"
               className="h-8 w-8 rounded-full object-cover"
             />
-            <img
+            <Image
               loading="lazy"
               width="200"
               height="200"
-              src="./images/avatars/avatar-2.webp"
+              src="https://randomuser.me/api/portraits/women/44.jpg"
               alt="member photo"
               className="h-12 w-12 rounded-full object-cover"
             />
-            <img
+            <Image
               loading="lazy"
               width="200"
               height="200"
-              src="./images/avatars/avatar-3.webp"
+              src="https://randomuser.me/api/portraits/men/75.jpg"
               alt="member photo"
               className="z-10 h-16 w-16 rounded-full object-cover"
             />
-            <img
+            <Image
               loading="lazy"
               width="200"
               height="200"
-              src="./images/avatars/avatar-4.webp"
+              src="https://randomuser.me/api/portraits/women/23.jpg"
               alt="member photo"
               className="relative h-12 w-12 rounded-full object-cover"
             />
-            <img
+            <Image
               loading="lazy"
               width="200"
               height="200"
-              src="./images/avatars/avatar-1.webp"
+              src="https://randomuser.me/api/portraits/men/51.jpg"
               alt="member photo"
               className="h-8 w-8 rounded-full object-cover"
             />
           </div>
           <div className="mt-6 m-auto space-y-6 md:w-8/12 lg:w-7/12">
             <h1 className="text-center text-4xl font-bold text-gray-800 dark:text-white md:text-5xl">
-              Get Started now
+              Comienza ahora
             </h1>
             <p className="text-center text-xl text-gray-600 dark:text-gray-300">
-              Be part of millions of people around the world using tailus in modern User Interfaces.
+              Se parte de millones de personas alrededor del mundo utilizando
+              bliss en sus negocios.
             </p>
             <div className="flex flex-wrap justify-center gap-6">
               <a
                 href="#"
-                className="relative flex h-12 w-full items-center justify-center px-8 before:absolute before:inset-0 before:rounded-full before:bg-primary before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 sm:w-max"
+                className=" before:border-red-700 before:bg-red-800 relative flex h-12 w-full items-center justify-center px-8 before:absolute before:inset-0 before:rounded-full before:border before:border-transparent before:bg-primary/10 before:bg-gradient-to-b before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 sm:w-max"
               >
-                <span className="relative text-base font-semibold text-white dark:text-dark">Get Started</span>
-              </a>
-              <a
-                href="#"
-                className="relative flex h-12 w-full items-center justify-center px-8 before:absolute before:inset-0 before:rounded-full before:border before:border-transparent before:bg-primary/10 before:bg-gradient-to-b before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 dark:before:border-gray-700 dark:before:bg-gray-800 sm:w-max"
-              >
-                <span className="relative text-base font-semibold text-primary dark:text-white">More about</span>
+                <span className="relative text-base font-semibold text-primary dark:text-white">
+                  Ir a la aplicación
+                </span>
               </a>
             </div>
           </div>
@@ -82,4 +80,3 @@ export const CallToAction: React.FC = () => {
     </div>
   );
 };
-
