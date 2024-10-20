@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export const CallToAction: React.FC = () => {
   return (
-    <div className="relative py-16">
+    <div className="z-0 relative py-16">
       <div
         aria-hidden="true"
         className="absolute inset-0 h-max w-full m-auto grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20"
