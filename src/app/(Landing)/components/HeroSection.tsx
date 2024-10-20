@@ -18,23 +18,23 @@ export const HeroSection = () => {
         style={{
           maskImage: 'linear-gradient(to bottom, black 80%, transparent)',
           WebkitMaskImage: 'linear-gradient(to bottom, black 80%, transparent)', // Para compatibilidad con navegadores WebKit
-          backgroundColor: 'rgba(18, 5, 1, 0.6)', // Un color de fondo para ver el efecto
+          backgroundColor: 'rgba(18, 5, 1, 0.8)', // Un color de fondo para ver el efecto
         }}
       />
 
       <Container>
         <div className="relative pt-36 ml-auto">
 
+            <div className="flex justify-center">
             <img src="/marca/BlissWhiteLetters.png" alt="" />
+
+            </div>
           <div className="lg:w-2/3 text-center mx-auto">
             <h1 className="text-gray-900 dark:text-white text-3xl md:text-6xl xl:text-7xl">
               ¿Estas buscando una barberia o salón para tí?
             </h1>
             <p className="mt-8 text-gray-700 dark:text-gray-300">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio
-              incidunt nam itaque sed eius modi error totam sit illum. Voluptas
-              doloribus asperiores quaerat aperiam. Quidem harum omnis beatae
-              ipsum soluta!
+            Transforma la gestión de tu barbería o salón con “Bliss”, la solución SaaS diseñada para optimizar cada aspecto de tu negocio, desde la administración de sucursales hasta la satisfacción del cliente. Nuestra plataforma intuitiva y potente está diseñada para adaptarse a tus necesidades, ya sea que gestiones un pequeño local o una cadena de renombre.
             </p>
             <div className="mt-16 flex flex-wrap justify-center gap-y-4 gap-x-6">
               <a
@@ -54,24 +54,24 @@ export const HeroSection = () => {
                 </span>
               </a>
             </div>
-            <div className="hidden py-8 mt-16 border-y border-gray-100 dark:border-gray-800 sm:flex justify-between">
+            <div className="hidden py-8 mt-16 border-y  dark:border-orange-950 sm:flex justify-between">
               <div className="text-left">
                 <h6 className="text-lg font-semibold text-gray-700 dark:text-white">
-                  The lowest price
+                  Los mejores precios
                 </h6>
-                <p className="mt-2 text-gray-500">Some text here</p>
+                <p className="mt-2 text-orange-200">Para todos</p>
               </div>
               <div className="text-left">
                 <h6 className="text-lg font-semibold text-gray-700 dark:text-white">
-                  The fastest on the market
+                  El más rapido del mercado
                 </h6>
-                <p className="mt-2 text-gray-500">Some text here</p>
+                <p className="mt-2 text-orange-200">Con escalabilidad</p>
               </div>
               <div className="text-left">
                 <h6 className="text-lg font-semibold text-gray-700 dark:text-white">
-                  The most loved
+                  El mas aclamado
                 </h6>
-                <p className="mt-2 text-gray-500">Some text here</p>
+                <p className="mt-2 text-orange-200">Y el más eficaz</p>
               </div>
             </div>
           </div>

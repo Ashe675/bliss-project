@@ -5,19 +5,19 @@ const testimonials = [
   {
     name: 'Daniella Doe',
     role: 'Mobile dev',
-    image: './images/avatars/avatar.webp',
+    image: 'https://avatars.githubusercontent.com/u/117692862?v=4',
     review: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum aliquid quo eum quae quos illo earum ipsa doloribus nostrum minus libero aspernatur laborum cum, a suscipit, ratione ea totam ullam! Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto laboriosam deleniti aperiam ab veniam sint non cumque quis tempore cupiditate. Sint libero voluptas veniam at reprehenderit, veritatis harum et rerum.',
   },
   {
     name: 'Jane Doe',
     role: 'Marketing',
-    image: './images/avatars/avatar-1.webp',
+    image: 'https://avatars.githubusercontent.com/u/108470207?v=4',
     review: 'Lorem ipsum dolor laboriosam deleniti aperiam ab veniam sint non cumque quis tempore cupiditate. Sint libero voluptas veniam at reprehenderit, veritatis harum et rerum.',
   },
   {
     name: 'Yanick Doe',
     role: 'Developer',
-    image: './images/avatars/avatar-2.webp',
+    image: 'https://avatars.githubusercontent.com/u/29416461?v=4',
     review: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto laboriosam deleniti aperiam ab veniam sint non cumque quis tempore cupiditate. Sint libero voluptas veniam at reprehenderit, veritatis harum et rerum.',
   },
  
@@ -29,7 +29,7 @@ export const Testimonials: React.FC = () => {
       <Container>
         <div className="mb-20 space-y-4 px-6 md:px-0">
           <h2 className="text-center text-2xl font-bold text-gray-800 dark:text-white md:text-4xl">
-            We have some fans.
+            Conoce lo que dicen nuestros clientes
           </h2>
         </div>
         <div className="md:columns-2 lg:columns-3 gap-8 space-y-8">

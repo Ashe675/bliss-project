@@ -1,5 +1,5 @@
 import {Header, Footer} from "@/components";
-import { Features, HeroSection, Testimonials, Articles } from "./components";
+import { Features, HeroSection, Testimonials, Plans } from "./components";
 
 export default function Home() {
 
@@ -19,7 +19,7 @@ export default function Home() {
         {/* <Stats/> */}
         <Testimonials/>
         {/* <CallToAction/> */}
-        <Articles/>
+        <Plans/>
       </main>
 
       <Footer/>
