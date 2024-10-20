@@ -13,7 +13,7 @@ export default function Home() {
     <>
       <Header links={links}/>
 
-      <main className="space-y-20 mb-40">
+      <main className="space-y-20 mb-20">
         <HeroSection/>
         <Features/>
         <Testimonials/>
