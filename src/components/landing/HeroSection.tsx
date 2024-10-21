@@ -1,6 +1,7 @@
-import { Container } from "@/app/(Landing)/components/Container"; // Asegúrate de que la ruta sea correcta
+import { Container } from "@/components/landing/Container"; 
 import Image from "next/image";
 import Link from "next/link";
+import { Imagotype } from "../ui/logos/Imagotype";
 
 export const HeroSection = () => {
   return (
@@ -9,6 +10,7 @@ export const HeroSection = () => {
         src="/landing/Hero.png"
         alt="Hero Background"
         width={1920}
+        priority
         height={1080}
         className="absolute inset-0 object-cover w-full h-full"
         style={{
@@ -16,7 +18,7 @@ export const HeroSection = () => {
           WebkitMaskImage: "linear-gradient(to bottom, black 50%, transparent)",
         }}
       />
-
+ 
       <div
         className="absolute inset-0"
         style={{
@@ -29,12 +31,7 @@ export const HeroSection = () => {
       <Container>
         <div className="relative pt-36 ml-auto">
           <div className="flex justify-center">
-            <Image
-              width={400}
-              height={400}
-              src="/marca/BlissWhiteLetters.png"
-              alt="bliss logo"
-            />
+            <Imagotype width={400} height={400}/>
           </div>
           <div className="lg:w-2/3 text-center mx-auto">
             <h1 className="text-gray-900 dark:text-white text-3xl md:text-6xl xl:text-7xl">
@@ -53,7 +50,7 @@ export const HeroSection = () => {
                 href="/auth/login"
                 className="relative flex h-11 w-60 items-center justify-center px-6 before:absolute before:inset-0 before:rounded-md before:border before:border-transparent before:bg-primary/10 before:bg-gradient-to-b before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 before:border-red-700 before:bg-red-800 sm:w-max"
               >
-                <span className="relative text-base font-semibold text-primary text-white">
+                <span className="relative text-base font-semibold text-white">
                   Ir a la aplicación
                 </span>
               </Link>

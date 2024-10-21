@@ -1,5 +1,5 @@
 import React from "react";
-import { Container } from "./Container"; // Asegúrate de que la ruta sea correcta
+import { Container } from "./Container"; 
 import Image from "next/image";
 import Link from "next/link";
 

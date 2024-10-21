@@ -1,5 +1,6 @@
 import React from 'react';
-import {Container} from './Container'; // Asegúrate de que la ruta sea correcta
+import {Container} from './Container'; 
+import Image from 'next/image';
 
 const testimonials = [
   {
@@ -49,13 +50,12 @@ export const Testimonials: React.FC = () => {
               className="aspect-auto p-8 border  rounded-3xl  bg-gray-800 border-gray-700 shadow-2xl shadow-gray-600/10 dark:shadow-none"
             >
               <div className="flex gap-4">
-                <img
+                <Image
                   className="w-12 h-12 rounded-full"
                   src={testimonial.image}
                   alt={`${testimonial.name} avatar`}
                   width="400"
                   height="400"
-                  loading="lazy"
                 />
                 <div>
                   <h6 className="text-lg font-medium text-gray-700 dark:text-white">{testimonial.name}</h6>

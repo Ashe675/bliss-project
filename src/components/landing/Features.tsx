@@ -1,5 +1,5 @@
 import React from "react";
-import { Container } from "@/app/(Landing)/components/Container";
+import { Container } from "@/components/landing/Container";
 
 export const Features: React.FC = () => {
   return (
@@ -36,18 +36,11 @@ export const Features: React.FC = () => {
           {featuresData.map((feature, index) => (
             <div
               key={index}
-              className="group relative bg-bliss/60  transition hover:z-[1] hover:shadow-2xl hover:shadow-gray-600/10"
+              className="group relative bg-primary/60"
             >
               <div className="relative space-y-8 py-12 p-8">
-                {/* <img
-                  src={feature.icon}
-                  className="w-12"
-                  width={512}
-                  height={512}
-                  alt={feature.alt}
-                />                 */}
                 <div className="space-y-2">
-                  <h5 className="text-xl font-semibold text-white transition group-hover:text-secondary">
+                  <h5 className="text-xl font-semibold text-white">
                     {feature.title}
                   </h5>
                   <p className="text-white/80">{feature.description}</p>
@@ -67,27 +60,27 @@ const featuresData = [
     title: "Optimización Operativa",
     description:
       "Simplifica tareas administrativas para que puedas centrarte en ofrecer un excelente servicio.",
-    alt: "burger illustration",
+    alt: "Optimización Operativa",
   },
   {
     icon: "https://cdn-icons-png.flaticon.com/512/4341/4341134.png",
     title: "Experiencia del Cliente Mejorada",
     description:
       "Ofrece un servicio más eficiente y personalizado que mantiene a los clientes regresando.",
-    alt: "burger illustration",
+    alt: "Experiencia del Cliente Mejorada",
   },
   {
     icon: "https://cdn-icons-png.flaticon.com/512/4341/4341160.png",
     title: "Crecimiento Escalable",
     description:
       "Desde una única barbería o salón hasta una cadena de sucursales, “Bliss” crece contigo.",
-    alt: "burger illustration",
+    alt: "Crecimiento Escalable",
   },
   {
     icon: "https://cdn-icons-png.flaticon.com/512/4341/4341025.png",
     title: "Gestion en tiempo real",
     description:
       "Monitorea y gestiona todos los aspectos de tu barbería o salón en tiempo real desde cualquier dispositivo.",
-    alt: "burger illustration",
+    alt: "Gestion en tiempo real",
   },
 ];

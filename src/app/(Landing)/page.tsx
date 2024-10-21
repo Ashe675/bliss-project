@@ -1,5 +1,5 @@
 import {Header, Footer} from "@/components";
-import { Features, HeroSection, Testimonials, Plans, CallToAction } from "./components";
+import { Features, HeroSection, Testimonials, Plans, CallToAction } from "@/components/landing";
 
 export default function Home() {
 
