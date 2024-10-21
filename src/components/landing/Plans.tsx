@@ -23,7 +23,7 @@ export const plans = [
     title: "Plan avanzado",
     subtitle: "Plan grandes cadenas",
     description:
-      "Gestiona sucursales y empleados al por mayor, “Bliss” crece contigo.",
+      "Gestiona más sucursales y empleados permitiendo tener un mayor alcance, “Bliss” crece contigo.",
     features: [
       "Hasta 5 sucursales",
       "Gestión de citas",
