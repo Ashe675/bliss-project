@@ -37,14 +37,14 @@ export const plans = [
 
 export const Plans: React.FC = () => {
   return (
-    <div id="plans">
+    <div id="plans" className="w-full">
       <Container>
         <div className="md:w-2/3 lg:w-1/2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="currentColor"
-            className="w-6 h-6 text-secondary"
+            className="w-6 h-6 text-red-800"
           >
             <path
               fillRule="evenodd"
@@ -53,7 +53,7 @@ export const Plans: React.FC = () => {
             />
           </svg>
 
-          <h2 className="text-center my-8 text-2xl font-bold text-gray-700 dark:text-white md:text-4xl">
+          <h2 className="text-center md:text-left my-8 text-2xl font-bold text-gray-700 dark:text-white md:text-4xl">
             Planes de suscripción
           </h2>
         </div>

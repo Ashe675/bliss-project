@@ -9,8 +9,8 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        'bliss': '#4E1504',
-        'bliss-dark': '#100000',
+        // 'bliss': '#4E1504',
+        // 'bliss-dark': '#100000',
         primary: {
           DEFAULT: "#4E1504", // Color primario por defecto
         },
