@@ -1,7 +1,6 @@
 import { Container } from "@/components/landing/Container"; 
 import Image from "next/image";
 import Link from "next/link";
-import { Imagotype } from "../ui/logos/Imagotype";
 
 export const HeroSection = () => {
   return (
@@ -31,7 +30,14 @@ export const HeroSection = () => {
       <Container>
         <div className="relative pt-36 ml-auto">
           <div className="flex justify-center">
-            <Imagotype width={400} height={400}/>
+            <Image
+              width={400}
+              height={200}
+              src="/ui/imagotype-white.png" 
+              alt="Bliss Logo"
+              className="h-10"
+              style={{ width: "400px", height: "auto" }}
+            />
           </div>
           <div className="lg:w-2/3 text-center mx-auto">
             <h1 className="text-gray-900 dark:text-white text-3xl md:text-6xl xl:text-7xl">
