@@ -1,5 +1,6 @@
 import { Container } from "@/app/(Landing)/components/Container"; // Asegúrate de que la ruta sea correcta
 import Image from "next/image";
+import Link from "next/link";
 
 export const HeroSection = () => {
   return (
@@ -48,14 +49,14 @@ export const HeroSection = () => {
               o una cadena de renombre.
             </p>
             <div className="mt-16 flex flex-wrap justify-center gap-y-4 gap-x-6">
-              <a
-                href="#"
+              <Link
+                href="/auth/login"
                 className="relative flex h-11 w-60 items-center justify-center px-6 before:absolute before:inset-0 before:rounded-md before:border before:border-transparent before:bg-primary/10 before:bg-gradient-to-b before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 before:border-red-700 before:bg-red-800 sm:w-max"
               >
                 <span className="relative text-base font-semibold text-primary text-white">
                   Ir a la aplicación
                 </span>
-              </a>
+              </Link>
               <a
                 href="#plans"
                 className="relative flex h-11 w-60 items-center justify-center px-6 before:absolute before:inset-0 before:rounded-md before:border before:border-transparent before:bg-primary/10 before:bg-gradient-to-b before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 before:border-gray-700 before:bg-gray-800 sm:w-max"
