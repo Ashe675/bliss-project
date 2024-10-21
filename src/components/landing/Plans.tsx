@@ -1,6 +1,7 @@
 import React from "react";
 import { Container } from "./Container"; 
 import Image from "next/image";
+import Link from "next/link";
 
 export const plans = [
   {
@@ -101,11 +102,13 @@ export const Plans: React.FC = () => {
                 </ul>
               </div>
               <div className="flex justify-center">
-                <button className="relative flex h-11 w-60 items-center justify-center px-6 before:absolute before:inset-0 before:rounded-md before:border before:border-transparent bg-primary/10 before:bg-gradient-to-b before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 before:border-black before:bg-black sm:w-max">
-                  <span className="relative text-base font-semibold text-white">
-                    Adquirir
-                  </span>
-                </button>
+                <Link href="/auth/login">
+                  <button className="relative flex h-11 w-60 items-center justify-center px-6 before:absolute before:inset-0 before:rounded-md before:border before:border-transparent bg-primary/10 before:bg-gradient-to-b before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 before:border-black before:bg-black sm:w-max">
+                    <span className="relative text-base font-semibold text-white">
+                      Adquirir
+                    </span>
+                  </button>
+                </Link>
               </div>
             </div>
           ))}
