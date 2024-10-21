@@ -35,8 +35,7 @@ export const HeroSection = () => {
               height={200}
               src="/ui/imagotype-white.png" 
               alt="Bliss Logo"
-              className="h-10"
-              style={{ width: "400px", height: "auto" }}
+              style={{ width: "auto", height: "auto" }}
             />
           </div>
           <div className="lg:w-2/3 text-center mx-auto">
