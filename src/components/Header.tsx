@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Container } from './landing/Container';
 import Image from 'next/image';
@@ -19,6 +19,14 @@ export const Header: React.FC<HeaderProps> = ({ links }) => {
   const toggleNavlinks = () => {
     setIsToggled(!isToggled);
   };
+
+  useEffect(() => {
+    if (isToggled) {
+      document.body.classList.add('overflow-hidden');
+    } else {
+      document.body.classList.remove('overflow-hidden');
+    }
+  }, [isToggled]);
 
   return (
     <header>
