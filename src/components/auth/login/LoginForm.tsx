@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 type loginData = {
@@ -15,8 +16,11 @@ export default function LoginForm() {
     handleSubmit,
   } = useForm<loginData>();
 
+  const router = useRouter()
+
   const handleLogin = (data: loginData) => {
     console.log(data);
+    router.replace('/')
   };
 
   return (
