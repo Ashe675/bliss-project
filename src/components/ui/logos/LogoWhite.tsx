@@ -11,6 +11,7 @@ export const LogoWhite = ({ width, height }: Props) => {
       src={"/ui/logo-white.svg"}
       width={width}
       height={height}
+      priority
       alt="Logo de bliss"
     />
   );

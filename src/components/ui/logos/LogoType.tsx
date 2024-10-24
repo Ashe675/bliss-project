@@ -11,6 +11,7 @@ export const LogoType = ({ width, height }: Props) => {
       src={"/ui/logotype-white.svg"}
       width={width}
       height={height}
+      style={{ width: width, height: height }}
       alt="Logotipo de bliss"
     />
   );

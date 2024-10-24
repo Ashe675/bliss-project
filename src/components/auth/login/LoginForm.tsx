@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 type loginData = {
@@ -15,8 +16,11 @@ export default function LoginForm() {
     handleSubmit,
   } = useForm<loginData>();
 
+  const router = useRouter()
+
   const handleLogin = (data: loginData) => {
     console.log(data);
+    router.replace('/')
   };
 
   return (
@@ -79,7 +83,7 @@ export default function LoginForm() {
           ¿Aún no tienes una cuenta? Resgístrate
         </Link>
         <Link
-          href="/landing"
+          href="/"
           className=" text-sm text-gray-400  hover:underline block m-0 mt-2"
         >
           ¿Que es Bliss? Ver más información

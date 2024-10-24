@@ -11,6 +11,7 @@ export const Imagotype = ({ width, height }: Props) => {
       src={"/ui/imagotype-white-sm.png"}
       width={width}
       height={height}
+      style={{ width: width, height: height }}
       alt="Logotipo de bliss"
     />
   );
