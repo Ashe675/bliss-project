@@ -1,3 +1,5 @@
+export const revalidate = 60;
+
 import { searchBranches } from "@/actions";
 import { BranchOfficeGrid, Search, Title } from "@/components";
 

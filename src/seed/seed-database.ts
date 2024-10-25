@@ -3,9 +3,9 @@ import { branchesData } from './branch-office';
 
 
 async function main() {
-    await prisma.user.deleteMany()
     await prisma.image.deleteMany()
     await prisma.branchOffice.deleteMany()
+    await prisma.user.deleteMany()
 
 
     await prisma.$transaction(async (tx) => {
