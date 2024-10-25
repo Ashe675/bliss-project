@@ -7,7 +7,7 @@ export default function MainLayout({
 }) {
   return (
     <>
-      <div className=" pb-[76px]">{children}</div>
+      <div className=" pb-10">{children}</div>
       <Navbar />
     </>
   );
