@@ -32,6 +32,23 @@ model BranchOffice {
   officeType    OfficeType
   employees     User[]     @relation("UserBranchOffice")
   services      Service[]
+  images        Image[]
+}
+
+enum ImageType {
+  branch
+  post
+}
+
+model Image {
+  id             String        @id @default(uuid()) @db.Char(36)
+  url            String        @db.VarChar(200)
+  publicId       String        @db.VarChar(200)
+  imageType      ImageType
+  branchOffice   BranchOffice? @relation(fields: [branchOfficeId], references: [id])
+  branchOfficeId String?       @db.Char(36)
+  post           Post?         @relation(fields: [postId], references: [id])
+  postId         String?       @db.Char(36)
 }
 
 enum Role {
@@ -145,12 +162,4 @@ model Post {
   userId    String   @db.Char(36)
   images    Image[]
   createdAt DateTime @default(now())
-}
-
-model Image {
-  id       String @id @default(uuid()) @db.Char(36)
-  url      String @db.VarChar(200)
-  publicId String @db.VarChar(200)
-  post     Post   @relation(fields: [postId], references: [id])
-  postId   String @db.Char(36)
 }

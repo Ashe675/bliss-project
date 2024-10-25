@@ -1,5 +1,5 @@
+import { searchBranches } from "@/actions";
 import { BranchOfficeGrid, Search, Title } from "@/components";
-import { branchesData } from "@/seed/branch-office";
 
 interface Props {
   searchParams: {
@@ -8,15 +8,23 @@ interface Props {
   };
 }
 
-export default function MainPage({ searchParams }: Props) {
-  const search = searchParams.search;
-  console.log(search);
+export default async function MainPage({ searchParams }: Props) {
+  const search = searchParams.search ?? '';
+  const branchesData = await searchBranches(search)
 
   return (
     <div className="p-2 px-3">
       <Title title="Sucursales" />
       <Search />
-      <BranchOfficeGrid branches={branchesData} />
+      {
+        branchesData.length ? (
+          <BranchOfficeGrid branches={branchesData} />
+        ) : (
+          <div className=" p-28 text-center text-white/70 ">
+            No hay sucursales que mostrar.
+          </div>
+        )
+      }
     </div>
   );
 }

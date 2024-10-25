@@ -4,8 +4,7 @@ import prisma from "@/lib/prisma";
 
 export const searchBranches = async (search: string) => {
     try {
-        const newSearch = search.trim().toLowerCase().replace(/ /g, '');
-        console.log(newSearch)
+        const newSearch = search.trim().toLowerCase().replace(/\s+/g, ' ');
 
         const branches = await prisma.branchOffice.findMany({
             where: {
@@ -13,7 +12,7 @@ export const searchBranches = async (search: string) => {
                     {
                         address: {
                             contains: newSearch,
-                            mode: 'insensitive'
+                            mode: 'insensitive',
                         }
                     },
                     {
@@ -29,10 +28,13 @@ export const searchBranches = async (search: string) => {
                         }
                     }
                 ]
+            },
+            include : {
+                images : true
             }
         })
 
-        console.log(branches)
+        return branches
     } catch (error) {
         console.log(error)
         return []

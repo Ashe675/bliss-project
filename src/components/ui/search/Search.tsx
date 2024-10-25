@@ -21,7 +21,7 @@ export const Search = () => {
     params.set("search", newSearchTerm);
     console.log(params.toString());
 
-    router.push(`${pathName}?${params.toString()}`);
+    router.replace(`${pathName}?${params.toString()}`);
   };
 
   return (
