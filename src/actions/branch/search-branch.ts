@@ -31,6 +31,9 @@ export const searchBranches = async (search: string) => {
             },
             include : {
                 images : true
+            },
+            orderBy : {
+                rating : 'desc'
             }
         })
 
