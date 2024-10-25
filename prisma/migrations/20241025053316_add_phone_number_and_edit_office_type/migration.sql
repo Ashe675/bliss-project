@@ -1,16 +1,11 @@
 -- CreateEnum
+CREATE TYPE "OfficeType" AS ENUM ('barbershop', 'salon');
+
+-- CreateEnum
 CREATE TYPE "Role" AS ENUM ('user', 'admin', 'employee');
 
 -- CreateEnum
 CREATE TYPE "StatusAppointment" AS ENUM ('pending', 'accepted', 'declined');
-
--- CreateTable
-CREATE TABLE "OfficeType" (
-    "id" CHAR(36) NOT NULL,
-    "name" VARCHAR(80) NOT NULL,
-
-    CONSTRAINT "OfficeType_pkey" PRIMARY KEY ("id")
-);
 
 -- CreateTable
 CREATE TABLE "BranchOffice" (
@@ -23,7 +18,7 @@ CREATE TABLE "BranchOffice" (
     "registerDate" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "userOwnerId" CHAR(36) NOT NULL,
     "slug" VARCHAR(120) NOT NULL,
-    "officeTypeId" CHAR(36) NOT NULL,
+    "officeType" "OfficeType" NOT NULL,
 
     CONSTRAINT "BranchOffice_pkey" PRIMARY KEY ("id")
 );
@@ -40,6 +35,7 @@ CREATE TABLE "User" (
     "profileImage" VARCHAR(45),
     "isActive" BOOLEAN DEFAULT true,
     "description" VARCHAR(100),
+    "phoneNumber" TEXT,
     "branchOfficeId" CHAR(36),
     "role" "Role" NOT NULL DEFAULT 'user',
 
@@ -143,13 +139,10 @@ CREATE TABLE "Image" (
 CREATE UNIQUE INDEX "User_user_key" ON "User"("user");
 
 -- CreateIndex
-CREATE INDEX "User_email_idx" ON "User"("email");
+CREATE INDEX "User_email_user_idx" ON "User"("email", "user");
 
 -- AddForeignKey
 ALTER TABLE "BranchOffice" ADD CONSTRAINT "BranchOffice_userOwnerId_fkey" FOREIGN KEY ("userOwnerId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "BranchOffice" ADD CONSTRAINT "BranchOffice_officeTypeId_fkey" FOREIGN KEY ("officeTypeId") REFERENCES "OfficeType"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "User" ADD CONSTRAINT "User_branchOfficeId_fkey" FOREIGN KEY ("branchOfficeId") REFERENCES "BranchOffice"("id") ON DELETE SET NULL ON UPDATE CASCADE;
