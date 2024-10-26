@@ -21,7 +21,7 @@ const GenericButton: React.FC<GenericButtonProps> = ({
   const baseStyles =
     "relative px-4 py-2 rounded-lg font-semibold transition-all duration-300 focus:outline-none focus:ring-2 flex items-center justify-center gap-2";
   const variantStyles = {
-    primary: "btn-primary text-white hover:bg-blue-600 focus:ring-blue-300",
+    primary: "btn-primary text-white hover:bg-ambar-600 focus:ring-ambar-300",
     secondary: "btn-secondary bg-secondary text-white hover:bg-ambar-600 focus:ring-gray-300",
     danger: "bg-red-500 text-white hover:bg-red-600 focus:ring-red-300",
   };
