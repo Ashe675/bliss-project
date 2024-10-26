@@ -13,10 +13,9 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model OfficeType {
-  id            String         @id @default(uuid()) @db.Char(36)
-  name          String         @db.VarChar(80)
-  branchOffices BranchOffice[]
+enum OfficeType {
+  barbershop
+  salon
 }
 
 model BranchOffice {
@@ -30,10 +29,26 @@ model BranchOffice {
   userOwnerId   String     @db.Char(36)
   userOwner     User       @relation("userOwner", fields: [userOwnerId], references: [id])
   slug          String     @db.VarChar(120)
-  officeType    OfficeType @relation(fields: [officeTypeId], references: [id])
-  officeTypeId  String     @db.Char(36)
+  officeType    OfficeType
   employees     User[]     @relation("UserBranchOffice")
   services      Service[]
+  images        Image[]
+}
+
+enum ImageType {
+  branch
+  post
+}
+
+model Image {
+  id             String        @id @default(uuid()) @db.Char(36)
+  url            String        @db.VarChar(200)
+  publicId       String        @db.VarChar(200)
+  imageType      ImageType
+  branchOffice   BranchOffice? @relation(fields: [branchOfficeId], references: [id])
+  branchOfficeId String?       @db.Char(36)
+  post           Post?         @relation(fields: [postId], references: [id])
+  postId         String?       @db.Char(36)
 }
 
 enum Role {
@@ -53,6 +68,7 @@ model User {
   profileImage          String?           @db.VarChar(45)
   isActive              Boolean?          @default(true)
   description           String?           @db.VarChar(100)
+  phoneNumber           String?
   branchOffice          BranchOffice?     @relation("UserBranchOffice", fields: [branchOfficeId], references: [id])
   branchOfficeId        String?           @db.Char(36)
   role                  Role              @default(user)
@@ -64,7 +80,7 @@ model User {
   appointmentsReceived  Appointment[]     @relation("UserScheduled")
   branchOffices         BranchOffice[]    @relation("userOwner")
 
-  @@index([email])
+  @@index([email, user])
 }
 
 model Suscription {
@@ -146,12 +162,4 @@ model Post {
   userId    String   @db.Char(36)
   images    Image[]
   createdAt DateTime @default(now())
-}
-
-model Image {
-  id       String @id @default(uuid()) @db.Char(36)
-  url      String @db.VarChar(200)
-  publicId String @db.VarChar(200)
-  post     Post   @relation(fields: [postId], references: [id])
-  postId   String @db.Char(36)
 }

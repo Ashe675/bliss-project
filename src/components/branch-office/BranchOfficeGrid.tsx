@@ -1,8 +1,8 @@
-import { BranchOffice } from "@/interfaces";
+import { BranchOfficeGridData } from "@/interfaces";
 import { BranchOfficeGridItem } from "./BranchOfficeGridItem";
 
 interface Props {
-  branches: BranchOffice[];
+  branches: BranchOfficeGridData[];
 }
 
 export const BranchOfficeGrid = ({ branches }: Props) => {

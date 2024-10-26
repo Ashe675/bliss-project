@@ -15,6 +15,7 @@ export * from './ui/logos/LogoType';
 export * from './ui/logos/LogoWhite';
 export * from './ui/main/navbar/Navbar';
 export * from './ui/main/navbar/NavbarItem';
+export * from './ui/search/Search';
 export * from './ui/sidebar/Sidebar';
 export * from './ui/sidebar/SidebarItem';
 export * from './ui/title/Title';
