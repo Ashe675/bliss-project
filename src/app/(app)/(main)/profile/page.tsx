@@ -57,15 +57,15 @@ function ProfilePage() {
         joinedDate={user.joinedDate}
       />
       
-      <div className="grid grid-cols-2 gap-4">
-        <GenericButton 
+      <div className="relative max-w-72 grid grid-cols-1 gap-4 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+        {/*<GenericButton 
           text="Reiniciar Contraseña" 
           onClick={() => alert('Reiniciada!')} 
           variant="secondary" 
           icon={<FaKey />}  
-        />
+        />*/}
         <GenericButton 
-          text="Editar Perfil" 
+          text="Editar Nombre" 
           onClick={() => setModalOpen(true)}  // Abre el modal al hacer clic
           variant="secondary"
           icon={<MdEditSquare />}  
@@ -87,7 +87,7 @@ function ProfilePage() {
             placeholder="Primer Nombre"
             value={newFirstName} // Estado controlado
             onChange={(e) => setFirstName(e.target.value)} // Actualiza el estado cuando el usuario escribe
-            className="w-full border border-gray-300 p-2 rounded-lg mb-4 text-black"
+            className="w-full border border-gray-300 p-2 rounded-lg mb-4 text-white  bg-tertiary"
           />
           <br />
           <p>Apellido</p>
@@ -96,7 +96,7 @@ function ProfilePage() {
             placeholder="Apellido"
             value={newLastName} // Estado controlado
             onChange={(e) => setLastName(e.target.value)} // Actualiza el estado cuando el usuario escribe
-            className="w-full border border-gray-300 p-2 rounded-lg mb-4 text-black"
+            className="w-full border border-gray-300 p-2 rounded-lg mb-4 text-white bg-tertiary"
           />
           <div className="flex justify-end">
             <GenericButton text="Guardar" variant="primary" />
