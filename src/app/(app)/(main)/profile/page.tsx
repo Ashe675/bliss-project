@@ -67,7 +67,7 @@ function ProfilePage() {
         <GenericButton 
           text="Editar Nombre" 
           onClick={() => setModalOpen(true)}  // Abre el modal al hacer clic
-          variant="secondary"
+          variant="primary"
           icon={<MdEditSquare />}  
         />
       </div>
@@ -99,7 +99,7 @@ function ProfilePage() {
             className="w-full border border-gray-300 p-2 rounded-lg mb-4 text-white bg-tertiary"
           />
           <div className="flex justify-end">
-            <GenericButton text="Guardar" variant="primary" />
+            <GenericButton text="Guardar" variant="primary"/>
           </div>
         </form>
       </Modal>

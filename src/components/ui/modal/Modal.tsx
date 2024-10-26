@@ -12,11 +12,11 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null; // No renderiza nada si el modal no está abierto
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-[#180A00] text-white max-w-md p-6 rounded-lg shadow-lg relative">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50" onClick={onClose}>
+      <div className="bg-[#180A00] text-white max-w-md p-6 rounded-lg shadow-lg relative" onClick={(e) => e.stopPropagation()}>
         {/* Botón para cerrar el modal */}
         <button
-          className="absolute top-4 right-4 text-red-900 hover:text-gray-600"
+          className="absolute top-4 right-4 font-extrabold text-white hover:text-gray-600"
           onClick={onClose}
           aria-label="Cerrar modal"
         >
@@ -26,6 +26,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
         {children}
       </div>
     </div>
+    
 
 
   );
