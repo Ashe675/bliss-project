@@ -78,7 +78,8 @@ function ProfilePage() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            handleEditProfile(newFirstName, newLastName); // Usa el valor actualizado del estado
+            handleEditProfile(newFirstName, newLastName);
+            setModalOpen(false) // Usa el valor actualizado del estado
           }}
         >
           <p>Primer Nombre</p>
