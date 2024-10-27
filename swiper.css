@@ -24,7 +24,6 @@
     text-align: center;
     font-size: 18px;
   
-    /* Center slide text vertically */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -37,3 +36,24 @@
     object-fit: cover;
   }
   
+.swiper-button-next,
+.swiper-button-prev {
+  color: #ffffff; 
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 40px; 
+}
+
+.swiper-pagination-bullet {
+  background-color: #ccc !important; 
+  width: 12px !important;
+  height: 12px !important;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #ffffff !important; 
+  width: 14px !important; 
+  height: 14px !important;
+}

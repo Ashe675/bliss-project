@@ -27,7 +27,7 @@ export const BranchOfficeGridItem = ({ branch }: Props) => {
         <div className=" absolute bg-secondary opacity-15 h-full w-full"></div>
         <Image
           src={branch.images[0]?.url ? branch.images[0].url : "/ui/imagotype-white.png"}
-          width={300}
+          width={1000}
           height={250}
           alt={branch.name}
           className=" object-cover  rounded-t-md "
