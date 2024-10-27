@@ -9,6 +9,11 @@ interface Props {
   };
 }
 
+export const metadata = {
+ title: 'Home',
+ description: 'Barberías y salones de belleza disponibles.',
+};
+
 export default async function MainPage({ searchParams }: Props) {
   const search = searchParams.search ?? '';
   const branchesData = await searchBranches(search)

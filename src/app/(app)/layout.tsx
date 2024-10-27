@@ -8,7 +8,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       {children}
       </div>
       <Sidebar />
-      <div className="pb-[76px] sm:pb-0">
+      <div className="py-[76px] sm:pb-0">
         <Footer />
       </div>
     </div>

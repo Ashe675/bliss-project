@@ -1,8 +1,10 @@
 "use client";
 
+import { login } from "@/actions/auth/login";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { IoInformationOutline } from "react-icons/io5";
 
 type loginData = {
   user: string;
@@ -10,17 +12,29 @@ type loginData = {
 };
 
 export default function LoginForm() {
+  const [errorCredentials, setErrorCredentials] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm<loginData>();
 
-  const router = useRouter()
+  const handleLogin = async (data: loginData) => {
+    setIsLoading(true);
+    setErrorCredentials("");
+    const res = await login(data.user, data.password);
+    setIsLoading(false);
+    if (!res.ok && res.message === "Credenciales inválidas.") {
+      setErrorCredentials(res.message);
+      setTimeout(() => {
+        setErrorCredentials("");
+      }, 3000);
+      return
+    }
 
-  const handleLogin = (data: loginData) => {
-    console.log(data);
-    router.replace('/')
+    window.location.replace("/");
   };
 
   return (
@@ -47,7 +61,7 @@ export default function LoginForm() {
           </span>
         )}
       </div>
-      <div className=" flex flex-col gap-y-1 pb-4">
+      <div className=" flex flex-col gap-y-1 pb-3">
         <label htmlFor="password" className=" text-xl  ">
           Contraseña
         </label>
@@ -73,9 +87,20 @@ export default function LoginForm() {
       </div>
 
       <div>
-        <button type="submit" className=" btn-primary w-full">
+        {errorCredentials && (
+          <div className=" flex flex-row mb-2 justify-center">
+            <IoInformationOutline className=" h-5 w-5 text-red-500" />
+            <p className=" text-sm text-red-500 ">{errorCredentials}</p>
+          </div>
+        )}
+        <button
+          type="submit"
+          disabled={isLoading}
+          className={` ${isLoading ? "btn-pending" : "btn-primary "} w-full`}
+        >
           Iniciar Sesión
         </button>
+
         <Link
           href="/auth/signup"
           className=" text-sm text-gray-400  hover:underline"
