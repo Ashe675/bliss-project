@@ -7,13 +7,16 @@ import { LogoWhite } from "../logos/LogoWhite";
 import { LogoType } from "../logos/LogoType";
 import { useUIStore } from "@/store";
 import clsx from "clsx";
+import { useSession } from "next-auth/react";
+import { IoLogIn, IoLogOut } from "react-icons/io5";
+import { logout } from "@/actions";
 
 const sidebarItems = [
-  {
-    href: "/",
-    icon: <IconHomeFilled />,
-    label: "Inicio",
-  },
+  // {
+  //   href: "/",
+  //   icon: <IconHomeFilled />,
+  //   label: "Inicio",
+  // },
   {
     href: "/appoinments",
     icon: <FaCalendarAlt size={20} className=" mx-[2px]" />,
@@ -30,6 +33,17 @@ const sidebarItems = [
 export const Sidebar = () => {
   const isSideMenuOpen = useUIStore((state) => state.isSideMenuOpen);
   const closeSideMenu = useUIStore((state) => state.closeSideMenu);
+  const { data: session } = useSession();
+
+  const isAuthenticated = !!session?.user;
+  // const isAdmin = session?.user.role === "admin";
+  // const isEmployee = session?.user.role === "employee";
+
+  const signOut = () => {
+    
+    window.location.replace("/");
+    logout();
+  };
 
   return (
     <>
@@ -66,16 +80,44 @@ export const Sidebar = () => {
             className="hover:cursor-pointer"
           />
         </div>
-        <div className=" px-4">
-          {sidebarItems.map((item) => (
+        <div className=" px-4 py-2">
+          <SidebarItem
+            onClick={closeSideMenu}
+            href={"/"}
+            label={"Inicio"}
+            icon={<IconHomeFilled />}
+          />
+          {isAuthenticated &&
+            sidebarItems.map((item) => (
+              <SidebarItem
+                onClick={closeSideMenu}
+                key={item.href}
+                href={item.href}
+                label={item.label}
+                icon={item.icon}
+              />
+            ))}
+          {!isAuthenticated && (
             <SidebarItem
               onClick={closeSideMenu}
-              key={item.href}
-              href={item.href}
-              label={item.label}
-              icon={item.icon}
+              href={"/auth/login"}
+              label={"Ingresar"}
+              icon={<IoLogIn size={25} className="" />}
             />
-          ))}
+          )}
+          {isAuthenticated && (
+            <button
+              onClick={signOut}
+              className={` w-full flex p-2.5 transition-all rounded text-white/80 hover:bg-white/5 hover:text-white`}
+            >
+              <span className="mr-2 text-center flex items-center">
+                <IoLogOut size={24} className="" />
+              </span>
+              <span className=" font-semibold flex items-center">
+                Cerrar Sesión
+              </span>
+            </button>
+          )}
         </div>
       </nav>
     </>

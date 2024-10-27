@@ -10,6 +10,7 @@ export * from './landing/Features';
 export * from './landing/HeroSection';
 export * from './landing/Plans';
 export * from './landing/Testimonials';
+export * from './providers/Providers';
 export * from './ui/logos/Imagotype';
 export * from './ui/logos/LogoType';
 export * from './ui/logos/LogoWhite';

@@ -24,5 +24,10 @@
 
 
 .btn-primary {
-  @apply rounded-md bg-primary text-white font-bold p-2 hover:bg-secondary;
+  @apply rounded-md bg-primary text-white font-bold p-2 hover:bg-primary/80;
 }
+
+.btn-pending {
+  @apply rounded-md bg-white/10 text-white font-bold p-2;
+}
+
