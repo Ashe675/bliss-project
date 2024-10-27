@@ -37,6 +37,8 @@ export const searchBranches = async (search: string) => {
             }
         })
 
+        console.log(branches);
+        
         return branches
     } catch (error) {
         console.log(error)
