@@ -28,8 +28,9 @@ export const BranchOfficeGridItem = ({ branch }: Props) => {
         <Image
           src={branch.images[0]?.url ? branch.images[0].url : "/ui/imagotype-white.png"}
           alt={branch.name}
-          layout="fill"
-          objectFit="cover"
+          fill
+          sizes="100%"
+          style={{ objectFit: "cover" }}
         />
       </div>
       

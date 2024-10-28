@@ -12,7 +12,6 @@ async function main() {
         for (const branch of branchesData) {
             const { userOwner, employees, images, ...branchInfo } = branch;
 
-
             await tx.branchOffice.create({
                 data: {
                     ...branchInfo,
