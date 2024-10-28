@@ -10,7 +10,7 @@ export interface BranchOfficeData {
     longevityYear: number;
     registerDate: Date;
     userOwner: UserData;
-    employees: EmployeeData[];
+    employees: UserData[];
     slug: string;
     officeType: OfficeType;
     images: {

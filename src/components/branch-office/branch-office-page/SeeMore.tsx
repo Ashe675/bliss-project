@@ -50,31 +50,32 @@ export const SeeMore: React.FC = () => {
     fetchBranches();
   }, []);
 
-  if (loading) {
-    return <div>Cargando...</div>;
-  }
 
   return (
     <div className="p-4 shadow-md mb-6">
       <h2 className="text-2xl font-semibold mb-2">Ver más Sucursales</h2>
       {loading ? (
-        <div className="animate-pulse bg-gradient-to-r from-primary to-red-950 h-10 w-full rounded-lg"></div>
+        <div className="animate-pulse bg-gradient-to-r from-primary to-red-950 h-96 w-full rounded-lg"></div>
       ) : branchesData.length > 0 ? (
         <Swiper
           modules={[Navigation]}
+          style={{ padding: "10px"}}
           loop={true}
-          spaceBetween={10}
+          spaceBetween={50}
           slidesPerView={2}
           navigation
           breakpoints={{
+            1: {
+              slidesPerView: 1,
+            },
             640: {
+              slidesPerView: 2,
+            },
+            856: {
               slidesPerView: 3,
             },
-            768: {
-              slidesPerView: 4,
-            },
             1024: {
-              slidesPerView: 5,
+              slidesPerView: 4,
             },
           }}
         >

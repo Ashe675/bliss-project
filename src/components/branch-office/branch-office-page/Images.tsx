@@ -17,7 +17,7 @@ interface ImagesProps {
 export const Images: React.FC<ImagesProps> = ({ officeImages, isLoading }) => {
   return (
     <div className="flex justify-center">
-      <div className="w-full lg:w-2/4 mb-8">
+      <div className="w-full lg:w-2/4 md:w-3/4 mb-8">
         {isLoading ? (
           <div className="animate-pulse bg-gradient-to-r from-primary to-red-950 h-80 w-full rounded-lg"></div>
         ) : (
