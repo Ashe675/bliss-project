@@ -1,6 +1,9 @@
 
 import { ImageType, OfficeType } from "@prisma/client";
-import { EmployeeData, UserData } from "./user.interface";
+import { 
+    // EmployeeData,
+    UserData 
+} from "./user.interface";
 
 export interface BranchOfficeData {
     name: string;
@@ -10,7 +13,7 @@ export interface BranchOfficeData {
     longevityYear: number;
     registerDate: Date;
     userOwner: UserData;
-    employees: EmployeeData[];
+    employees: UserData[];
     slug: string;
     officeType: OfficeType;
     images: {

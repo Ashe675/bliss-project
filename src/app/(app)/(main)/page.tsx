@@ -17,8 +17,6 @@ export const metadata = {
 export default async function MainPage({ searchParams }: Props) {
   const search = searchParams.search ?? '';
   const branchesData = await searchBranches(search)
-  console.log("branches data: ",branchesData);
-  
 
   return (
     <div className="p-2 px-3">
