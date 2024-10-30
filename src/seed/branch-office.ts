@@ -142,6 +142,7 @@ export const branchesData: BranchOfficeData[] = [
                 password: bcryptjs.hashSync('123456', 10),
                 verified: true,
                 role: Role.employee,
+                
             },
             {
                 firstName: "Miguel",
