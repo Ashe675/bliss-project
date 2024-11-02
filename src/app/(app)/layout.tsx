@@ -2,7 +2,7 @@ import { Footer, Sidebar, TopMenu } from "@/components";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className=" min-h-screen bg-primaryBrown pt-[47px] flex flex-col">
+    <div className=" min-h-screen bg-primaryBrown pt-[55px] flex flex-col">
       <TopMenu />
       <div className=" px-0 sm:px-4 flex-1">
       {children}

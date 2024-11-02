@@ -19,7 +19,6 @@ export const Search = () => {
     // Usar el valor directamente del input (newSearchTerm)
     const params = new URLSearchParams(searchParams);
     params.set("search", newSearchTerm);
-    console.log(params.toString());
 
     router.replace(`${pathName}?${params.toString()}`);
   };
