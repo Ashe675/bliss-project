@@ -1,14 +1,14 @@
 interface UserInfoProps {
   firstName: string;
   lastName: string;
-  username: string;
   description: string;
   email: string;
   joinedDate: string; 
-  idUser:number;
+  id:string;
+  verified: boolean;
 }
 
-const UserInfo: React.FC<UserInfoProps> = ({ firstName, lastName, username, idUser ,description, email, joinedDate }) => {
+const UserInfo: React.FC<UserInfoProps> = ({ firstName, lastName,  id ,verified, email }) => {
   return (
     <div className="p-6 rounded-lg shadow-md max-w-md mx-auto">
       <div className="text-center">
@@ -18,22 +18,23 @@ const UserInfo: React.FC<UserInfoProps> = ({ firstName, lastName, username, idUs
       </div>
       
       <div className="mb-4">
-        <span className="font-semibold">Usuario:</span>
-        <div className="bg-primary bg-opacity-25 rounded-md pl-3"> 
-        <p>{username}</p>
-        </div>
-      </div>
-
-      <div className="mb-4">
-        <span className="font-semibold">Correo:</span>
+        <span className="font-semibold">Usuario y Correo:</span>
         <div className="bg-primary bg-opacity-25 rounded-md pl-3"> 
         <p>{email}</p>
         </div>
       </div>
+
+      <div className="mb-4">
+        <span className="font-semibold">Verificado:</span>
+        <div className="bg-primary bg-opacity-25 rounded-md pl-3"> 
+          <p>{verified ? "Sí" : "No"}</p> {/* Ternario para mostrar 'Sí' o 'No' */}
+        </div>
+      </div>
+
       <div className="mb-4">
         <span className="font-semibold">id Usuario:</span>
         <div className="bg-primary bg-opacity-25 rounded-md pl-3"> 
-        <p>{idUser}</p>
+        <p>{id}</p>
         </div>
       </div>
 

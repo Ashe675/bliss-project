@@ -4,13 +4,16 @@ import Image from 'next/image';
 import { FaPen } from "react-icons/fa";
 
 interface AvatarProps {
-  src: string;
+  src: string | null; // src puede ser null o una cadena vacía
   alt: string;
   onImageChange?: (newImage: string) => void; // Evento opcional para manejar el cambio de imagen
 }
 
 const Avatar: React.FC<AvatarProps> = ({ src, alt, onImageChange }) => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null); // Almacena la imagen seleccionada
+
+  // Imagen genérica si no se proporciona una imagen válida
+  const defaultImage = "/ui/profile/default-avatar.jpg"; // Ruta de la imagen genérica
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -27,7 +30,7 @@ const Avatar: React.FC<AvatarProps> = ({ src, alt, onImageChange }) => {
     <div className="relative w-48 h-48">
       <Image
         className="rounded-full hover:scale-105 transition-transform duration-300"
-        src={selectedImage || src} // Muestra la imagen seleccionada o la imagen original
+        src={selectedImage || src || defaultImage} // Muestra la imagen seleccionada, luego la original o la imagen genérica
         alt={alt}
         fill
         sizes="(max-width: 768px) 100vw, 48rem"
