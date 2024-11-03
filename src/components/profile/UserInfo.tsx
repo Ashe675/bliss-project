@@ -1,9 +1,7 @@
 interface UserInfoProps {
   firstName: string;
   lastName: string;
-  description: string;
   email: string;
-  joinedDate: string; 
   id:string;
   verified: boolean;
 }

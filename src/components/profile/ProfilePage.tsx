@@ -13,9 +13,7 @@ interface ProfilePageProps {
     firstName: string;
     lastName: string;
     id: string;
-    description: string;
     email: string;
-    joinedDate: string;
     verified: boolean;
   };
   setUser: (user: any) => void;
@@ -38,9 +36,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ user, setUser }) => {
         firstName={user.firstName}
         lastName={user.lastName}
         id={user.id}
-        description={user.description}
         email={user.email}
-        joinedDate={user.joinedDate}
         verified={user.verified}
       />
       <div className="relative max-w-72 grid grid-cols-1 gap-4 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
