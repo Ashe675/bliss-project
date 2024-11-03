@@ -19,10 +19,10 @@ export const Features: React.FC = () => {
             />
           </svg>
 
-          <h2 className="my-8 text-2xl font-bold text-gray-700 dark:text-white md:text-4xl">
+          <h2 className="my-8 text-2xl font-bold text-white md:text-4xl">
             ¿Eres dueño de un negocio y deseas dar el siguiente paso?{" "}
           </h2>
-          <p className="text-gray-600 dark:text-gray-300">
+          <p className="text-gray-300">
             Transforma la gestión de tu barbería o salón con “Bliss”, la
             solución SaaS diseñada para optimizar cada aspecto de tu negocio,
             desde la administración de sucursales hasta la satisfacción del
@@ -32,7 +32,7 @@ export const Features: React.FC = () => {
           </p>
         </div>
 
-        <div className="mt-16 grid divide-x divide-y divide-orange-700/30  overflow-hidden rounded-3xl border border-orange-100 text-white dark:border-orange-800/50 sm:grid-cols-2 lg:grid-cols-4 lg:divide-y-0 xl:grid-cols-4">
+        <div className="mt-16 grid divide-x divide-y divide-orange-700/30  overflow-hidden rounded-3xl border  text-white border-orange-800/50 sm:grid-cols-2 lg:grid-cols-4 lg:divide-y-0 xl:grid-cols-4">
           {featuresData.map((feature, index) => (
             <div
               key={index}
