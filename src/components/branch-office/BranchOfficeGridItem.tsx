@@ -24,7 +24,7 @@ export const BranchOfficeGridItem = ({ branch }: Props) => {
         </span>
       )}
       
-      <div className="relative w-full h-[200px] overflow-hidden rounded-t-md">
+      <div className="relative w-full h-[140px] sm:h-[200px] overflow-hidden rounded-t-md">
         <Image
           src={branch.images[0]?.url ? branch.images[0].url : "/ui/imagotype-white.png"}
           alt={branch.name}
@@ -35,7 +35,7 @@ export const BranchOfficeGridItem = ({ branch }: Props) => {
       </div>
       
       <div
-        className={`text-sm p-3 rounded-b-md ${
+        className={`text-sm p-3 rounded-b-md flex flex-col flex-1 ${
           branch.officeType === "barbershop" ? "bg-secondary" : "bg-[#472020]"
         }`}
       >

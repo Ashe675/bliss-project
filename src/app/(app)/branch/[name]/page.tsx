@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { BranchOfficeData } from "@/interfaces/branch.interface";
 import { searchBranchByName } from "@/actions/branch/search-branch-by-name";
 import "swiper/css/navigation";
-import { Rating, Employees, Header, Images, Address, Description, SeeMore} from "@/components/branch-office/branch-office-page";
+import { Rating, Employees, HeaderBranchOffice, Images, Address, Description, SeeMore} from "@/components/branch-office/branch-office-page";
 
 export default function BranchPage() {
   const { name } = useParams();
@@ -55,7 +55,7 @@ export default function BranchPage() {
 
   return (
     <main className="p-4 sm:p-8 lg:p-12">
-      <Header officeType={branchData?.officeType} officeName={branchData?.name} isLoading={isLoading} onBack={() => router.back()} />
+      <HeaderBranchOffice officeType={branchData?.officeType} officeName={branchData?.name} isLoading={isLoading} onBack={() => router.back()} />
       <Images officeImages={branchData?.images} isLoading={isLoading} />
       <Rating rating={branchData?.rating ?? 0} />
       <Address address={branchData?.address} isLoading={isLoading} />

@@ -1,0 +1,110 @@
+.fc-button:hover {
+  opacity: 0.8 !important;
+}
+
+
+
+.fc-button {
+  background-color: #311502 !important;
+  color: #fff;
+  border: none !important;
+  outline: none !important;
+}
+
+.fc-button:focus{
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.fc-theme-standard .fc-popover{
+  background: #311502;
+}
+
+.fc .fc-daygrid-day-top{
+  font-size: 16px;
+  justify-content: center;
+ 
+  align-items: end;
+}
+
+.fc .fc-daygrid-day-number{
+  padding: 6px 0 0 0;
+}
+
+
+.fc-prev-button,
+.fc-next-button {
+  background-color: #311502 !important;
+  color: #ffffff;
+  border: none !important;
+  outline: none !important;
+}
+
+.fc-prev-button:hover,
+.fc-next-button:hover {
+  opacity: 0.8 !important;
+}
+
+.fc-prev-button:focus,
+.fc-next-button:focus {
+  outline: none !important;
+}
+
+
+.fc-today-button {
+  background-color: #4e1504 !important; /* Color de fondo del botón "Hoy" */
+  color: #ffffff;
+  border-color: #4e1504 !important;
+}
+
+.fc-scrollgrid-section-body {
+  font-size: 12px;
+}
+
+
+.fc-view, .fc-view-harness {
+  height: auto;
+}
+
+.fc .fc-daygrid-body-unbalanced .fc-daygrid-day-events{
+  min-height: 15px
+}
+
+.fc-toolbar-title {
+  background: #4e1504 !important;
+  padding: 3px 20px !important;
+  border-radius: 0.25em;
+  margin-bottom: 7px !important;
+}
+
+.fc-button-group{
+  display: flex;
+  gap: 3px;
+}
+
+.fc-toolbar {
+  flex-wrap: wrap !important;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 12px;
+}
+
+.fc .fc-daygrid-event, .fc .fc-daygrid-more-link {
+  z-index: -6
+}
+
+
+
+
+@media (min-width: 640px) {
+  .fc-toolbar {
+    font-size: 15px;
+    flex-direction: row;
+  }
+
+  .fc-toolbar-title {
+    font-size: 23px !important;
+  }
+
+  
+}

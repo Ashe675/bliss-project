@@ -117,6 +117,10 @@ export const SignupForm = () => {
                 /^(?![_.-])([a-zA-Z0-9._%+-]+)@([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/,
               message: "Correo inválido.",
             },
+            maxLength: {
+              value: 80,
+              message: "El email es muy largo.",
+            }
           })}
         />
         {errors.email && (
@@ -139,6 +143,10 @@ export const SignupForm = () => {
               value: 6,
               message: "La contraseña debe tener más de 6 caracteres.",
             },
+            maxLength: {
+              value: 80,
+              message: "La contraseña es muy larga.",
+            }
           })}
         />
         {errors.password && (

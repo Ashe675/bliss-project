@@ -7,7 +7,7 @@ interface HeaderProps {
   onBack: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ officeType, officeName, isLoading, onBack }) => {
+export const HeaderBranchOffice: React.FC<HeaderProps> = ({ officeType, officeName, isLoading, onBack }) => {
   return (
     <section className="flex items-center gap-3 mb-6">
       <button
