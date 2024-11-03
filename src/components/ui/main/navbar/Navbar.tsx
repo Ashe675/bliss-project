@@ -6,25 +6,28 @@ const navbarItems = [
   {
     href: "/appoinments",
     icon: <FaCalendarAlt size={20} />,
+    label: 'Citas'
   },
   {
     href: "/",
     icon: <IconHomeFilled  />,
+    label: 'Inicio'
   },
   {
     href: "/profile",
     icon: <IconUserFilled />,
+    label: 'Perfil'
   },
 ];
 
 export const Navbar = () => {
   return (
-    <div className=" bg-black w-full flex h-[70px] justify-center p-3 fixed bottom-0 z-10">
-      <div className=" bg-primary w-full rounded-lg mx-4 sm:max-w-sm flex p-1 py-2 justify-evenly h-full">
+    <div className=" bg-black w-full flex h-[70px] justify-center p-3 fixed bottom-0 z-10 sm:hidden">
+      <nav className=" bg-primary w-full rounded-lg mx-4 sm:max-w-sm flex p-1 py-2 justify-evenly h-full">
         {navbarItems.map((item) => (
           <NavbarItem key={item.href} href={item.href} icon={item.icon} />
         ))}
-      </div>
+      </nav>
     </div>
   );
 };

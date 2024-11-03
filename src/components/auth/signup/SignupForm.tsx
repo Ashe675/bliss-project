@@ -1,6 +1,9 @@
 "use client";
+import { login, registerUser } from "@/actions";
 import Link from "next/link";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { IoInformationOutline } from "react-icons/io5";
 
 type registerData = {
   firstName: string;
@@ -11,6 +14,8 @@ type registerData = {
 };
 
 export const SignupForm = () => {
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const {
     register,
     formState: { errors },
@@ -20,8 +25,23 @@ export const SignupForm = () => {
 
   const password = watch("password");
 
-  const handleRegister = (data: registerData) => {
-    console.log(data);
+  const handleRegister = async (data: registerData) => {
+    setError("");
+    setIsLoading(true);
+    const res = await registerUser(data);
+
+    if (!res.ok || !res.user) {
+      setError(res.message);
+      setIsLoading(false);
+      setTimeout(() => {
+        setError("");
+      }, 3000);
+      return;
+    }
+
+    await login(res.user.user.toLowerCase(), password);
+    setIsLoading(false);
+    window.location.replace("/");
   };
 
   return (
@@ -40,6 +60,14 @@ export const SignupForm = () => {
           placeholder="Ingrese sus nombres."
           {...register("firstName", {
             required: "El nombre es requerido.",
+            pattern: {
+              value: /^[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(?:\s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)?$/,
+              message: "Nombre inválido.",
+            },
+            maxLength: {
+              value: 50,
+              message: "Nombre demasiado largo",
+            },
           })}
         />
         {errors.firstName && (
@@ -58,6 +86,14 @@ export const SignupForm = () => {
           placeholder="Ingrese su apellido."
           {...register("lastName", {
             required: "El apellido es requerido.",
+            pattern: {
+              value: /^[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(?:\s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)?$/,
+              message: "Appellido inválido.",
+            },
+            maxLength: {
+              value: 50,
+              message: "Apellido demasiado largo",
+            },
           })}
         />
         {errors.lastName && (
@@ -81,6 +117,10 @@ export const SignupForm = () => {
                 /^(?![_.-])([a-zA-Z0-9._%+-]+)@([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/,
               message: "Correo inválido.",
             },
+            maxLength: {
+              value: 80,
+              message: "El email es muy largo.",
+            }
           })}
         />
         {errors.email && (
@@ -103,6 +143,10 @@ export const SignupForm = () => {
               value: 6,
               message: "La contraseña debe tener más de 6 caracteres.",
             },
+            maxLength: {
+              value: 80,
+              message: "La contraseña es muy larga.",
+            }
           })}
         />
         {errors.password && (
@@ -131,9 +175,22 @@ export const SignupForm = () => {
           </span>
         )}
       </div>
-      <button type="submit" className=" btn-primary w-full">
-        Registrar Cuenta
-      </button>
+      <div>
+        {error && (
+          <div className=" flex flex-row mb-2 justify-center">
+            <IoInformationOutline className=" h-5 w-5 text-red-500" />
+            <p className=" text-sm text-red-500 ">{error}</p>
+          </div>
+        )}
+        <button
+          disabled={isLoading}
+          type="submit"
+          className={` ${isLoading ? "btn-pending" : "btn-primary "} w-full`}
+        >
+          Registrar Cuenta
+        </button>
+      </div>
+
       <Link
         href="/auth/login"
         className=" text-sm text-gray-400  hover:underline"

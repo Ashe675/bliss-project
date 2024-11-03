@@ -1,0 +1,13 @@
+-- AlterTable
+ALTER TABLE "Appointment" ALTER COLUMN "description" SET DATA TYPE VARCHAR(150),
+ALTER COLUMN "cancelMessage" SET DATA TYPE VARCHAR(150);
+
+-- AlterTable
+ALTER TABLE "BranchOffice" ALTER COLUMN "description" SET DATA TYPE VARCHAR(300),
+ALTER COLUMN "address" SET DATA TYPE VARCHAR(250);
+
+-- AlterTable
+ALTER TABLE "Review" ALTER COLUMN "comment" SET DATA TYPE VARCHAR(250);
+
+-- AlterTable
+ALTER TABLE "User" ALTER COLUMN "description" SET DATA TYPE VARCHAR(250);

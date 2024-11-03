@@ -54,7 +54,7 @@ export const Header: React.FC<HeaderProps> = ({ links }) => {
               </div>
             </div>
 
-            <div className={`fixed inset-0 z-10 h-screen w-screen origin-bottom scale-y-0  backdrop-blur-2xl transition duration-500 bg-orange-950/20 lg:hidden ${isToggled ? "scale-y-100" : "scale-y-0"}`}></div>
+            <div className={`fixed inset-0 z-10 h-screen w-screen origin-bottom scale-y-0  backdrop-blur-2xl transition duration-300 bg-orange-950/20 lg:hidden ${isToggled ? "scale-y-100" : "scale-y-0"}`}></div>
 
             <div className={`absolute top-full left-0 z-20 w-full origin-top-right translate-y-1 scale-90 flex-col flex-wrap justify-end gap-6 rounded-3xl border border-gray-100  p-8 opacity-0 shadow-2xl shadow-gray-600/10 transition-all duration-300 dark:border-orange-950 bg-orange-950/80 dark:shadow-none lg:visible lg:relative lg:flex lg:w-7/12 lg:translate-y-0 lg:scale-100 lg:flex-row lg:items-center lg:gap-0 lg:border-none lg:bg-transparent lg:p-0 lg:opacity-100 lg:shadow-none ${isToggled ? "!visible !scale-100 !opacity-100 !lg:translate-y-0" :  "invisible opacity-0 scale-90 translate-y-1 pointer-events-none lg:visible lg:pointer-events-auto"}`}>
               <ul className="flex flex-col gap-6 tracking-wide lg:flex-row lg:gap-0 lg:text-sm">
@@ -74,7 +74,7 @@ export const Header: React.FC<HeaderProps> = ({ links }) => {
               </ul>
 
               <div className="mt-12 flex justify-center lg:mt-0">
-                <Link href="/auth/login" className="relative flex h-9 w-full items-center justify-center px-4 before:absolute before:inset-0 before:rounded-full before:bg-red-800  before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 sm:w-max">
+                <Link href="/" className="relative flex h-9 w-full items-center justify-center px-4 before:absolute before:inset-0 before:rounded-full before:bg-red-800  before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 sm:w-max">
                   <span className="relative text-sm font-semibold text-white">Ir a la aplicación</span>
                 </Link>
               </div>
