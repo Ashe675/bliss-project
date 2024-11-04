@@ -4,6 +4,7 @@ import { branchesData } from './branch-office';
 
 
 async function main() {
+    console.log('Executing seed... [0%]')
     await prisma.image.deleteMany()
     await prisma.branchOffice.deleteMany()
     await prisma.appointment.deleteMany()
@@ -35,6 +36,8 @@ async function main() {
         }
     })
 
+    console.log('Executing seed... [25%]')
+
     try {
         for (const appoinment of appointments) {
             const { userScheduler: userSchedulerData, userScheduled, ...appoinmentData } = appoinment;
@@ -59,10 +62,11 @@ async function main() {
             await prisma.appointment.create({
                 data: {
                     appointmentDate: new Date(appoinmentData.appointmentDate),
-                    finalDate : new Date(appoinmentData.finalDate),
+                    finalDate: new Date(appoinmentData.finalDate),
                     description: appoinmentData.description,
+                    status: appoinment.status,
                     userScheduledId: employee.id,
-                    userSchedulerId:  userFoundScheduler.id,
+                    userSchedulerId: userFoundScheduler.id,
                 }
             })
         }

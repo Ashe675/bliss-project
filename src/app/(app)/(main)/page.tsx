@@ -19,7 +19,7 @@ export default async function MainPage({ searchParams }: Props) {
   const branchesData = await searchBranches(search)
 
   return (
-    <div className="p-2 px-3">
+    <div className=" px-3">
       <Title title="Sucursales" />
       <Search />
       {
