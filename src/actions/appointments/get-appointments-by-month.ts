@@ -52,7 +52,7 @@ export const getAppointmentsByMonth = async (startDate: Date, finalDate: Date): 
         console.log(error);
         return {
             ok: false,
-            status: 400,
+            status: 500,
             message: 'Server internal error.',
         }
     }
