@@ -103,12 +103,12 @@ export default function LoginForm() {
 
         <Link
           href="/auth/signup"
-          className=" text-sm text-gray-400  hover:underline"
+          className=" text-sm text-gray-400  hover:underline inline-block mt-2"
         >
           ¿Aún no tienes una cuenta? Resgístrate
         </Link>
         <Link
-          href="/"
+          href="/landing"
           className=" text-sm text-gray-400  hover:underline block m-0 mt-2"
         >
           ¿Que es Bliss? Ver más información

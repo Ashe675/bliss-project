@@ -133,6 +133,7 @@ enum StatusAppointment {
   pending
   accepted
   declined
+  canceled
 }
 
 model Appointment {
