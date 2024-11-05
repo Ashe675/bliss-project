@@ -39,10 +39,10 @@ export const Sidebar = () => {
   // const isAdmin = session?.user.role === "admin";
   // const isEmployee = session?.user.role === "employee";
 
-  const signOut = () => {
+  const signOut = async () => {
     
-    window.location.replace("/");
-    logout();
+    await logout();
+    window.location.replace("/home");
   };
 
   return (
@@ -83,7 +83,7 @@ export const Sidebar = () => {
         <div className=" px-4 py-2">
           <SidebarItem
             onClick={closeSideMenu}
-            href={"/"}
+            href={"/home"}
             label={"Inicio"}
             icon={<IconHomeFilled />}
           />

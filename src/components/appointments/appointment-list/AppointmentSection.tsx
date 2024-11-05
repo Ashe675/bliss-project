@@ -75,7 +75,7 @@ export const AppointmentSection = ({ initialAppointments }: Props) => {
         </div>
         {!isLoading &&
           (appointments.length ? (
-            <AppointmentList appointments={appointments} />
+            <AppointmentList appointments={appointments} handleClickDate={handleClickDate} />
           ) : (
             <div className=" text-sm text-white/70 text-center py-6">
               No se encontraron citas para este día.

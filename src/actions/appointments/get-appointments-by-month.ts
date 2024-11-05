@@ -34,6 +34,7 @@ export const getAppointmentsByMonth = async (startDate: Date, finalDate: Date): 
                         userSchedulerId: resAuth.data?.user.id
                     }
                 ],
+                status : 'accepted',
                 appointmentDate: {
                     gte: startDate,
                     lte: finalDate

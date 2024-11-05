@@ -74,7 +74,7 @@ export const Header: React.FC<HeaderProps> = ({ links }) => {
               </ul>
 
               <div className="mt-12 flex justify-center lg:mt-0">
-                <Link href="/" className="relative flex h-9 w-full items-center justify-center px-4 before:absolute before:inset-0 before:rounded-full before:bg-red-800  before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 sm:w-max">
+                <Link href="/home" className="relative flex h-9 w-full items-center justify-center px-4 before:absolute before:inset-0 before:rounded-full before:bg-red-800  before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 sm:w-max">
                   <span className="relative text-sm font-semibold text-white">Ir a la aplicación</span>
                 </Link>
               </div>

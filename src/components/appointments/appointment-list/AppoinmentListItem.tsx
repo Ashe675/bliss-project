@@ -85,7 +85,7 @@ export default function AppoinmentListItem({
           <p className=" flex-1 text-white/60">{appointment.description}</p>
         </div>
         {appointment.status === StatusAppointment.accepted && (
-          <Menu as={"div"} className={"flex items-start h-full"}>
+          <Menu >
             <MenuButton>
               <IconDotsVertical stroke={2} />
             </MenuButton>

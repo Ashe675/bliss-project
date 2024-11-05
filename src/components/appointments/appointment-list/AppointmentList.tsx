@@ -6,9 +6,10 @@ import { useState } from "react";
 
 interface Props {
   appointments: AppoinmentWithUsers[];
+  handleClickDate: (e: Date) => void;
 }
 
-export const AppointmentList = ({ appointments }: Props) => {
+export const AppointmentList = ({ appointments, handleClickDate }: Props) => {
   const [appointmentSelected, setAppointmentSelected] =
     useState<AppoinmentWithUsers>();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -25,12 +26,13 @@ export const AppointmentList = ({ appointments }: Props) => {
           />
         ))}
       </div>
-      {appointmentSelected && (
+      {true && (
         <CancelAppointmentModal
           appointment={appointmentSelected}
           isOpen={isModalOpen}
           setIsOpen={setIsModalOpen}
           setAppointmentSelected={setAppointmentSelected}
+          handleClickDate={handleClickDate}
         />
       )}
     </>

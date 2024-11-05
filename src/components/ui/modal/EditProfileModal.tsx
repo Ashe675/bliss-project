@@ -1,3 +1,4 @@
+'use client';
 import React, { useState } from 'react';
 import Modal from '@/components/ui/modal/Modal';
 import GenericButton from '@/components/ui/buttons/GenericButton';
