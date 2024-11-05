@@ -2,9 +2,10 @@
 
 import EmployeeInfo from '@/components/employee/EmployeeInfo';
 import EmployeeReviews from '@/components/employee/EmployeeReviews';
-import { getEmployeeById, getEmployeeRating } from '@/actions';
+import { getEmployeeById, getEmployeePosts, getEmployeeRating } from '@/actions';
 import {auth}  from '@/auth.config'; // Ensure next-auth is configured correctly
 import { Review } from '@prisma/client';
+import EmployeePosts from '@/components/employee/EmployeePost';
 
 interface EmployeeProfile {
   name: string;
@@ -32,6 +33,9 @@ const Page = async () => {
     }
 
     const rating = await getEmployeeRating(employeeData.id);
+    const employeePost = await getEmployeePosts(employeeData.id);
+
+    
 
     const employee: EmployeeProfile = {
       name: `${employeeData.firstName} ${employeeData.lastName}` || 'Anonymous',
@@ -49,7 +53,9 @@ const Page = async () => {
           specialty={employee.role}
           rating={employee.rating}
         />
-        <h1>Employee</h1>
+        
+        
+        <EmployeePosts posts={employeePost} />
         <EmployeeReviews reviews={employee.reviews} />
       </div>
     );
