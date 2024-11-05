@@ -11,7 +11,7 @@ interface Response {
     data?: {
         user?: Session['user']
     },
-    message?: string;
+    message: string;
 }
 
 const RequestSchema = z.object({
@@ -42,10 +42,40 @@ export const cancelAppoinment = async (appoinmetnId: string, cancelMessage: stri
     }
 
     try {
-        const appoinmentFounded = await prisma.appointment.update({
+
+        const appoinmentFounded = await prisma.appointment.findUnique({
             where: {
                 id: safeData.data.appoinmetnId,
                 status: "accepted",
+                appointmentDate: {
+                    gte : new Date()
+                },
+                OR: [
+                    {
+                        userScheduledId: resAuth.data?.user.id
+                    },
+                    {
+                        userSchedulerId: resAuth.data?.user.id
+                    }
+                ]
+            },
+        })
+
+        if (!appoinmentFounded) {
+            return {
+                ok: false,
+                status: 404,
+                message: '¡Cita no encontrada!'
+            }
+        }
+
+        const appoinmentUpdated = await prisma.appointment.update({
+            where: {
+                id: safeData.data.appoinmetnId,
+                status: "accepted",
+                appointmentDate: {
+                    gte : new Date()
+                },
                 OR: [
                     {
                         userScheduledId: resAuth.data?.user.id
@@ -61,18 +91,18 @@ export const cancelAppoinment = async (appoinmetnId: string, cancelMessage: stri
             }
         })
 
-        if (!appoinmentFounded) {
+        if (!appoinmentUpdated) {
             return {
                 ok: false,
                 status: 404,
-                message: 'Cita no encontrada.'
+                message: '¡Error al cancelar la cita!'
             }
         }
 
         return {
             ok: true,
             status: 200,
-            message: 'Cita cancelada.'
+            message: '¡Cita cancelada correctamente!'
         }
 
 
@@ -81,7 +111,7 @@ export const cancelAppoinment = async (appoinmetnId: string, cancelMessage: stri
         return {
             ok: false,
             status: 500,
-            message: 'Server internal error.',
+            message: 'Internal server error.',
         }
     }
 }

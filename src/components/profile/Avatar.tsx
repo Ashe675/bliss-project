@@ -1,3 +1,4 @@
+'use client';
 // components/Avatar/Avatar.tsx
 import React, { useState } from 'react';
 import Image from 'next/image';

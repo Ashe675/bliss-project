@@ -9,7 +9,7 @@ const navbarItems = [
     label: 'Citas'
   },
   {
-    href: "/",
+    href: "/home",
     icon: <IconHomeFilled  />,
     label: 'Inicio'
   },
