@@ -1,3 +1,4 @@
+'use client';
 import { EmployeeData } from "@/interfaces";
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";

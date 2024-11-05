@@ -1,3 +1,5 @@
+"use client";
+
 import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
 import { ReactNode, SetStateAction } from "react";
 
@@ -20,8 +22,10 @@ export default function CustomModal({ isOpen, setIsOpen, children }: Props) {
         className="relative z-50 focus:outline-none"
         onClose={close}
       >
-        <DialogBackdrop transition
-          className="fixed inset-0 bg-black/50 duration-300 ease-out data-[closed]:opacity-0"  />
+        <DialogBackdrop
+          transition
+          className="fixed inset-0 bg-black/50 duration-300 ease-out data-[closed]:opacity-0"
+        />
         <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
           <div className="flex min-h-full items-center justify-center p-4">
             <DialogPanel

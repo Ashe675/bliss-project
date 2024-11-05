@@ -5,7 +5,7 @@ import { AppointmentList } from "./AppointmentList";
 import { useState } from "react";
 import dayjs from "dayjs";
 import "dayjs/locale/es";
-import { AppointmentCalendar } from "../calendar/AppointmentCalendar";
+import { AppointmentCalendar } from "../appointment-calendar/AppointmentCalendar";
 import { getAppointmentsByUser } from "@/actions";
 import { AppoinmentWithUsers } from "@/interfaces";
 import { SpinnerCircle } from "@/components";
@@ -57,7 +57,7 @@ export const AppointmentSection = ({ initialAppointments }: Props) => {
       <AppointmentCalendar onDateClick={handleClickDate} />
       <section className=" px-3 pt-10 sm:py-3 ">
         <div className=" flex justify-between pb-4 items-center">
-          <h2 className=" text-lg sm:text-xl font-semibold">
+          <h2 className=" text-lg sm:text-xl ">
             {currentDate.locale("es").format("ddd D [de] MMMM [de] YYYY")}
           </h2>
           <div className=" flex space-x-0.5 items-center">
