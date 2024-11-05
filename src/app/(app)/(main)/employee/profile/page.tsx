@@ -55,7 +55,7 @@ const Page = async () => {
         />
         
         
-        <EmployeePosts posts={employeePost} />
+        
         <EmployeeReviews reviews={employee.reviews} />
       </div>
     );
