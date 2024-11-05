@@ -1,10 +1,10 @@
 // app/profile/page.tsx
 'use server';
 
-import ProfilePage from '@/components/profile/ProfilePage'; // Verifica que esta ruta sea correcta
-import { auth } from '@/auth.config'; // Asegúrate de que esté configurado correctamente
+import ProfilePage from '@/components/profile/ProfilePage'; // Asegura que esta ruta sea correcta
+import { auth } from '@/auth.config'; // Asegura que auth esté configurado correctamente
 import { Role } from '@prisma/client';
-import { redirect } from 'next/navigation'; // Importa `redirect` para manejar redirecciones en el lado del servidor
+import { redirect } from 'next/navigation'; // Import correcto para redirecciones del lado del servidor
 
 interface UserProfile {
   firstName: string;
@@ -17,39 +17,33 @@ interface UserProfile {
 }
 
 const Page = async () => {
-  try {
-    const session = await auth(); // Obtenemos la sesión desde el servidor
+  const session = await auth(); // Obtener la sesión desde el servidor
 
-    if (!session || !session.user || !session.user.id) {
-      // Redirige a la página de login si no hay sesión
-      return <div className="text-red-500">Error: User not authenticated</div>;
-    }
-
-    const userD = session.user;
-
-    // Verifica el rol del usuario y redirige si es necesario
-    if (userD.role === Role.employee) {
-      // Redirige al perfil de empleado si el rol es `employee`
-      redirect('/employee/profile');
-    }
-
-    // Crear el objeto `userProfile` basado en los datos de la sesión
-    const userProfile: UserProfile = {
-      firstName: userD.firstName || '',
-      lastName: userD.lastName || '',
-      avatarUrl: userD.image || '',
-      username: userD.email || '',
-      id: userD.id || '',
-      email: userD.email || '',
-      verified: userD.verified || false,
-    };
-
-    return <ProfilePage user={userProfile} />; // Asegúrate de que aquí se está pasando correctamente el objeto `user`
-  } catch (err: any) {
-    return (
-      <div className="text-red-500">Error: {err.message || 'Error fetching profile data'}</div>
-    );
+  // Verificación de sesión y redirección inmediata
+  if (!session || !session.user || !session.user.id) {
+    redirect('/login'); // Redirige si no está autenticado
   }
+
+  const userD = session.user;
+
+  // Redirigir si el rol es `employee`
+  if (userD.role === Role.employee) {
+    redirect('/employee/profile'); // Redirige inmediatamente si es empleado
+  }
+
+  // Crear el objeto `userProfile` basado en los datos de la sesión
+  const userProfile: UserProfile = {
+    firstName: userD.firstName || '',
+    lastName: userD.lastName || '',
+    avatarUrl: userD.image || '',
+    username: userD.email || '',
+    id: userD.id || '',
+    email: userD.email || '',
+    verified: userD.verified || false,
+  };
+
+  // Si no hay redirección, renderiza el perfil
+  return <ProfilePage user={userProfile} />;
 };
 
 export default Page;

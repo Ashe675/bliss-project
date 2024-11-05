@@ -1,3 +1,4 @@
+'use client';
 // components/EmployeeReviews.tsx
 import { Review } from '@prisma/client';
 import ReviewCard from '@/components/employee/ReviewCard';
