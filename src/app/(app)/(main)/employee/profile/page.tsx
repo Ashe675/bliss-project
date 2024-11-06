@@ -1,69 +1,69 @@
-'use client';
+'use server';
 
 import EmployeeInfo from '@/components/employee/EmployeeInfo';
 import EmployeeReviews from '@/components/employee/EmployeeReviews';
-import { useEffect, useState } from 'react';
-import { Employee } from '@/interfaces';
+import { getEmployeeById, getEmployeePosts, getEmployeeRating } from '@/actions';
+import {auth}  from '@/auth.config'; // Ensure next-auth is configured correctly
+import { Review } from '@prisma/client';
+import EmployeePosts from '@/components/employee/EmployeePost';
 
-interface EmployeeProfileProps {
-  params: {
-    id: string;
-  };
+interface EmployeeProfile {
+  name: string;
+  profileImageUrl: string;
+  role: string;
+  rating: number;
+  reviews: Review[];
 }
 
-const EmployeeProfile = ({ params }: EmployeeProfileProps) => {
-  const [employee, setEmployee] = useState<Employee | null>(null);
+const Page = async () => {
+  try {
+    const session = await auth(); 
 
-  useEffect(() => {
-    // Ejemplo de datos de empleado
-    const exampleEmployee: Employee = {
-      id: params.id,
-      name: 'John Doe',
-      role: 'Barber',
-      profileImageUrl: '/ui/profile/default-avatar.jpg', // Ruta de la imagen
-      rating: 4.5,
-      reviews: [
-        {
-          reviewerName: 'Alice',
-          rating: 5,
-          comment: 'Best haircut ever!',
-          date: '2023-10-01',
-        },
-        {
-          reviewerName: 'Bob',
-          rating: 4,
-          comment: 'Great service, will come again!',
-          date: '2023-10-02',
-        },
-        {
-          reviewerName: 'Charlie',
-          rating: 3,
-          comment: 'Average experience.',
-          date: '2023-10-03',
-        },
-      ],
+    if (!session || !session.user || !session.user.id) {
+      return (
+        <div className="text-red-500">Error: User not authenticated</div>
+      );
+    }
+
+    const employeeData = await getEmployeeById(session.user.id);
+    if (!employeeData) {
+      return (
+        <div className="text-red-500">Error: Employee not found</div>
+      );
+    }
+
+    const rating = await getEmployeeRating(employeeData.id);
+    const employeePost = await getEmployeePosts(employeeData.id);
+
+    
+
+    const employee: EmployeeProfile = {
+      name: `${employeeData.firstName} ${employeeData.lastName}` || 'Anonymous',
+      profileImageUrl: employeeData.profileImage || '/ui/profile/default-avatar.jpg',
+      role: employeeData.role || 'Employee',
+      rating: rating || 0,
+      reviews: employeeData.reviewsReceived || [],
     };
 
-    // Simulando la carga de datos
-    setEmployee(exampleEmployee);
-  }, [params.id]);
-
-  if (!employee) return <p className="text-center mt-10 text-gray-500">Loading...</p>;
-
-  return (
-    <div className="max-w-4xl mx-auto p-6 shadow-lg rounded-lg mt-10">
-      {/* Componente que contiene la foto y la información */}
-      <EmployeeInfo 
-        name={employee.name} 
-        photoUrl={employee.profileImageUrl} 
-        specialty={employee.role} 
-        rating={employee.rating}
-      />
-
-      {/* Componente que muestra las reseñas */}
-      <EmployeeReviews reviews={employee.reviews} />
-    </div>
-  );
+    return (
+      <div className="max-w-4xl mx-auto p-6 shadow-lg rounded-lg mt-10">
+        <EmployeeInfo
+          name={employee.name}
+          photoUrl={employee.profileImageUrl}
+          specialty={employee.role}
+          rating={employee.rating}
+        />
+        
+        
+        
+        <EmployeeReviews reviews={employee.reviews} />
+      </div>
+    );
+  } catch (err: any) {
+    return (
+      <div className="text-red-500">Error: {err.message || 'Error fetching employee data'}</div>
+    );
+  }
 };
 
-export default EmployeeProfile;
+export default Page;

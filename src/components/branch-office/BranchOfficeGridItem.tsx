@@ -12,7 +12,7 @@ export const BranchOfficeGridItem = ({ branch }: Props) => {
     <Link
       href={`/branch/${branch.name.replace(/ /g, "_").toLowerCase().trim()}`}
       key={branch.name}
-      className="relative flex flex-col rounded-md hover:scale-105 transition-all shadow-sm"
+      className="relative flex flex-col rounded-md hover:scale-105 transition-all shadow-sm max-w-[290px]"
     >
       {branch.officeType === "barbershop" ? (
         <span className="bg-secondary text-xs px-2 p-1 top-1 left-0 absolute z-[5] rounded-r-md uppercase font-semibold">

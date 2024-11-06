@@ -1,5 +1,6 @@
+'use client';
 // components/EmployeeReviews.tsx
-import { Review } from '@/interfaces'; // Asegúrate de que la ruta sea correcta
+import { Review } from '@prisma/client';
 import ReviewCard from '@/components/employee/ReviewCard';
 
 interface EmployeeReviewsProps {

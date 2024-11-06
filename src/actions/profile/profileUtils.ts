@@ -1,18 +1,27 @@
 'use server';
 
-export const handleEditProfile = (
-    newFirstName: string, 
-    newLastName: string, 
-    setUser: React.Dispatch<React.SetStateAction<any>>
-  ) => {
-    setUser((prevUser: any) => ({
-      ...prevUser,
-      firstName: newFirstName,
-      lastName: newLastName,
-    }));
-    alert('Nombre de usuario actualizado!');
-  };
-  
+export const handleEditProfile = async (firstName: string, lastName: string) => {
+  try {
+    // Implementa la lógica para actualizar el perfil, por ejemplo:
+    const response = await fetch('/api/update-profile', {
+      method: 'POST',
+      body: JSON.stringify({ firstName, lastName }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('Error al actualizar el perfil');
+    }
+
+    const updatedUser = await response.json();
+    return updatedUser; // Retorna el usuario actualizado
+  } catch (error) {
+    console.error('Error al actualizar el perfil:', error);
+    return null; // O maneja el error de la manera que prefieras
+  }
+};
 
 
 import prisma from "@/lib/prisma"; // Ajusta la ruta según tu configuración

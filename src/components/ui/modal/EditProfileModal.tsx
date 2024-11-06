@@ -1,3 +1,4 @@
+'use client';
 import React, { useState } from 'react';
 import Modal from '@/components/ui/modal/Modal';
 import GenericButton from '@/components/ui/buttons/GenericButton';
@@ -6,17 +7,23 @@ import { handleEditProfile } from '@/actions';
 interface EditProfileModalProps {
   isOpen: boolean;
   onClose: () => void;
-  user: any;
-  setUser: React.Dispatch<React.SetStateAction<any>>;
+  user: any; // Puedes definir un tipo más específico si lo deseas
 }
 
-const EditProfileModal: React.FC<EditProfileModalProps> = ({ isOpen, onClose, user, setUser }) => {
+const EditProfileModal: React.FC<EditProfileModalProps> = ({ isOpen, onClose, user }) => {
   const [newFirstName, setFirstName] = useState(user.firstName);
   const [newLastName, setLastName] = useState(user.lastName);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    handleEditProfile(newFirstName, newLastName, setUser);
+    
+    // Aquí llamamos a la función handleEditProfile
+    const updatedUser = await handleEditProfile(newFirstName, newLastName);
+    if (updatedUser) {
+      // Puedes hacer algo con el usuario actualizado aquí si es necesario
+      console.log("Perfil actualizado:", updatedUser);
+    }
+    
     onClose(); // Cerrar modal después de actualizar
   };
 

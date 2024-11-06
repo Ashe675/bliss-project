@@ -2,16 +2,14 @@ import { getAppointmentsByUser } from "@/actions";
 import { AppointmentSection } from "@/components";
 import { notFound } from "next/navigation";
 
-
 export const metadata = {
- title: 'Citas',
- description: 'Citas agendadas',
+  title: "Citas",
+  description: "Citas agendadas",
 };
 
 export default async function AppointmentPage() {
   const res = await getAppointmentsByUser(new Date());
-  if(!res || !res.appointments) notFound()
-
+  if (!res || !res.appointments) notFound();
 
   return (
     <div>

@@ -1,36 +1,33 @@
-"use client"; // Esto indica que es un Client Component
+"use client";
+// components/profile/ProfilePage.tsx
 import React, { useState } from 'react';
-import Avatar from '@/components/profile/Avatar';
-import UserInfo from '@/components/profile/UserInfo';
-import GenericButton from '@/components/ui/buttons/GenericButton';
-import EditProfileModal from '@/components/ui/modal/EditProfileModal';
-import { MdEditSquare } from "react-icons/md";
+import Avatar from '@/components/profile/Avatar'; // Asegúrate de importar el componente Avatar
+import UserInfo from '@/components/profile/UserInfo'; // Asegúrate de importar el componente UserInfo
+import GenericButton from '@/components/ui/buttons/GenericButton'; // Asegúrate de importar el componente GenericButton
+import EditProfileModal from '@/components/ui/modal/EditProfileModal'; // Asegúrate de importar el componente EditProfileModal
+import { MdEditSquare } from 'react-icons/md'; // Asegúrate de importar el icono correspondiente
 
-interface ProfilePageProps {
-  user: {
-    avatarUrl: string;
-    username: string;
-    firstName: string;
-    lastName: string;
-    id: string;
-    email: string;
-    verified: boolean;
-  };
-  setUser: (user: any) => void;
+interface UserProfile {
+  firstName: string;
+  lastName: string;
+  avatarUrl: string;
+  username: string;
+  id: string;
+  email: string;
+  verified: boolean;
 }
 
-const ProfilePage: React.FC<ProfilePageProps> = ({ user, setUser }) => {
-  const [isModalOpen, setModalOpen] = useState(false);
+interface ProfilePageProps {
+  user: UserProfile; // Mantenemos solo la propiedad user
+}
 
-  // Verificar si la URL del avatar es válida o usar la predeterminada
-  const avatarUrl = user.avatarUrl && user.avatarUrl.startsWith('http') 
-    ? user.avatarUrl 
-    : '/ui/profile/default-avatar.jpg';
+const ProfilePage = ({ user }: ProfilePageProps) => {
+  const [isModalOpen, setModalOpen] = useState(false); // Estado para manejar la apertura del modal
 
   return (
     <div className="w-[90%] mx-auto mt-10 p-5 shadow-md rounded-lg">
       <div className="flex justify-center">
-        <Avatar src={avatarUrl} alt={user.username} />
+        <Avatar src={user.avatarUrl} alt={user.username} />
       </div>
       <UserInfo
         firstName={user.firstName}
@@ -50,11 +47,10 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ user, setUser }) => {
       <EditProfileModal
         isOpen={isModalOpen}
         onClose={() => setModalOpen(false)}
-        user={user}
-        setUser={setUser}
+        user={user} // Manteniendo el usuario aquí para editar
       />
     </div>
   );
 };
 
-export default ProfilePage;
+export default ProfilePage; // Asegúrate de que está exportado correctamente

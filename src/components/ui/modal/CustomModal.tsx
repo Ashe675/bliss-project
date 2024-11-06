@@ -7,11 +7,18 @@ interface Props {
   isOpen: boolean;
   setIsOpen: React.Dispatch<SetStateAction<boolean>>;
   children: ReactNode;
+  onClickBackDrop?: () => void;
 }
 
-export default function CustomModal({ isOpen, setIsOpen, children }: Props) {
+export default function CustomModal({
+  isOpen,
+  setIsOpen,
+  children,
+  onClickBackDrop,
+}: Props) {
   function close() {
     setIsOpen(false);
+    if(onClickBackDrop) onClickBackDrop()
   }
 
   return (
@@ -23,6 +30,7 @@ export default function CustomModal({ isOpen, setIsOpen, children }: Props) {
         onClose={close}
       >
         <DialogBackdrop
+          onClick={onClickBackDrop}
           transition
           className="fixed inset-0 bg-black/50 duration-300 ease-out data-[closed]:opacity-0"
         />
