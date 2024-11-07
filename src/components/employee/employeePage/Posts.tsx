@@ -1,71 +1,11 @@
-// import React from 'react';
-
-// interface Post {
-//   id: string;
-//   title: string;
-//   createdAt: string | Date;
-//   images: Image[];
-// }
-
-// interface Image {
-//   id: string;
-//   url: string;
-//   publicId: string;
-//   imageType: string;
-// }
-
-// interface PostsProps {
-//   posts: Post[];
-// }
-
-// const Posts: React.FC<PostsProps> = ({ posts }) => {
-//   return (
-//     <section>
-//       <h3 className="text-lg font-semibold mt-6 mb-4">Publicaciones:</h3>
-//       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-//         {posts.map((post) => (
-//           <div
-//             key={post.id}
-//             className="bg-gradient-to-r from-red-950 border-red-950 border via-orange-800/80 to-primary/80 rounded-lg shadow-md hover:shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105 hover:bg-right animate-gradient"
-//           >
-//             <div className="relative w-full h-48 overflow-hidden group">
-//               {post.images.length > 0 && (
-//                 <img
-//                   src={post.images[0].url}
-//                   alt={post.title}
-//                   className="w-full h-full object-cover transition-transform duration-300 transform group-hover:scale-110"
-//                 />
-//               )}
-//             </div>
-//             <div className="p-4">
-//               <h4 className="font-semibold text-lg mb-1 truncate">{post.title}</h4>
-//               <p className="text-sm text-gray-200">
-//                 {new Date(post.createdAt).toLocaleDateString('es-ES', {
-//                   day: '2-digit',
-//                   month: 'long',
-//                   year: 'numeric',
-//                 })}
-//               </p>
-//             </div>
-//           </div>
-//         ))}
-//       </div>
-//     </section>
-//   );
-// };
-
-// export default Posts;
-
-
-
-
 'use client';
-import React from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation } from 'swiper/modules';
+import React, { useState } from 'react';
+import '../../../../swiper.css';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import '../../../../swiper.css';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation } from 'swiper/modules';
+import CustomModal from '@/components/ui/modal/CustomModal';
 
 interface Post {
   id: string;
@@ -79,9 +19,18 @@ interface PostsProps {
 }
 
 const Posts: React.FC<PostsProps> = ({ posts }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
+
+  // Manejar el clic para abrir el modal con el post completo
+  const handleOpenModal = (post: Post) => {
+    setSelectedPost(post);
+    setIsModalOpen(true);
+  };
+
   return (
     <section>
-      <h3 className="text-lg font-semibold mt-6 mb-4">:</h3>
+      <h3 className="text-lg font-semibold mt-6 mb-4">Publicaciones: </h3>
       {posts.length > 0 ? (
         <Swiper
           navigation={true}
@@ -89,7 +38,7 @@ const Posts: React.FC<PostsProps> = ({ posts }) => {
           slidesPerView={1}
           spaceBetween={10}
           breakpoints={{
-            640: { slidesPerView: 2, spaceBetween: 10 },
+            512: { slidesPerView: 2, spaceBetween: 10 },
             768: { slidesPerView: 3, spaceBetween: 15 },
             1024: { slidesPerView: 4, spaceBetween: 20 },
           }}
@@ -97,9 +46,10 @@ const Posts: React.FC<PostsProps> = ({ posts }) => {
           {posts.map((post) => (
             <SwiperSlide
               key={post.id}
-              className="bg-gradient-to-r from-red-950 border-red-950 border via-orange-800/80 to-primary/80 rounded-lg shadow-md hover:shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105 hover:bg-right animate-gradient"
+              className="bg-gradient-to-r flex flex-col items-start justify-start from-red-950 border-red-950 border via-orange-800/80 to-primary/80 rounded-lg"
+              onClick={() => handleOpenModal(post)} 
             >
-              <div className="relative w-full h-48 overflow-hidden group">
+              <div className="relative w-full rounded-t-md h-48 overflow-hidden group">
                 {post.images.length > 0 && (
                   <img
                     src={post.images[0].url}
@@ -108,7 +58,7 @@ const Posts: React.FC<PostsProps> = ({ posts }) => {
                   />
                 )}
               </div>
-              <div className="p-4">
+              <div className="w-full flex flex-col justify-start items-start p-4 rounded-md">
                 <h4 className="font-semibold text-lg mb-1 truncate">{post.title}</h4>
                 <p className="text-sm text-gray-200">
                   {new Date(post.createdAt).toLocaleDateString('es-ES', {
@@ -122,8 +72,36 @@ const Posts: React.FC<PostsProps> = ({ posts }) => {
           ))}
         </Swiper>
       ) : (
-        <p>No hay publicaciones disponibles</p>
+        <div className="flex flex-col items-center justify-center p-6 bg-gradient-to-r from-primary border-red-950/50 via-red-600/50 to-primary rounded-lg shadow-md text-center">
+          <h4 className="text-xl font-semibold text-white mb-4">¡No hay publicaciones aún!</h4>
+        </div>
       )}
+
+      {/* Modal */}
+      <CustomModal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
+        {selectedPost && (
+          <div className="p-4">
+            <h3 className="text-xl font-semibold mb-4">{selectedPost.title}</h3>
+            {/* Swiper para las imágenes del post */}
+            <Swiper
+              navigation={true}
+              spaceBetween={10}
+              slidesPerView={1}
+              modules={[Navigation]}
+            >
+              {selectedPost.images.map((image) => (
+                <SwiperSlide key={image.id}>
+                  <img
+                    src={image.url}
+                    alt={`${selectedPost.title} - ${image.imageType}`}
+                    className="w-full h-80 object-cover rounded-md"
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        )}
+      </CustomModal>
     </section>
   );
 };

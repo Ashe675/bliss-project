@@ -5,8 +5,9 @@ import { useForm } from "react-hook-form";
 import Stars from "./Stars";
 import { useSession } from 'next-auth/react';
 import { postEmployeeReview } from "@/actions/employee/post-employee-review";
-import { ToastNotification, notifySuccess, notifyError } from "@/components/ui/toast-notification/ToastNotification";
 import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from "next/navigation";
 
 type RatingFormData = {
   comment: string;
@@ -22,6 +23,7 @@ export default function RatingForm({ employeeId }: Props) {
   const [selectedStars, setSelectedStars] = useState<number>(0);  
   const { register, handleSubmit, formState: { errors } } = useForm<RatingFormData>();
   const { data: session } = useSession();
+  const router = useRouter(); 
 
   const userId = session?.user?.id;
 
@@ -31,7 +33,7 @@ export default function RatingForm({ employeeId }: Props) {
 
   const onSubmit = async (data: RatingFormData) => {
     if (!userId) {
-      notifyError({ message: "Debes iniciar sesión para dejar una calificación." });
+      toast.error("Debes iniciar sesión para dejar una calificación.");
       return;
     }
 
@@ -43,26 +45,21 @@ export default function RatingForm({ employeeId }: Props) {
       date: new Date().toISOString(),
     };
 
-    // Mostrar la notificación de carga y guardar el ID
-    const loadingToastId = toast.loading("Enviando tu reseña...");
-
-    try {
-      const response = await postEmployeeReview(ratingData);
-
-      // Cerrar la notificación de carga
-      toast.dismiss(loadingToastId);
-
-      if (response.success) {
-        notifySuccess({ message: "¡Reseña enviada exitosamente!" });
-      } else {
-        notifyError({ message: "Error al enviar la reseña. Inténtalo nuevamente." });
+    // Usar toast.promise para manejar las notificaciones
+    await toast.promise(
+      postEmployeeReview(ratingData), // Promesa de la operación
+      {
+        pending: "Enviando tu reseña...",
+        success: "¡Reseña enviada exitosamente!",
+        error: "Error al enviar la reseña. Inténtalo nuevamente.",
       }
-    } catch (error) {
-      // Cerrar la notificación de carga en caso de error
-      toast.dismiss(loadingToastId);
-      notifyError({ message: "Error al enviar la reseña. Inténtalo nuevamente." });
-      console.error(error);
-    }
+    )
+      .then(() => {
+        router.refresh(); // Refrescar la página si es exitoso
+      })
+      .catch((error) => {
+        console.error(error); // Manejar errores si ocurren
+      });
   };
 
   return (
@@ -97,9 +94,8 @@ export default function RatingForm({ employeeId }: Props) {
           </button>
         </div>
       </form>
-      
-      {/* Contenedor de Toast */}
-      <ToastNotification />
+
+     
     </div>
   );
 }
