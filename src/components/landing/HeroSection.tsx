@@ -40,13 +40,13 @@ export const HeroSection = () => {
           </div>
           <div className="lg:w-2/3 text-center mx-auto">
             <h1 className="text-white text-3xl md:text-6xl xl:text-7xl">
-              ¿Estas buscando una barberia o salón para tí?
+              ¿Estas buscando una barberia o salón?
             </h1>
-            <p className="mt-8 text-gray-300">
-              Transforma la gestión de tu barbería o salón con “Bliss”, la
-              solución SaaS diseñada para optimizar cada aspecto de tu negocio,
+            <p className="mt-8 text-lg text-gray-300">
+              Transforma tu barbería o salón con Bliss, la
+              solución diseñada para optimizar cada aspecto de tu negocio,
               desde la administración de sucursales hasta la satisfacción del
-              cliente. Nuestra plataforma intuitiva y potente está diseñada para
+              cliente. Nuestra plataforma está diseñada para
               adaptarse a tus necesidades, ya sea que gestiones un pequeño local
               o una cadena de renombre.
             </p>

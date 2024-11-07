@@ -4,6 +4,9 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Stars from "./Stars";
 import { useSession } from 'next-auth/react';
+import { postEmployeeReview } from "@/actions/employee/post-employee-review";
+import { ToastNotification, notifySuccess, notifyError } from "@/components/ui/toast-notification/ToastNotification";
+import { toast } from "react-toastify";
 
 type RatingFormData = {
   comment: string;
@@ -26,15 +29,40 @@ export default function RatingForm({ employeeId }: Props) {
     setSelectedStars(rating); 
   };
 
-  const onSubmit = (data: RatingFormData) => {
+  const onSubmit = async (data: RatingFormData) => {
+    if (!userId) {
+      notifyError({ message: "Debes iniciar sesión para dejar una calificación." });
+      return;
+    }
+
     const ratingData = {
       comment: data.comment,
       rating: selectedStars, 
       revieweeId: employeeId,
       reviewerId: userId,
-      date: new Date().toLocaleString(),
+      date: new Date().toISOString(),
     };
-    console.log(ratingData); 
+
+    // Mostrar la notificación de carga y guardar el ID
+    const loadingToastId = toast.loading("Enviando tu reseña...");
+
+    try {
+      const response = await postEmployeeReview(ratingData);
+
+      // Cerrar la notificación de carga
+      toast.dismiss(loadingToastId);
+
+      if (response.success) {
+        notifySuccess({ message: "¡Reseña enviada exitosamente!" });
+      } else {
+        notifyError({ message: "Error al enviar la reseña. Inténtalo nuevamente." });
+      }
+    } catch (error) {
+      // Cerrar la notificación de carga en caso de error
+      toast.dismiss(loadingToastId);
+      notifyError({ message: "Error al enviar la reseña. Inténtalo nuevamente." });
+      console.error(error);
+    }
   };
 
   return (
@@ -69,6 +97,9 @@ export default function RatingForm({ employeeId }: Props) {
           </button>
         </div>
       </form>
+      
+      {/* Contenedor de Toast */}
+      <ToastNotification />
     </div>
   );
 }

@@ -9,7 +9,6 @@ export {getEmployeeById} from './employee/get-employee-by-id'
 export {getEmployeeRating} from './employee/get-employee-raiting'
 export {getEmployeePosts} from './employee/get-employee-post'
 export * from './branch/search-branch';
-export { getEmployeeById } from './employee/get-employee-by-id';
 
 
 

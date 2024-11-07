@@ -3,8 +3,8 @@ import { Container } from "@/components/landing/Container";
 
 export const Features: React.FC = () => {
   return (
-    <div id="features">
       <Container>
+    <div id="features" className="lg:mx-14">
         <div className="md:w-2/3 lg:w-1/2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -49,8 +49,8 @@ export const Features: React.FC = () => {
             </div>
           ))}
         </div>
-      </Container>
     </div>
+      </Container>
   );
 };
 

@@ -2,6 +2,7 @@ import { getAppointmentsByUser } from "@/actions";
 import { getEmployeeById } from '@/actions'; 
 import {  AppointmentSection } from '@/components';
 import {ClientToEmployeeActions} from "@/components/employee/employeePage/ClientToEmployeeActions";
+// import Posts from "@/components/employee/employeePage/Posts";
 import EmployeeRating from "@/components/employee/EmployeeRating";
 import { IconArrowLeft } from '@tabler/icons-react';
 import { IconCarambola, IconCarambolaFilled} from "@tabler/icons-react";
@@ -119,6 +120,9 @@ const EmployeeProfile = async ({ params }: EmployeeProfileProps) => {
       </section>
 
       <ClientToEmployeeActions employeeId={data?.user?.id} />
+
+
+      {/* <Posts posts={data?.posts || []} /> */}
 
       <section>
         <h3 className="text-lg font-semibold mt-6 mb-4">Publicaciones:</h3>

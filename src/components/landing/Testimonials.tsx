@@ -26,8 +26,8 @@ const testimonials = [
 
 export const Testimonials: React.FC = () => {
   return (
-    <div className="text-gray-300" id="reviews">
-      <Container>
+    <Container>
+      <div className="text-gray-300 lg:mx-14" id="reviews">
 
       <div className="md:w-2/3 lg:w-1/2">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-red-800">
@@ -66,8 +66,8 @@ export const Testimonials: React.FC = () => {
             </div>
           ))}
         </div>
-      </Container>
     </div>
+      </Container>
   );
 };
 
