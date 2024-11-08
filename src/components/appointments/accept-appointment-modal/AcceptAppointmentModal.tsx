@@ -35,14 +35,14 @@ export const AcceptAppointmentModal = ({
     setAppointmentSelected(undefined);
   };
   const [error, setError] = useState(
-    "La hora final debe ser mayor que la hora de la cita."
+    "La hora final debe ser por lo menos 5 minutos mayor que la hora de la cita."
   );
-  const router = useRouter()
+  const router = useRouter();
 
   const [finalDate, setFinalDate] = useState<Dayjs | null>(
-    dayjs(appointment?.appointmentDate)
+    dayjs(appointment?.appointmentDate).add(5, "minutes")
   );
-  
+
   const [appointmentsRange, setAppoinmentsRange] =
     useState<AppointmentRange[]>();
 
@@ -60,15 +60,19 @@ export const AcceptAppointmentModal = ({
   const handleChangeDate = (newValue: Dayjs | null) => {
     setError("");
     setFinalDate(newValue);
-    if (newValue?.isSame(dayjs(appointment?.appointmentDate))) {
-      setError("La hora final debe ser mayor que la hora de la cita.");
+    if (
+      newValue?.isBefore(dayjs(appointment?.appointmentDate).add(5, "minutes"))
+    ) {
+      setError(
+        "La hora final debe ser por lo menos 5 minutos mayor que la hora de la cita."
+      );
     }
   };
 
   useEffect(() => {
     const fetchAppointmentsRange = async () => {
       if (appointment) {
-        setFinalDate(dayjs(appointment.appointmentDate));
+        setFinalDate(dayjs(appointment.appointmentDate).add(4, "minutes"));
         const data = await getAppointmentsAcceptedByDayRange(
           appointment.appointmentDate
         );
@@ -82,10 +86,22 @@ export const AcceptAppointmentModal = ({
 
   const handleClickAccept = async () => {
     if (!appointment || !finalDate) return;
-    const response = await acceptAppointmentById(appointment.id, finalDate.toDate());
+
+    if (
+      finalDate.isBefore(dayjs(appointment?.appointmentDate).add(5, "minutes"))
+    ) {
+      return setError(
+        "La hora final debe ser por lo menos 5 minutos mayor que la hora de la cita."
+      );
+    }
+
+    const response = await acceptAppointmentById(
+      appointment.id,
+      finalDate.toDate()
+    );
     if (!response.ok) return notifyError({ message: response.message });
-    router.refresh()
-    closeModal()
+    router.refresh();
+    closeModal();
     notifySuccess({ message: response.message });
   };
 

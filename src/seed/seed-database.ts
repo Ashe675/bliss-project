@@ -6,6 +6,7 @@ import { branchesData } from './branch-office';
 async function main() {
     console.log('Executing seed... [0%]')
     await prisma.image.deleteMany()
+    await prisma.review.deleteMany()
     await prisma.branchOffice.deleteMany()
     await prisma.appointment.deleteMany()
     await prisma.user.deleteMany()

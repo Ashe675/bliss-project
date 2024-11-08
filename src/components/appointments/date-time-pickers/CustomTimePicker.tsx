@@ -25,15 +25,15 @@ export default function CustomTimePicker({
   const shouldDisableTime = (time: Dayjs) => {
     const now = dayjs(); // Obtiene el tiempo actual
 
-    const tenMinutesAfterDisableDate = dayjs(disableDate).add(5, "minute");
+    const disableBeforeDate = disableDate
+      ? dayjs(disableDate).add(4, "minute")
+      : now;
+
+    // Deshabilita si `time` es menor que 4 minutos después de `disableDate`, si existe
+    if (time.isBefore(disableBeforeDate)) return true;
 
     // Deshabilita si `time` es menor que el tiempo actual
     if (time.isBefore(now)) {
-      return true;
-    }
-
-    // Deshabilita si `time` es menor que 5 minutos después de `disableDate`
-    if (time.isBefore(tenMinutesAfterDisableDate)) {
       return true;
     }
 
