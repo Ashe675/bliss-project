@@ -24,7 +24,7 @@ const Comments: React.FC<CommentsProps> = ({ totalRatings, reviews }) => {
   const [visibleReviews, setVisibleReviews] = useState(5); 
 
   const handleLoadMore = () => {
-    setVisibleReviews((prev) => prev + 5); 
+    setVisibleReviews((prev) => prev + 10); 
   };
 
   return (
