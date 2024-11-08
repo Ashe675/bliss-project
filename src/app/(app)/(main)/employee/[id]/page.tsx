@@ -1,7 +1,7 @@
 import { getAppointmentsByUser } from "@/actions";
 import { getEmployeeById } from '@/actions'; 
 import {  AppointmentSection } from '@/components';
-import {ClientToEmployeeActions} from "@/components/employee/employeePage/ClientToEmployeeActions";
+import { ClientToEmployeeActions } from "@/components/employee/employeePage/ClientToEmployeeActions";
 import Comments from "@/components/employee/employeePage/Comments";
 import Posts from "@/components/employee/employeePage/Posts";
 import EmployeeRating from "@/components/employee/EmployeeRating";
