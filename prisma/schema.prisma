@@ -166,3 +166,8 @@ model Post {
   images    Image[]
   createdAt DateTime @default(now())
 }
+
+
+
+
+

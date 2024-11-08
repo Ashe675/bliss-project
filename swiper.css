@@ -38,7 +38,8 @@
   
 .swiper-button-next,
 .swiper-button-prev {
-  color: #ffffff; 
+  color: #ffffff !important;
+  filter: drop-shadow(0 0 1px rgba(64, 0, 0, 0.657)) drop-shadow(0 0 2px rgba(92, 1, 1, 0.704));
 }
 
 .swiper-button-next::after,
