@@ -2,8 +2,16 @@
 
 import { auth } from "@/auth.config";
 import prisma from "@/lib/prisma";
+import dayjs from "dayjs";
+import { AppoinmentWithUsers } from "@/interfaces";
 
-export const getAppointmentsByUser = async (date: Date) => {
+interface Response {
+    ok: boolean;
+    appointments?: AppoinmentWithUsers[]
+    message?: string;
+}
+
+export const getAppointmentsByUser = async (date: Date): Promise<Response> => {
     const session = await auth();
     if (!session?.user || session.user.role === 'admin') {
         return {
@@ -62,9 +70,27 @@ export const getAppointmentsByUser = async (date: Date) => {
             }
         })
 
+        if (!appointments) {
+            return {
+                ok: true,
+                appointments: []
+            }
+        }
+
+        const now = dayjs();
+
+        // Filtra las citas pendientes según el mismo día y el tiempo mayor que ahora
+        const appointmentsFiltered = appointments.filter((ap) => {
+            const appointmentDate = dayjs(ap.appointmentDate);
+            if (ap.status === 'pending') {
+                return appointmentDate.isAfter(now) && appointmentDate.isSame(endOfDay, 'day');
+            }
+            return true; // Incluye citas que no están en estado 'pending'
+        });
+
         return {
             ok: true,
-            appointments
+            appointments: appointmentsFiltered
         }
     } catch (error) {
         console.log(error)

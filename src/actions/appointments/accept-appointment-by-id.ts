@@ -58,7 +58,7 @@ export const acceptAppointmentById = async (appointmentId: string, finalDate: Da
                 appointmentDate: {
                     gt: new Date(),
                 },
-                userScheduledId : resAuth.data?.user.id
+                userScheduledId: resAuth.data?.user.id
             }
         })
 
@@ -69,6 +69,42 @@ export const acceptAppointmentById = async (appointmentId: string, finalDate: Da
                 message: 'La solicitud de cita no existe.',
             }
         }
+
+        const isBusySchedule = await prisma.appointment.findFirst({
+            where: {
+                status: 'accepted',
+                OR: [
+                    {
+                        AND: [
+                            { appointmentDate: { lte: appointmentFound.appointmentDate } },
+                            { finalDate: { gt: appointmentFound.appointmentDate } }
+                        ]
+                    },
+                    {
+                        AND: [
+                            { appointmentDate: { lt: data.finalDate } },
+                            { finalDate: { gte: data.finalDate } }
+                        ]
+                    },
+                    {
+                        AND: [
+                            { appointmentDate: { gte: appointmentFound.appointmentDate } },
+                            { appointmentDate: { lt: data.finalDate } }
+                        ]
+                    }
+                ],
+                userScheduledId: resAuth.data?.user.id
+            }
+        })
+
+        if (isBusySchedule) {
+            return {
+                ok: false,
+                status: 409,
+                message: 'Hubo un traslape de citas, verifique que los horarios no choquen.',
+            }
+        }
+
 
         const isBefore = finalDateMinusFiveMinutes.isBefore(appointmentFound.appointmentDate)
 
@@ -98,7 +134,7 @@ export const acceptAppointmentById = async (appointmentId: string, finalDate: Da
             },
             data: {
                 finalDate: data.finalDate,
-                status : 'accepted',
+                status: 'accepted',
             }
         })
 

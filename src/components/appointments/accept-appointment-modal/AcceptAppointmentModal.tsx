@@ -23,6 +23,7 @@ interface Props {
   setAppointmentSelected: Dispatch<
     SetStateAction<AppoinmentWithUsers | undefined>
   >;
+  refreshDayByDate : (e: Date) => void;
 }
 
 export const AcceptAppointmentModal = ({
@@ -30,6 +31,7 @@ export const AcceptAppointmentModal = ({
   closeModal,
   appointment,
   setAppointmentSelected,
+  refreshDayByDate
 }: Props) => {
   const handleClickBackdrop = () => {
     setAppointmentSelected(undefined);
@@ -101,6 +103,7 @@ export const AcceptAppointmentModal = ({
     );
     if (!response.ok) return notifyError({ message: response.message });
     router.refresh();
+    refreshDayByDate(appointment.appointmentDate)
     closeModal();
     notifySuccess({ message: response.message });
   };

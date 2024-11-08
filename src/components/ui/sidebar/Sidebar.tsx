@@ -10,6 +10,7 @@ import clsx from "clsx";
 import { useSession } from "next-auth/react";
 import { IoLogIn, IoLogOut } from "react-icons/io5";
 import { logout } from "@/actions";
+import Image from "next/image";
 
 const sidebarItems = [
   // {
@@ -40,7 +41,6 @@ export const Sidebar = () => {
   // const isEmployee = session?.user.role === "employee";
 
   const signOut = async () => {
-    
     await logout();
     window.location.replace("/home");
   };
@@ -69,8 +69,14 @@ export const Sidebar = () => {
       >
         <div className=" flex items-center justify-between mb-4 sm:pr-1">
           <div className=" flex items-center pl-2">
-            <LogoWhite width={30} height={30} className=" mr-1" />
-            <LogoType height={40} width={70} />
+            <LogoWhite width={30} height={30} className=" mr-2" />
+            <Image
+              src={"/ui/letters.png"}
+              width={70}
+              height={36}
+              alt="logo"
+              priority
+            />
           </div>
 
           <IconX

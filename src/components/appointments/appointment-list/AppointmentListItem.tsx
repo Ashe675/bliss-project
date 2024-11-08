@@ -4,7 +4,7 @@ import { AppoinmentWithUsers } from "@/interfaces";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { IconDotsVertical, IconXboxXFilled } from "@tabler/icons-react";
 import Image from "next/image";
-import { formatDateTo12Hour } from "../../../lib/date/date";
+import { formatDateTo12Hour, formatToLatinDateTime } from "@/lib/date/date";
 import { useSession } from "next-auth/react";
 import { Dispatch, SetStateAction } from "react";
 import clsx from "clsx";
@@ -53,6 +53,9 @@ export default function AppoinmentListItem({
     setModalType(ModalType.Accept);
   };
 
+  if (appointment.status === StatusAppointment.declined && !isTheSameUser)
+    return null;
+
   return (
     <div
       className={` flex relative ${
@@ -67,6 +70,7 @@ export default function AppoinmentListItem({
           " flex flex-col p-2 w-24 xl:w-44 text-center justify-center items-center rounded-l-md divide-y border-white/20",
           {
             "bg-zinc-700": appointment.status === StatusAppointment.canceled,
+            "bg-zinc-600/35": appointment.status === StatusAppointment.declined,
             "bg-gradient-to-t from-[#311502] to-[#4A1404]":
               appointment.status === StatusAppointment.accepted,
             "bg-secondary": appointment.status === StatusAppointment.pending,
@@ -76,26 +80,40 @@ export default function AppoinmentListItem({
         {(appointment.status === StatusAppointment.accepted ||
           appointment.status === StatusAppointment.canceled) && (
           <>
-            <span className=" py-0.5 text-sm xl:text-base">
+            <span className=" py-0.5 text-[13px] sm:text-sm xl:text-base">
               {formatDateTo12Hour(appointment.appointmentDate)}
             </span>
-            <span className=" py-0.5 text-sm xl:text-base">
+            <span className=" py-0.5 text-[13px] sm:text-sm xl:text-base">
               {formatDateTo12Hour(appointment.finalDate!)}
             </span>
           </>
         )}
-        {appointment.status === StatusAppointment.pending && (
-          <span className=" py-0.5">
-            Hora solicitada:{" "}
-            <span className=" font-bold">
-              {formatDateTo12Hour(appointment.appointmentDate)}
+        {(appointment.status === StatusAppointment.pending ||
+          (isTheSameUser &&
+            appointment.status === StatusAppointment.declined)) && (
+          <div>
+            {appointment.status === StatusAppointment.pending ? (
+              <div className=" bg-yellow-500 uppercase text-xs p-1 mb-1 font-bold rounded-full">
+                Solicitud
+              </div>
+            ) : (
+              <div className=" bg-red-500 uppercase text-[0.6rem] xl:text-xs p-1 mb-1 font-bold rounded-full">
+                Solicitud Rechazada
+              </div>
+            )}
+            <span className=" py-0.5 text-sm xl:text-base">
+              Fecha solicitada:{" "}
+              <span className=" font-bold ">
+                {formatToLatinDateTime(appointment.appointmentDate)}
+              </span>
             </span>
-          </span>
+          </div>
         )}
       </div>
       <div
         className={clsx(" flex w-full text-sm p-2 rounded-r-md ", {
           "bg-zinc-700": appointment.status === StatusAppointment.canceled,
+          "bg-zinc-600/35": appointment.status === StatusAppointment.declined,
           "bg-gradient-to-t from-[#180000] to-[#250F00] pr-1":
             appointment.status === StatusAppointment.accepted,
           "bg-secondary": appointment.status === StatusAppointment.pending,
@@ -126,25 +144,35 @@ export default function AppoinmentListItem({
             </div>
           </div>
           <p className=" flex-1 text-white/60">{appointment.description}</p>
+          {appointment.status === StatusAppointment.canceled &&
+            appointment.cancelMessage && (
+              <div className=" p-2 bg-zinc-500 rounded-md">
+                <div className=" flex-1 text-white/60">
+                  <div>Motivo de la cancelación:</div>
+                  {appointment.cancelMessage}
+                </div>
+              </div>
+            )}
 
-          {appointment.status === StatusAppointment.pending && (
-            <div className=" flex justify-between mt-5 gap-x-2">
-              <CustomButton
-                type="cancel"
-                className=" text-xs py-1.5 w-full max-w-[250px]"
-                onClick={handleDeclineAppointment}
-              >
-                RECHAZAR
-              </CustomButton>
-              <CustomButton
-                type="success"
-                className=" text-xs py-1.5 w-full max-w-[250px]"
-                onClick={handleAcceptAppointment}
-              >
-                ACEPTAR
-              </CustomButton>
-            </div>
-          )}
+          {appointment.status === StatusAppointment.pending &&
+            !isTheSameUser && (
+              <div className=" flex justify-between mt-5 gap-x-2">
+                <CustomButton
+                  type="cancel"
+                  className=" text-xs py-1.5 w-full max-w-[250px]"
+                  onClick={handleDeclineAppointment}
+                >
+                  RECHAZAR
+                </CustomButton>
+                <CustomButton
+                  type="success"
+                  className=" text-xs py-1.5 w-full max-w-[250px]"
+                  onClick={handleAcceptAppointment}
+                >
+                  ACEPTAR
+                </CustomButton>
+              </div>
+            )}
         </div>
         {appointment.status === StatusAppointment.accepted &&
           appointment.appointmentDate >= new Date() && (

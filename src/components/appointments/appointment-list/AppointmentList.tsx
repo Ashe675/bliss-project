@@ -10,7 +10,7 @@ import { useState } from "react";
 
 interface Props {
   appointments: AppoinmentWithUsers[];
-  handleClickDate: (e: Date) => void;
+  refreshDayByDate: (e: Date) => void;
 }
 
 export enum ModalType {
@@ -21,7 +21,7 @@ export enum ModalType {
 }
 
 
-export const AppointmentList = ({ appointments, handleClickDate }: Props) => {
+export const AppointmentList = ({ appointments, refreshDayByDate }: Props) => {
   const [appointmentSelected, setAppointmentSelected] =
     useState<AppoinmentWithUsers>();
 
@@ -31,7 +31,6 @@ export const AppointmentList = ({ appointments, handleClickDate }: Props) => {
     setModalType(ModalType.None);
     setAppointmentSelected(undefined);
   };
-
 
   return (
     <>
@@ -52,7 +51,7 @@ export const AppointmentList = ({ appointments, handleClickDate }: Props) => {
           isOpen={modalType === ModalType.Cancel}
           closeModal={closeModal}
           setAppointmentSelected={setAppointmentSelected}
-          handleClickDate={handleClickDate}
+          refreshDayByDate={refreshDayByDate}
         />
       )}
       <AcceptAppointmentModal
@@ -60,12 +59,14 @@ export const AppointmentList = ({ appointments, handleClickDate }: Props) => {
         isOpen={modalType === ModalType.Accept}
         closeModal={closeModal}
         setAppointmentSelected={setAppointmentSelected}
+        refreshDayByDate = {refreshDayByDate}
       />
       <DeclineAppointmentModal
         appointment={appointmentSelected}
         isOpen={modalType === ModalType.Decline}
         closeModal={closeModal}
         setAppointmentSelected={setAppointmentSelected}
+        refreshDayByDate = {refreshDayByDate}
       />
     </>
   );

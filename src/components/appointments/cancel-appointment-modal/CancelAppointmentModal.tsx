@@ -20,7 +20,7 @@ interface Props {
   setAppointmentSelected: Dispatch<
     SetStateAction<AppoinmentWithUsers | undefined>
   >;
-  handleClickDate: (e: Date) => void;
+  refreshDayByDate: (e: Date) => void;
 }
 
 interface FormData {
@@ -32,7 +32,7 @@ export const CancelAppointmentModal = ({
   closeModal,
   appointment,
   setAppointmentSelected,
-  handleClickDate,
+  refreshDayByDate,
 }: Props) => {
   const handleCancelClick = () => {
     closeModal();
@@ -58,7 +58,7 @@ export const CancelAppointmentModal = ({
     if (!response.ok) return notifyError({ message: response.message });
     notifySuccess({ message: response.message });
     router.refresh();
-    handleClickDate(appointment.appointmentDate);
+    refreshDayByDate(appointment.appointmentDate);
     closeModal();
     reset();
     setAppointmentSelected(undefined);

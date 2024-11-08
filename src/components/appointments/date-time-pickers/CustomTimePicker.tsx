@@ -29,6 +29,10 @@ export default function CustomTimePicker({
       ? dayjs(disableDate).add(4, "minute")
       : now;
 
+    if (disableDate && disableDate <= datesDisable[0]?.startDate) {
+      if (time.isAfter(datesDisable[0].startDate)) return true;
+    }
+
     // Deshabilita si `time` es menor que 4 minutos después de `disableDate`, si existe
     if (time.isBefore(disableBeforeDate)) return true;
 

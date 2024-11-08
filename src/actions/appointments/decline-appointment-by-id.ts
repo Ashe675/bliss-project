@@ -1,5 +1,6 @@
 'use server';
 
+import prisma from "@/lib/prisma";
 import { authorizeRole, isAuthenticate } from "@/utils";
 import { Session } from "next-auth";
 import { z } from "zod";
@@ -15,7 +16,7 @@ interface Response {
 }
 
 const RequestSchema = z.object({
-    appoinmetnId:
+    appointmentId:
         z.string({ message: 'La cita es inválida' })
             .uuid({ message: 'Cita inválida' })
 })
@@ -27,8 +28,6 @@ export const declineAppointmentById = async (appointmentId: string): Promise<Res
     const resAuthorize = await authorizeRole(['employee'])
     if (!resAuthorize.ok) return resAuthorize
 
-    console.log(appointmentId)
-
     const safeData = RequestSchema.safeParse({ appointmentId })
     if (!safeData.success) {
         return {
@@ -38,17 +37,41 @@ export const declineAppointmentById = async (appointmentId: string): Promise<Res
         }
     }
     const { data } = safeData;
-    console.log(data)
 
     try {
 
-        
+        const appointmentFound = await prisma.appointment.findFirst({
+            where: {
+                id: data.appointmentId,
+                status: 'pending',
+                appointmentDate: {
+                    gt: new Date(),
+                },
+                userScheduledId: resAuth.data?.user.id
+            }
+        })
 
+        if (!appointmentFound) {
+            return {
+                ok: false,
+                status: 400,
+                message: 'La solicitud de cita no existe.',
+            }
+        }
+
+        await prisma.appointment.update({
+            where: {
+                id: data.appointmentId
+            },
+            data: {
+                status: 'declined',
+            }
+        })
 
         return {
             ok: true,
             status: 200,
-            message: 'Nothing',
+            message: '¡Solicitud rechazada correctamente!',
         }
     } catch (error) {
         console.log(error)
