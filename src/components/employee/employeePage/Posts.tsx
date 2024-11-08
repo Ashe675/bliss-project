@@ -28,6 +28,10 @@ const Posts: React.FC<PostsProps> = ({ posts }) => {
     setIsModalOpen(true);
   };
 
+  const hanldeCloseModal = () => {
+    setIsModalOpen(false)
+  }
+
   return (
     <section>
       <h3 className="text-lg font-semibold mt-6 mb-4">Publicaciones: </h3>
@@ -78,7 +82,7 @@ const Posts: React.FC<PostsProps> = ({ posts }) => {
       )}
 
       {/* Modal */}
-      <CustomModal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
+      <CustomModal isOpen={isModalOpen} closeModal={hanldeCloseModal}>
         {selectedPost && (
           <div className="p-4">
             <h3 className="text-xl font-semibold mb-4">{selectedPost.title}</h3>

@@ -4,7 +4,7 @@ import bcryptjs from 'bcryptjs';
 interface AppointmentData {
     appointmentDate: Date;
     finalDate: Date;
-    status: "pending" | "accepted" | "declined"
+    status: "pending" | "accepted" | "declined" | "canceled"
     description: string;
     userScheduler: UserData;
     userScheduled: UserData['user']
@@ -79,7 +79,7 @@ userScheduledOptions.forEach((userScheduled, index) => {
             appointmentDate: new Date(new Date().setDate(new Date().getDate() + 2)), // Pasado mañana
             finalDate: new Date(new Date(new Date().setDate(new Date().getDate() + 2)).setHours(new Date().getHours() + 1)),
             description: `Planchado de cabello ${index}`,
-            status: "declined",
+            status: "canceled",
             userScheduler: {
                 firstName: "Alice",
                 lastName: "Brown",

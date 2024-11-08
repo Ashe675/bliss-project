@@ -1,9 +1,9 @@
 "use client";
 
-import { cancelAppoinment } from "@/actions";
+import { cancelAppointment } from "@/actions";
 import { CustomButton } from "@/components/ui/buttons/CustomButton";
 import { ErrorMessageSmall } from "@/components/ui/error-message/ErrorMessageSmall";
-import CustomModal from "@/components/ui/modal/CustomModal";
+import { CustomModal } from "@/components";
 import {
   notifyError,
   notifySuccess,
@@ -15,12 +15,12 @@ import { useForm } from "react-hook-form";
 
 interface Props {
   isOpen: boolean;
-  setIsOpen: React.Dispatch<SetStateAction<boolean>>;
+  closeModal: () => void;
   appointment: AppoinmentWithUsers | undefined;
   setAppointmentSelected: Dispatch<
     SetStateAction<AppoinmentWithUsers | undefined>
   >;
-  handleClickDate: (e: Date) => void;
+  refreshDayByDate: (e: Date) => void;
 }
 
 interface FormData {
@@ -29,17 +29,17 @@ interface FormData {
 
 export const CancelAppointmentModal = ({
   isOpen,
-  setIsOpen,
+  closeModal,
   appointment,
   setAppointmentSelected,
-  handleClickDate
+  refreshDayByDate,
 }: Props) => {
   const handleCancelClick = () => {
-    setIsOpen(false);
+    closeModal();
     setAppointmentSelected(undefined);
     reset();
   };
-  
+
   const router = useRouter();
 
   const {
@@ -51,22 +51,30 @@ export const CancelAppointmentModal = ({
 
   const onSubmit = async (data: FormData) => {
     if (!appointment) return;
-    const response = await cancelAppoinment(appointment.id, data.cancelMessage);
+    const response = await cancelAppointment(
+      appointment.id,
+      data.cancelMessage
+    );
     if (!response.ok) return notifyError({ message: response.message });
     notifySuccess({ message: response.message });
-    router.refresh()
-    handleClickDate(appointment.appointmentDate)
-    setIsOpen(false);
+    router.refresh();
+    refreshDayByDate(appointment.appointmentDate);
+    closeModal();
     reset();
     setAppointmentSelected(undefined);
   };
 
   const handleClickBackdrop = () => {
     reset();
-  }
+    setAppointmentSelected(undefined);
+  };
 
   return (
-    <CustomModal isOpen={isOpen} setIsOpen={setIsOpen} onClickBackDrop={handleClickBackdrop}>
+    <CustomModal
+      isOpen={isOpen}
+      closeModal={closeModal}
+      onClickBackDrop={handleClickBackdrop}
+    >
       {appointment && (
         <>
           <h2 className=" text-xl py-2 ">
@@ -105,7 +113,11 @@ export const CancelAppointmentModal = ({
               </ErrorMessageSmall>
             )}
             <div className=" flex justify-between flex-wrap py-2 pt-3 ">
-              <CustomButton disabled={isLoading} type="cancel" onClick={handleCancelClick}>
+              <CustomButton
+                disabled={isLoading}
+                type="cancel"
+                onClick={handleCancelClick}
+              >
                 No Cancelar
               </CustomButton>
               <CustomButton disabled={isLoading} type="success" isSubmit={true}>

@@ -6,7 +6,6 @@ import Stars from "./Stars";
 import { useSession } from 'next-auth/react';
 import { postEmployeeReview } from "@/actions/employee/post-employee-review";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
 
 type RatingFormData = {

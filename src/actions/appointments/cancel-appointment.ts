@@ -24,7 +24,7 @@ const RequestSchema = z.object({
             .uuid({ message: 'Cita inválida' })
 })
 
-export const cancelAppoinment = async (appoinmetnId: string, cancelMessage: string): Promise<Response> => {
+export const cancelAppointment = async (appoinmetnId: string, cancelMessage: string): Promise<Response> => {
     const resAuth = await isAuthenticate()
     if (!resAuth.ok) return resAuth
 
@@ -87,7 +87,7 @@ export const cancelAppoinment = async (appoinmetnId: string, cancelMessage: stri
             },
             data: {
                 cancelMessage: safeData.data.cancelMessage,
-                status: 'declined'
+                status: 'canceled'
             }
         })
 

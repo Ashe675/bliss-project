@@ -3,6 +3,7 @@ import { StatusAppointment } from "@prisma/client";
 export interface UserAppointment {
     firstName: string;
     lastName: string;
+    user: string;
     profileImage: string | null;
     phoneNumber: string | null;
 }
@@ -10,7 +11,8 @@ export interface UserAppointment {
 export interface AppoinmentWithUsers {
     id: string;
     appointmentDate: Date;
-    status: StatusAppointment
+    status: StatusAppointment;
+    cancelMessage?: string | null;
     description: string
     response?: string | null
     createdAt: Date;
@@ -24,7 +26,7 @@ export interface AppoinmentWithUsers {
 export interface Appoinment {
     id: string;
     appointmentDate: Date;
-    status: StatusAppointment
+    status: StatusAppointment;
     description: string
     response?: string | null
     createdAt: Date;
@@ -33,4 +35,9 @@ export interface Appoinment {
     userScheduled?: UserAppointment
     userScheduledId: string
     finalDate?: Date | null
+}
+
+export interface AppointmentRange {
+    startDate: Date;
+    finalDate: Date;
 }

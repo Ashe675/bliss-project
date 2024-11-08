@@ -4,7 +4,7 @@ import { NavbarItem } from "./NavbarItem";
 
 const navbarItems = [
   {
-    href: "/appoinments",
+    href: "/appointments",
     icon: <FaCalendarAlt size={20} />,
     label: 'Citas'
   },

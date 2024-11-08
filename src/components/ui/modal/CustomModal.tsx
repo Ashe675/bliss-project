@@ -1,23 +1,23 @@
 "use client";
 
 import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
-import { ReactNode, SetStateAction } from "react";
+import { ReactNode } from "react";
 
 interface Props {
   isOpen: boolean;
-  setIsOpen: React.Dispatch<SetStateAction<boolean>>;
+  closeModal: () => void;
   children: ReactNode;
   onClickBackDrop?: () => void;
 }
 
-export default function CustomModal({
+export const CustomModal = ({
   isOpen,
-  setIsOpen,
+  closeModal,
   children,
   onClickBackDrop,
-}: Props) {
+}: Props) => {
   function close() {
-    setIsOpen(false);
+    closeModal();
     if(onClickBackDrop) onClickBackDrop()
   }
 
@@ -48,3 +48,5 @@ export default function CustomModal({
     </>
   );
 }
+
+export default CustomModal;
