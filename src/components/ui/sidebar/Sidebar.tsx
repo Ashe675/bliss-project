@@ -18,7 +18,7 @@ const sidebarItems = [
   //   label: "Inicio",
   // },
   {
-    href: "/appoinments",
+    href: "/appointments",
     icon: <FaCalendarAlt size={20} className=" mx-[2px]" />,
     label: "Citas",
   },
@@ -61,13 +61,13 @@ export const Sidebar = () => {
       )}
 
       {/* SIdebar */}
-      <nav
+      <div
         className={clsx(
           " h-screen fixed z-20  top-0 right-0 bg-secondary p-2 w-[300px] flex flex-col shadow-sm transition-all duration-300 ",
           { " translate-x-full": !isSideMenuOpen }
         )}
       >
-        <div className=" flex items-center justify-between mb-4">
+        <div className=" flex items-center justify-between mb-4 sm:pr-1">
           <div className=" flex items-center pl-2">
             <LogoWhite width={30} height={30} className=" mr-1" />
             <LogoType height={40} width={70} />
@@ -75,12 +75,12 @@ export const Sidebar = () => {
 
           <IconX
             stroke={2}
-            size={30}
+            size={33}
             onClick={closeSideMenu}
             className="hover:cursor-pointer"
           />
         </div>
-        <div className=" px-4 py-2">
+        <nav className=" px-4 py-2">
           <SidebarItem
             onClick={closeSideMenu}
             href={"/home"}
@@ -118,8 +118,8 @@ export const Sidebar = () => {
               </span>
             </button>
           )}
-        </div>
-      </nav>
+        </nav>
+      </div>
     </>
   );
 };

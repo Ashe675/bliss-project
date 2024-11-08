@@ -42,6 +42,7 @@ export const getAppointmentsByUser = async (date: Date) => {
                     select: {
                         firstName: true,
                         lastName: true,
+                        user: true,
                         profileImage: true,
                         phoneNumber: true
                     }
@@ -50,15 +51,19 @@ export const getAppointmentsByUser = async (date: Date) => {
                     select: {
                         firstName: true,
                         lastName: true,
+                        user: true,
                         profileImage: true,
                         phoneNumber: true
                     }
                 }
+            },
+            orderBy: {
+                appointmentDate: 'asc'
             }
         })
 
         return {
-            ok :  true,
+            ok: true,
             appointments
         }
     } catch (error) {

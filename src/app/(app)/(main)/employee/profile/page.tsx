@@ -1,11 +1,12 @@
-'use server';
+"use server";
 
-import EmployeeInfo from '@/components/employee/EmployeeInfo';
-import EmployeeReviews from '@/components/employee/EmployeeReviews';
-import { getEmployeeById, getEmployeePosts, getEmployeeRating } from '@/actions';
-import {auth}  from '@/auth.config'; // Ensure next-auth is configured correctly
-import { Review } from '@prisma/client';
-import EmployeePosts from '@/components/employee/EmployeePost';
+import EmployeeInfo from "@/components/employee/EmployeeInfo";
+import EmployeeReviews from "@/components/employee/EmployeeReviews";
+import { getEmployeeById, getEmployeeRating } from "@/actions";
+import { auth } from "@/auth.config"; // Ensure next-auth is configured correctly
+import { Review } from "@prisma/client";
+// import EmployeePosts from '@/components/employee/EmployeePost';
+// import { ErrorInfo } from 'react';
 
 interface EmployeeProfile {
   name: string;
@@ -17,30 +18,25 @@ interface EmployeeProfile {
 
 const Page = async () => {
   try {
-    const session = await auth(); 
+    const session = await auth();
 
     if (!session || !session.user || !session.user.id) {
-      return (
-        <div className="text-red-500">Error: User not authenticated</div>
-      );
+      return <div className="text-red-500">Error: User not authenticated</div>;
     }
 
     const employeeData = await getEmployeeById(session.user.id);
     if (!employeeData) {
-      return (
-        <div className="text-red-500">Error: Employee not found</div>
-      );
+      return <div className="text-red-500">Error: Employee not found</div>;
     }
 
     const rating = await getEmployeeRating(employeeData.id);
-    const employeePost = await getEmployeePosts(employeeData.id);
-
-    
+    // const employeePost = await getEmployeePosts(employeeData.id);
 
     const employee: EmployeeProfile = {
-      name: `${employeeData.firstName} ${employeeData.lastName}` || 'Anonymous',
-      profileImageUrl: employeeData.profileImage || '/ui/profile/default-avatar.jpg',
-      role: employeeData.role || 'Employee',
+      name: `${employeeData.firstName} ${employeeData.lastName}` || "Anonymous",
+      profileImageUrl:
+        employeeData.profileImage || "/ui/profile/default-avatar.jpg",
+      role: employeeData.role || "Employee",
       rating: rating || 0,
       reviews: employeeData.reviewsReceived || [],
     };
@@ -53,15 +49,17 @@ const Page = async () => {
           specialty={employee.role}
           rating={employee.rating}
         />
-        
-        
-        <EmployeePosts posts={employeePost} />
+
+        {/* <EmployeePosts posts={employeePost} /> */}
         <EmployeeReviews reviews={employee.reviews} />
       </div>
     );
-  } catch (err: any) {
+  } catch (e) {
+    console.log(e);
     return (
-      <div className="text-red-500">Error: {err.message || 'Error fetching employee data'}</div>
+      <div className="text-red-500">
+        Error: {"Error fetching employee data"}
+      </div>
     );
   }
 };
