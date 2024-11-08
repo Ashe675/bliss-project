@@ -26,11 +26,6 @@ const Page = async () => {
 
   const userD = session.user;
 
-  // Redirigir si el rol es `employee`
-  if (userD.role === Role.employee) {
-    redirect('/employee/profile'); // Redirige inmediatamente si es empleado
-  }
-
   // Crear el objeto `userProfile` basado en los datos de la sesión
   const userProfile: UserProfile = {
     firstName: userD.firstName || '',
