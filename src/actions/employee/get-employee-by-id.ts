@@ -29,6 +29,7 @@ interface Post {
 }
 
 interface BranchOffice {
+    userOwnerId: string;
     name: string;
     address: string;
     officeType: string;
@@ -107,6 +108,7 @@ export const getEmployeeById = async (userId: string): Promise<Response> => {
                 },
                 branchOffice: {
                     select: {
+                        userOwnerId: true,
                         name: true,
                         officeType: true,
                         address: true,

@@ -1,9 +1,12 @@
 import { getAppointmentsByUser } from "@/actions";
 import { getEmployeeById } from '@/actions'; 
-import {  AppointmentSection } from '@/components';
+import { auth } from "@/auth.config";
+import { AppointmentSection } from '@/components';
+import { AdminToEmployeeActions } from "@/components/employee/employeePage/AdminToEmployeeActions";
 import { ClientToEmployeeActions } from "@/components/employee/employeePage/ClientToEmployeeActions";
 import Comments from "@/components/employee/employeePage/Comments";
 import Posts from "@/components/employee/employeePage/Posts";
+import { SelfEmployeeActions } from "@/components/employee/employeePage/SelfEmployeeActions";
 import EmployeeRating from "@/components/employee/EmployeeRating";
 import { IconArrowLeft } from '@tabler/icons-react';
 import Link from 'next/link';
@@ -46,11 +49,15 @@ const EmployeeProfile = async ({ params }: EmployeeProfileProps) => {
   const { id } = params; 
   const { data } = await getEmployeeById(id);
   if(!data?.user?.id) notFound();
-  // console.log(data);
+  if(!data?.user.branchOffice?.userOwnerId) notFound();
+
+  const session = await auth(); 
+  console.log(session);
+  
   
   const res = await getAppointmentsByUser(new Date());
   if(!res || !res.appointments) notFound()
-  
+    
 
   return (
     <main className='m-6 lg:m-10  2xl:grid 2xl:grid-flow-col '>
@@ -119,15 +126,24 @@ const EmployeeProfile = async ({ params }: EmployeeProfileProps) => {
 
       </section>
 
-      <ClientToEmployeeActions employeeId={data?.user?.id} />
+      { session?.user.id === data?.user.id ? 
+        <SelfEmployeeActions employeeId={data?.user?.id} /> : null 
+      }
 
-      <Posts posts={data?.posts || []} />
+      { session?.user.id === data.user.branchOffice.userOwnerId ? 
+        <AdminToEmployeeActions employeeId={data?.user?.id}  /> : null 
+      }
+      
+      { session?.user.id && session.user.role !== "admin" && session.user.role !== "employee" ? 
+        <ClientToEmployeeActions employeeId={data?.user?.id} /> : null 
+      }
+
+      <Posts posts={data?.posts || []} /> 
 
       <Comments
         totalRatings={data?.user?.totalRatings || 0}
         reviews={data?.reviews || []}
       />
-
     </div>
 
     <div className="hidden 2xl:flex justify-center grid-cols-3 mx-40  pb-40 mb-40">

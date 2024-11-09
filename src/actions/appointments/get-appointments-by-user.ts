@@ -13,7 +13,7 @@ interface Response {
 
 export const getAppointmentsByUser = async (date: Date): Promise<Response> => {
     const session = await auth();
-    if (!session?.user || session.user.role === 'admin') {
+    if (!session?.user ) {
         return {
             ok: false,
             message: 'Acceso denegado'
