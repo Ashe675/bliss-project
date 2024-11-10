@@ -8,7 +8,6 @@ import "swiper/css/pagination";
 import "../../../../swiper.css";
 import Link from "next/link";
 
-// Componente para mostrar un Skeleton (indicador de carga)
 const LoadingSkeleton = () => (
   <div className="flex justify-center items-center">
     <div className="w-16 h-16 border-4 border-t-transparent border-primary border-solid rounded-full animate-spin"></div>
@@ -22,7 +21,6 @@ type Props = {
 export const Employees: React.FC<Props> = ({ employees }) => {
   const [isLoading, setIsLoading] = useState(true);
 
-  // Simulamos que los datos se cargan, y una vez cargados, cambiamos el estado de carga
   useEffect(() => {
     if (employees.length > 0) {
       setIsLoading(false);
@@ -30,84 +28,55 @@ export const Employees: React.FC<Props> = ({ employees }) => {
   }, [employees]);
 
   return (
-    <div className="p-4 shadow-md">
+    <section className="ml-4">
       <h2 className="text-2xl font-semibold mb-2">Empleados</h2>
 
-      {/* Mostrar el indicador de carga mientras los datos se están cargando */}
       {isLoading ? (
         <LoadingSkeleton />
+      ) : employees.length === 0 ? (
+        <div className="flex flex-col items-center justify-center p-6 bg-gradient-to-r from-primary border-red-950/50 via-red-600/50 to-primary rounded-lg shadow-md text-center">
+          <h4 className="text-xl font-semibold text-white mb-4">
+            ¡No hay empleados aún!
+          </h4>
+        </div>
       ) : (
         <Swiper
           navigation={true}
           modules={[Navigation]}
-          slidesPerView={2}
+          slidesPerView={1}
           spaceBetween={10}
-          className="rounded-lg shadow-md"
           breakpoints={{
-            "@0.00": {
-              slidesPerView: 2,
-              spaceBetween: 10,
-            },
-            "@0.75": {
-              slidesPerView: 2,
-              spaceBetween: 20,
-            },
-            "@1.00": {
-              slidesPerView: 3,
-              spaceBetween: 40,
-            },
-            "@1.50": {
-              slidesPerView: 4,
-              spaceBetween: 50,
-            },
+            512: { slidesPerView: 2, spaceBetween: 10 },
+            768: { slidesPerView: 3, spaceBetween: 15 },
+            1024: { slidesPerView: 4, spaceBetween: 20 },
           }}
         >
           {employees.map((employee) => (
             <SwiperSlide
               key={employee.id}
-              className="bg-primary hover:bg-red-950/50 hover:transition-all duration-1000 shadow-md rounded-lg flex flex-col items-center text-center"
+              className="bg-gradient-to-r flex flex-col items-start justify-start from-red-950 border-red-950 border via-orange-800/80 to-primary/80 rounded-lg"
             >
               <Link href={`/employee/${employee.id}`} passHref>
-                <div className="flex flex-col items-center text-center">
-                  {employee.profileImage ? (
-                    <img
-                      src={employee.profileImage}
-                      alt={`${employee.firstName} ${employee.lastName}`}
-                      className="w-24 h-24 rounded-md object-cover mb-4"
-                    />
-                  ) : (
-                    <img
-                      src={"/landing/Salon.jpg"}
-                      alt={`${employee.firstName} ${employee.lastName}`}
-                      className="w-full h-full rounded-md object-cover mb-4"
-                    />
-                  )}
-                  <h2 className="text-lg font-semibold">
+                <div className="relative w-full rounded-t-md h-48 overflow-hidden group">
+                  <img
+                    src={employee.profileImage || "/marca/WhiteLetters.png"}
+                    alt={`${employee.firstName} ${employee.lastName}`}
+                    className="w-full h-full object-cover transition-transform duration-300 transform group-hover:scale-110"
+                  />
+                </div>
+                <div className="w-full ml-6 flex flex-col justify-start items-start p-4 rounded-md">
+                  <h4 className="font-semibold text-lg mb-1 truncate">
                     {employee.firstName} {employee.lastName}
-                  </h2>
-                  <p
-                    className={`text-sm font-medium mb-6 ${
-                      employee.isActive ? "text-green-500" : "text-red-500"
-                    }`}
-                  >
+                  </h4>
+                  <p className="text-sm text-gray-200">
                     {employee.isActive ? "Activo" : "Inactivo"}
                   </p>
-                  {employee.phoneNumber && (
-                    <p className="text-gray-500 text-sm mt-2">
-                      Teléfono: {employee.phoneNumber}
-                    </p>
-                  )}
-                  {employee.description && (
-                    <p className="text-gray-600 text-sm mt-2">
-                      {employee.description}
-                    </p>
-                  )}
                 </div>
               </Link>
             </SwiperSlide>
           ))}
         </Swiper>
       )}
-    </div>
+    </section>
   );
 };

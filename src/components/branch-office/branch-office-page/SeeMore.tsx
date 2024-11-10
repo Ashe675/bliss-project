@@ -10,7 +10,6 @@ import { Navigation } from "swiper/modules";
 import { BranchOfficeGridItem } from "@/components";
 import { BranchOfficeGridData } from "@/interfaces/branch.interface";
 
-// Componente para mostrar un Skeleton (indicador de carga)
 const LoadingSkeleton = () => (
   <div className="flex justify-center items-center">
     <div className="w-16 h-16 border-4 border-t-transparent border-primary border-solid rounded-full animate-spin"></div>
@@ -44,10 +43,10 @@ export const SeeMore: React.FC = () => {
         }));
 
         setBranchesData(mappedData);
-        setIsLoading(false); // Cambiamos el estado a false cuando los datos están listos
+        setIsLoading(false); 
       } catch (error) {
         console.error("Error fetching branches:", error);
-        setIsLoading(false); // Aseguramos que se cambie el estado de carga aunque ocurra un error
+        setIsLoading(false); 
       }
     };
 
@@ -58,7 +57,6 @@ export const SeeMore: React.FC = () => {
     <div className="p-4 shadow-md mb-6">
       <h2 className="text-2xl font-semibold mb-2">Ver más Sucursales</h2>
 
-      {/* Mostrar el indicador de carga mientras los datos se están cargando */}
       {isLoading ? (
         <LoadingSkeleton />
       ) : (
