@@ -1,9 +1,12 @@
+"use client";
+
 import { CustomModal, notifyError, notifySuccess } from "@/components";
 import { AppoinmentWithUsers } from "@/interfaces";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { AppointmentInfo } from "../appointment-info/AppointmentInfo";
 import { CustomButton } from "@/components/ui/buttons/CustomButton";
 import { declineAppointmentById } from "@/actions";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface Props {
   isOpen: boolean;
@@ -22,17 +25,28 @@ export const DeclineAppointmentModal = ({
   setAppointmentSelected,
   refreshDayByDate,
 }: Props) => {
+  const queryClient = useQueryClient();
+  const [isLoading, setIsLoading] = useState(false);
   const handleClickBackdrop = () => {
     setAppointmentSelected(undefined);
   };
 
   const handleClickDecline = async () => {
     if (!appointment) return;
+    setIsLoading(true);
     const response = await declineAppointmentById(appointment.id);
-    if (!response.ok) return notifyError({ message: response.message });
+    if (!response.ok) {
+      setIsLoading(false);
+      return notifyError({ message: response.message });
+    }
     refreshDayByDate(appointment.appointmentDate);
+    queryClient.invalidateQueries({ queryKey: ["appointments", "pending"] });
+    queryClient.invalidateQueries({
+      queryKey: ["total", "appointments", "pending"],
+    });
     closeModal();
     notifySuccess({ message: response.message });
+    setIsLoading(false);
   };
 
   return (
@@ -56,6 +70,7 @@ export const DeclineAppointmentModal = ({
           <div className=" pt-4 flex w-full justify-between gap-3">
             <CustomButton
               onClick={closeModal}
+              disabled={isLoading}
               type="cancel"
               className=" w-full  "
             >
@@ -65,6 +80,7 @@ export const DeclineAppointmentModal = ({
               type="success"
               className=" w-full "
               onClick={handleClickDecline}
+              disabled={isLoading}
             >
               Rechazar Cita
             </CustomButton>

@@ -20,10 +20,7 @@ export const SelfEmployeeActions: React.FC<Props> = ({ employeeId }) => {
   const { data: session } = useSession();
 
   const userId = session?.user?.id;
-
-  console.log("USUARIO", userId);
-  console.log("Emplaoyee", employeeId);
-
+  
   const closeModal = () => {
     setIsOpen(false);
   };

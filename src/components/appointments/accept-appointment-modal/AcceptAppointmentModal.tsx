@@ -15,6 +15,7 @@ import { TimeValidationError } from "@mui/x-date-pickers/models";
 import { notifyError } from "@/components/ui/toast-notification/ToastNotification";
 import { notifySuccess } from "../../ui/toast-notification/ToastNotification";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface Props {
   isOpen: boolean;
@@ -23,7 +24,7 @@ interface Props {
   setAppointmentSelected: Dispatch<
     SetStateAction<AppoinmentWithUsers | undefined>
   >;
-  refreshDayByDate : (e: Date) => void;
+  refreshDayByDate: (e: Date) => void;
 }
 
 export const AcceptAppointmentModal = ({
@@ -31,7 +32,7 @@ export const AcceptAppointmentModal = ({
   closeModal,
   appointment,
   setAppointmentSelected,
-  refreshDayByDate
+  refreshDayByDate,
 }: Props) => {
   const handleClickBackdrop = () => {
     setAppointmentSelected(undefined);
@@ -39,7 +40,9 @@ export const AcceptAppointmentModal = ({
   const [error, setError] = useState(
     "La hora final debe ser por lo menos 5 minutos mayor que la hora de la cita."
   );
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const [finalDate, setFinalDate] = useState<Dayjs | null>(
     dayjs(appointment?.appointmentDate).add(5, "minutes")
@@ -87,6 +90,7 @@ export const AcceptAppointmentModal = ({
   }, [appointment]);
 
   const handleClickAccept = async () => {
+    setIsLoading(true);
     if (!appointment || !finalDate) return;
 
     if (
@@ -101,11 +105,19 @@ export const AcceptAppointmentModal = ({
       appointment.id,
       finalDate.toDate()
     );
-    if (!response.ok) return notifyError({ message: response.message });
+    if (!response.ok) {
+      setIsLoading(false);
+      return notifyError({ message: response.message });
+    }
+    queryClient.invalidateQueries({ queryKey: ["appointments", "pending"] });
+    queryClient.invalidateQueries({
+      queryKey: ["total", "appointments", "pending"],
+    });
     router.refresh();
-    refreshDayByDate(appointment.appointmentDate)
+    refreshDayByDate(appointment.appointmentDate);
     closeModal();
     notifySuccess({ message: response.message });
+    setIsLoading(false);
   };
 
   return (
@@ -140,6 +152,7 @@ export const AcceptAppointmentModal = ({
           <div className=" pt-4 flex w-full justify-between gap-3">
             <CustomButton
               onClick={closeModal}
+              disabled={isLoading}
               type="cancel"
               className=" w-full"
             >
@@ -148,7 +161,7 @@ export const AcceptAppointmentModal = ({
             <CustomButton
               type="success"
               className=" w-full"
-              disabled={!!error}
+              disabled={!!error || isLoading}
               onClick={handleClickAccept}
             >
               Aceptar Cita

@@ -22,7 +22,7 @@ const navbarItems = [
 
 export const Navbar = () => {
   return (
-    <div className=" bg-black w-full flex h-[70px] justify-center p-3 fixed bottom-0 z-10 sm:hidden">
+    <div className=" bg-black w-full flex h-[70px] justify-center p-3 fixed bottom-0 left-0 z-10 sm:hidden">
       <nav className=" bg-primary w-full rounded-lg mx-4 sm:max-w-sm flex p-1 py-2 justify-evenly h-full">
         {navbarItems.map((item) => (
           <NavbarItem key={item.href} href={item.href} icon={item.icon} />

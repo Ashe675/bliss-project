@@ -52,15 +52,13 @@ const EmployeeProfile = async ({ params }: EmployeeProfileProps) => {
   if(!data?.user.branchOffice?.userOwnerId) notFound();
 
   const session = await auth(); 
-  console.log(session);
-  
   
   const res = await getAppointmentsByUser(new Date());
   if(!res || !res.appointments) notFound()
     
 
   return (
-    <main className='m-6 lg:m-10  2xl:grid 2xl:grid-flow-col '>
+    <main className='m-6 mx-3 lg:m-10  2xl:grid 2xl:grid-flow-col '>
 
       <div className="grid-cols-9">
 

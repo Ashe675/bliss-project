@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/toast-notification/ToastNotification";
 import { AppoinmentWithUsers } from "@/interfaces";
 import { useRouter } from "next/navigation";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { useForm } from "react-hook-form";
 
 interface Props {
@@ -39,28 +39,33 @@ export const CancelAppointmentModal = ({
     setAppointmentSelected(undefined);
     reset();
   };
-
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const {
     handleSubmit,
     register,
     reset,
-    formState: { errors, isLoading },
+    formState: { errors },
   } = useForm<FormData>();
 
   const onSubmit = async (data: FormData) => {
     if (!appointment) return;
+    setIsLoading(true);
     const response = await cancelAppointment(
       appointment.id,
-      data.cancelMessage
+      data.cancelMessage.trim().replace(/\s+/, " ")
     );
-    if (!response.ok) return notifyError({ message: response.message });
+    if (!response.ok) {
+      setIsLoading(false);
+      return notifyError({ message: response.message });
+    }
     notifySuccess({ message: response.message });
     router.refresh();
     refreshDayByDate(appointment.appointmentDate);
     closeModal();
     reset();
+    setIsLoading(false);
     setAppointmentSelected(undefined);
   };
 
@@ -96,6 +101,11 @@ export const CancelAppointmentModal = ({
                   value: 5,
                   message: "Motivo muy corto",
                 },
+                validate: (value) => {
+                  return value.trim().replace(/\s+/, "").length >= 5
+                    ? true
+                    : "Motivo muy corto";
+                },
                 maxLength: {
                   value: 150,
                   message: "Motivo muy largo",
@@ -120,7 +130,11 @@ export const CancelAppointmentModal = ({
               >
                 No Cancelar
               </CustomButton>
-              <CustomButton disabled={isLoading} type="success" isSubmit={true}>
+              <CustomButton
+                disabled={isLoading || !!errors.cancelMessage}
+                type="success"
+                isSubmit={true}
+              >
                 Cancelar cita
               </CustomButton>
             </div>

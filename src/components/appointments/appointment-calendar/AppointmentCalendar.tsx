@@ -47,7 +47,7 @@ export const AppointmentCalendar = ({ onDateClick }: Props) => {
   };
 
   return (
-    <div className=" p-3 sm:px-0 ">
+    <div className=" py-3 ">
       {isLoading ? (
         <div
           className=" py-3 h-[420px] flex justify-center"

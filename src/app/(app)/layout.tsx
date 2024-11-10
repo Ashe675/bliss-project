@@ -5,7 +5,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     <>
       <div className="min-h-screen bg-primaryBrown pt-[47px] flex flex-col">
         <TopMenu />
-        <div className="px-0 sm:px-4 flex-1">
+        <div className="px-3 sm:px-4 flex-1">
           {children} {/* Contenido dinámico para cada página */}
         </div>
         <Sidebar />

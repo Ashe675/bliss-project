@@ -3,7 +3,6 @@
 
 import ProfilePage from '@/components/profile/ProfilePage'; // Asegura que esta ruta sea correcta
 import { auth } from '@/auth.config'; // Asegura que auth esté configurado correctamente
-import { Role } from '@prisma/client';
 import { redirect } from 'next/navigation'; // Import correcto para redirecciones del lado del servidor
 
 interface UserProfile {

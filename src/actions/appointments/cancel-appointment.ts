@@ -3,6 +3,7 @@
 import prisma from "@/lib/prisma";
 import { authorizeRole, isAuthenticate } from "@/utils";
 import { Session } from "next-auth";
+import { revalidatePath } from "next/cache";
 import z from 'zod';
 
 interface Response {
@@ -43,7 +44,7 @@ export const cancelAppointment = async (appoinmetnId: string, cancelMessage: str
 
     try {
 
-        const appoinmentFounded = await prisma.appointment.findUnique({
+        const appoinmentFounded = await prisma.appointment.findFirst({
             where: {
                 id: safeData.data.appoinmetnId,
                 status: "accepted",
@@ -98,6 +99,8 @@ export const cancelAppointment = async (appoinmetnId: string, cancelMessage: str
                 message: '¡Error al cancelar la cita!'
             }
         }
+
+        revalidatePath('/appointments')
 
         return {
             ok: true,

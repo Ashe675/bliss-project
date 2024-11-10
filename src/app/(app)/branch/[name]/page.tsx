@@ -54,7 +54,7 @@ export default function BranchPage() {
   })) || [];
 
   return (
-    <main className="p-4 sm:p-8 lg:p-12">
+    <main className="p-4 px-2 sm:p-8 lg:p-12">
       <HeaderBranchOffice officeType={branchData?.officeType} officeName={branchData?.name} isLoading={isLoading} onBack={() => router.back()} />
       <Images officeImages={branchData?.images} isLoading={isLoading} />
       <Rating rating={branchData?.rating ?? 0} />
