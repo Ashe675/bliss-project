@@ -12,17 +12,12 @@ import Link from "next/link";
 
 type Props = {
   employees: EmployeeData[];
-  isLoading: boolean; 
 };
 
-export const Employees: React.FC<Props> = ({ employees, isLoading }) => {
+export const Employees: React.FC<Props> = ({ employees }) => {
   return (
     <div className="p-4 shadow-md">
       <h2 className="text-2xl font-semibold mb-2">Empleados</h2>
-      {isLoading ? (
-        <div className="animate-pulse bg-gradient-to-r from-primary to-red-950 h-64 w-full rounded-lg"></div>
-      ) : (
-        employees.length > 0 ? (
           <Swiper
             navigation={true}
             modules={[Navigation]}
@@ -93,10 +88,6 @@ export const Employees: React.FC<Props> = ({ employees, isLoading }) => {
               </SwiperSlide>
             ))}
           </Swiper>
-        ) : (
-          <p>No hay empleados</p>
-        )
-      )}
     </div>
   );
 };

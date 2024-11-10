@@ -22,7 +22,7 @@ export const getEmployeeRating = async (id: string): Promise<number | null> => {
 
         if (employee.reviewsReceived && Array.isArray(employee.reviewsReceived)) {
             employee.reviewsReceived.forEach(element => {
-                totalRating += element.raiting; // Asumiendo que 'raiting' es de tipo number
+                totalRating += element.raiting; 
                 count++;
             });
         }

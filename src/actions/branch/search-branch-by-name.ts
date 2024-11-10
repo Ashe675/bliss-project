@@ -1,9 +1,9 @@
 'use server';
 
 import prisma from "@/lib/prisma";
-import { BranchOfficeData } from "@/interfaces/branch.interface"; // Ajusta la ruta según corresponda
+import { BranchData } from "@/interfaces/branch.interface"; 
 
-export const searchBranchByName = async (search: string): Promise<BranchOfficeData | null> => {
+export const searchBranchByName = async (search: string): Promise<BranchData | null> => {
     try {
         const newSearch = search.trim().toLowerCase().replace(/\s+/g, ' ');
 
@@ -27,7 +27,7 @@ export const searchBranchByName = async (search: string): Promise<BranchOfficeDa
 
         if (!branches) return null;
 
-        return branches as BranchOfficeData; 
+        return branches as BranchData; 
     } catch (error) {
         console.error("Error fetching branch data:", error);
         return null;

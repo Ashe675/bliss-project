@@ -14,11 +14,9 @@ import { BranchOfficeGridData } from "@/interfaces/branch.interface";
 
 export const SeeMore: React.FC = () => {
   const [branchesData, setBranchesData] = useState<BranchOfficeGridData[]>([]); 
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchBranches = async () => {
-      setLoading(true);
       try {
         const data = await searchBranches("");
         console.log("Branches data:", data);
@@ -42,9 +40,7 @@ export const SeeMore: React.FC = () => {
         setBranchesData(mappedData);
       } catch (error) {
         console.error("Error fetching branches:", error);
-      } finally {
-        setLoading(false);
-      }
+      };
     };
 
     fetchBranches();
@@ -54,9 +50,6 @@ export const SeeMore: React.FC = () => {
   return (
     <div className="p-4 shadow-md mb-6">
       <h2 className="text-2xl font-semibold mb-2">Ver más Sucursales</h2>
-      {loading ? (
-        <div className="animate-pulse bg-gradient-to-r from-primary to-red-950 h-96 w-full rounded-lg"></div>
-      ) : branchesData.length > 0 ? (
         <Swiper
           modules={[Navigation]}
           style={{ padding: "10px"}}
@@ -85,11 +78,6 @@ export const SeeMore: React.FC = () => {
             </SwiperSlide>
           ))}
         </Swiper>
-      ) : (
-        <div className="p-28 text-center text-white/70">
-          No hay sucursales que mostrar.
-        </div>
-      )}
     </div>
   );
 };
