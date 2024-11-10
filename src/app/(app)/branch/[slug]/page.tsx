@@ -29,6 +29,9 @@ const BranchPage = async ({ params }: BranchProps) => {
     verified: employee.verified,
   })) || [];
 
+  console.log(data?.images);
+  
+
   return (
      <main className="p-4 sm:p-8 lg:p-12">
       <HeaderBranchOffice officeType={data?.officeType} officeName={data?.name} />

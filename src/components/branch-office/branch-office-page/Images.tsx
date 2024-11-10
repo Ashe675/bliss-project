@@ -32,15 +32,6 @@ export const Images: React.FC<ImagesProps> = ({ officeImages }) => {
                 />
               </SwiperSlide>
             ))}
-            {officeImages?.map((image, index) => (
-              <SwiperSlide key={index}>
-                <img
-                  src={image.url}
-                  alt={`Image ${index + 1}`}
-                  className="w-full h-64 object-cover rounded-lg"
-                />
-              </SwiperSlide>
-            ))}
           </Swiper>
       </div>
     </div>

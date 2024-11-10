@@ -35,12 +35,12 @@ export const BranchOfficeGridItem = ({ branch }: Props) => {
       </div>
       
       <div
-        className={`text-sm p-3 rounded-b-md flex flex-col flex-1 ${
+        className={`text-sm p-3  rounded-b-md flex flex-col flex-1 ${
           branch.officeType === "barbershop" ? "bg-secondary" : "bg-[#472020]"
         }`}
       >
         <h2 className="font-semibold text-base sm:text-lg pb-1 truncate">{branch.name}</h2>
-        <div className="space-x-1 flex items-center">
+        <div className="space-x-1 flex justify-center items-center">
           {branch.rating ? (
             <>
               {Array.from({ length: branch.rating }).map((_, index) => (
