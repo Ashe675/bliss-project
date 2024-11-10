@@ -7,7 +7,7 @@ export const getEmployeePosts = async (id: string): Promise<Post[] | null> => {
     try {
         const employee = await prisma.user.findUnique({
             where: {
-                id, // Suponiendo que 'id' es el campo que utilizas para buscar al empleado
+                id, 
             },
             include: {
                 posts: {
@@ -18,12 +18,11 @@ export const getEmployeePosts = async (id: string): Promise<Post[] | null> => {
             },
         });
 
-        // Si no se encuentra el empleado, retornar null
         if (!employee) {
             return null;
         }
 
-        return employee.posts; // Si prefieres un entero, puedes usar Math.round(averageRating)
+        return employee.posts; 
         
     } catch (error) {
         console.error("Error fetching employee:", error);

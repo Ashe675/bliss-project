@@ -1,24 +1,27 @@
-"use client";
+'use client';
 
 import React, { useEffect, useState } from "react";
 import { searchBranches } from "@/actions";
-
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "../../../../swiper.css";
 import { Navigation } from "swiper/modules";
-
 import { BranchOfficeGridItem } from "@/components";
 import { BranchOfficeGridData } from "@/interfaces/branch.interface";
 
+const LoadingSkeleton = () => (
+  <div className="flex justify-center items-center">
+    <div className="w-16 h-16 border-4 border-t-transparent border-primary border-solid rounded-full animate-spin"></div>
+  </div>
+);
+
 export const SeeMore: React.FC = () => {
-  const [branchesData, setBranchesData] = useState<BranchOfficeGridData[]>([]); 
-  const [loading, setLoading] = useState(true);
+  const [branchesData, setBranchesData] = useState<BranchOfficeGridData[]>([]);
+  const [isLoading, setIsLoading] = useState(true); // Estado de carga
 
   useEffect(() => {
     const fetchBranches = async () => {
-      setLoading(true);
       try {
         const data = await searchBranches("");
         console.log("Branches data:", data);
@@ -40,26 +43,26 @@ export const SeeMore: React.FC = () => {
         }));
 
         setBranchesData(mappedData);
+        setIsLoading(false); 
       } catch (error) {
         console.error("Error fetching branches:", error);
-      } finally {
-        setLoading(false);
+        setIsLoading(false); 
       }
     };
 
     fetchBranches();
   }, []);
 
-
   return (
     <div className="p-4 shadow-md mb-6">
       <h2 className="text-2xl font-semibold mb-2">Ver más Sucursales</h2>
-      {loading ? (
-        <div className="animate-pulse bg-gradient-to-r from-primary to-red-950 h-96 w-full rounded-lg"></div>
-      ) : branchesData.length > 0 ? (
+
+      {isLoading ? (
+        <LoadingSkeleton />
+      ) : (
         <Swiper
           modules={[Navigation]}
-          style={{ padding: "10px"}}
+          style={{ padding: "10px" }}
           loop={true}
           spaceBetween={50}
           slidesPerView={2}
@@ -85,10 +88,6 @@ export const SeeMore: React.FC = () => {
             </SwiperSlide>
           ))}
         </Swiper>
-      ) : (
-        <div className="p-28 text-center text-white/70">
-          No hay sucursales que mostrar.
-        </div>
       )}
     </div>
   );

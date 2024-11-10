@@ -3,12 +3,12 @@ import { getEmployeeById } from '@/actions';
 import { auth } from "@/auth.config";
 import { AppointmentSection } from '@/components';
 import { AdminToEmployeeActions } from "@/components/employee/employeePage/AdminToEmployeeActions";
+import { BackButton } from "@/components/employee/employeePage/BackButton";
 import { ClientToEmployeeActions } from "@/components/employee/employeePage/ClientToEmployeeActions";
 import Comments from "@/components/employee/employeePage/Comments";
 import Posts from "@/components/employee/employeePage/Posts";
 import { SelfEmployeeActions } from "@/components/employee/employeePage/SelfEmployeeActions";
 import EmployeeRating from "@/components/employee/EmployeeRating";
-import { IconArrowLeft } from '@tabler/icons-react';
 import Link from 'next/link';
 import { notFound } from "next/navigation";
 
@@ -64,20 +64,7 @@ const EmployeeProfile = async ({ params }: EmployeeProfileProps) => {
 
       <section id='info-employee' className=" items-center mb-6">
 
-        <div className=" relative mb-4 flex items-center justify-between ">
-          <Link href="/" className="left-0 ">
-            <IconArrowLeft
-              stroke={2}
-              className="text-white size-12 lg:size-20 hover:text-red-800 transition"
-            />
-          </Link>
-
-          <h1 className="lg:text-5xl text-3xl font-semibold truncate text-white">
-            {data?.user?.firstName} {data?.user?.lastName}
-          </h1>
-          <div className='size-12 lg:size-20'></div>
-        </div>
-
+        <BackButton firstName={data?.user?.firstName} lastName={data?.user?.lastName} />
 
         <div className="justify-self-center w-32 h-32 md:w-60 md:h-60 overflow-hidden rounded-full border-2 border-gray-300">
           <img
