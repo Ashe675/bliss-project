@@ -18,33 +18,6 @@ interface EmployeeProfileProps {
   };
 }
 
-// interface Review {
-//   id: string;
-//   raiting: number;
-//   comment: string | null;
-//   date: string | Date; 
-//   reviewerId: string;
-//   reviewer: {
-//     firstName: string;
-//     lastName: string;
-//     profileImage: string | null;
-//   };
-// }
-
-// interface Post {
-//   id: string;
-//   title: string;
-//   createdAt: string | Date; 
-//   images: Image[];
-// }
-
-// interface Image{
-//   id: string;
-//   url: string;
-//   publicId: string;
-//   imageType: string;
-// }
-
 const EmployeeProfile = async ({ params }: EmployeeProfileProps) => {
   const { id } = params; 
   const { data } = await getEmployeeById(id);
@@ -56,6 +29,7 @@ const EmployeeProfile = async ({ params }: EmployeeProfileProps) => {
   const res = await getAppointmentsByUser(new Date());
   if(!res || !res.appointments) notFound()
     
+  const canReview = !data?.reviews?.some(review => review.reviewerId === session?.user.id);
 
   return (
     <main className='m-6 mx-3 lg:m-10  2xl:grid 2xl:grid-flow-col '>
@@ -120,7 +94,7 @@ const EmployeeProfile = async ({ params }: EmployeeProfileProps) => {
       }
       
       { session?.user.id && session.user.role !== "admin" && session.user.role !== "employee" ? 
-        <ClientToEmployeeActions employeeId={data?.user?.id} /> : null 
+        <ClientToEmployeeActions employeeId={data?.user?.id} canReview={canReview || false} /> : null 
       }
 
       <Posts posts={data?.posts || []} /> 

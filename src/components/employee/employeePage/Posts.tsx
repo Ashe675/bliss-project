@@ -1,14 +1,12 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import '../../../../swiper.css';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import CustomModal from '@/components/ui/modal/CustomModal';
-import Box from '@mui/material/Box';
-import CircularProgress from '@mui/material/CircularProgress';
 
 interface Post {
   id: string;
@@ -21,14 +19,10 @@ interface PostsProps {
   posts: Post[];
 }
 
-const Posts: React.FC<PostsProps> = ({ posts }) => {
+// Define displayName for memoized component
+const Posts: React.FC<PostsProps> = React.memo(({ posts }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    setLoading(false); // Eliminamos el setTimeout, cargamos directamente cuando `posts` esté disponible
-  }, []);
 
   const handleOpenModal = (post: Post) => {
     setSelectedPost(post);
@@ -41,20 +35,9 @@ const Posts: React.FC<PostsProps> = ({ posts }) => {
 
   return (
     <section>
-      <h3 className="text-lg font-semibold mt-6 mb-4">Publicaciones: </h3>
+      <h3 className="text-lg font-semibold mt-6 mb-4">Publicaciones:</h3>
 
-      {loading ? (
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '200px',
-          }}
-        >
-          <CircularProgress />
-        </Box>
-      ) : posts.length === 0 ? (
+      {posts.length === 0 ? (
         <div className="flex flex-col items-center justify-center p-6 bg-gradient-to-r from-primary border-red-950/50 via-red-600/50 to-primary rounded-lg shadow-md text-center">
           <h4 className="text-xl font-semibold text-white mb-4">
             ¡No hay publicaciones aún!
@@ -84,6 +67,7 @@ const Posts: React.FC<PostsProps> = ({ posts }) => {
                     src={post.images[0].url}
                     alt={post.title}
                     className="w-full h-full object-cover transition-transform duration-300 transform group-hover:scale-110"
+                    loading="lazy"  // Habilitamos lazy loading en la imagen
                   />
                 )}
               </div>
@@ -121,6 +105,7 @@ const Posts: React.FC<PostsProps> = ({ posts }) => {
                     src={image.url}
                     alt={`${selectedPost.title} - ${image.imageType}`}
                     className="w-full h-80 object-cover rounded-md"
+                    loading="lazy"  // Habilitamos lazy loading en la imagen
                   />
                 </SwiperSlide>
               ))}
@@ -130,6 +115,9 @@ const Posts: React.FC<PostsProps> = ({ posts }) => {
       </CustomModal>
     </section>
   );
-};
+});
+
+// Set displayName explicitly for React.memo
+Posts.displayName = 'Posts';
 
 export default Posts;

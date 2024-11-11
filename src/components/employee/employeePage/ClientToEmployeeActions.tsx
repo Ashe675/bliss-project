@@ -8,19 +8,18 @@ import {
   IconMessageCirclePlus,
 } from "@tabler/icons-react";
 import RatingForm from "./RatingForm";
-
+import { AppointmentForm } from "./AppoinmentForm";
+import { toast } from "react-toastify";  // Importamos el toast
 
 interface Props {
   employeeId: string;
+  canReview: boolean;
 }
 
-export const ClientToEmployeeActions: React.FC<Props> = ({ employeeId }) => {
+export const ClientToEmployeeActions: React.FC<Props> = ({ employeeId, canReview }) => {
   const [isModalRatingOpen, setIsModalRatingOpen] = useState(false);
   const [isModalAppoinmentOpen, setIsModalAppoinmentOpen] = useState(false);
   
-
-  console.log("Emplaoyee", employeeId);
-
   const closeModalAppointment = () => {
     setIsModalAppoinmentOpen(false);
   };
@@ -29,6 +28,13 @@ export const ClientToEmployeeActions: React.FC<Props> = ({ employeeId }) => {
     setIsModalRatingOpen(false);
   };
 
+  const handleOpenRatingModal = () => {
+    if (!canReview) {
+      toast("Ya has hecho una reseña para este empleado.");
+    } else {
+      setIsModalRatingOpen(true);
+    }
+  };
 
   return (
     <div>
@@ -36,7 +42,7 @@ export const ClientToEmployeeActions: React.FC<Props> = ({ employeeId }) => {
         <CustomButton
           type="primary"
           className="w-32"
-          onClick={() => setIsModalRatingOpen(true)}
+          onClick={handleOpenRatingModal} // Usamos la función aquí
         >
           <div className="flex justify-center">
             <p>Calificar</p>
@@ -58,14 +64,20 @@ export const ClientToEmployeeActions: React.FC<Props> = ({ employeeId }) => {
 
       <div>
         <CustomModal isOpen={isModalRatingOpen} closeModal={closeModalRaiting}>
-          <RatingForm employeeId={employeeId} />
+          <RatingForm 
+            employeeId={employeeId} 
+            onReviewSubmit={closeModalRaiting}
+          />
         </CustomModal>
 
         <CustomModal
           isOpen={isModalAppoinmentOpen}
           closeModal={closeModalAppointment}
         >
-          hola
+          <AppointmentForm 
+            employeeId={employeeId} 
+            onAppointmentSubmit={closeModalAppointment}
+          />
         </CustomModal>
     
       </div>

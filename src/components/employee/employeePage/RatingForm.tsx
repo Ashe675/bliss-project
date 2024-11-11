@@ -16,9 +16,10 @@ type RatingFormData = {
 
 interface Props {
   employeeId: string;
+  onReviewSubmit: () => void;
 }
 
-export default function RatingForm({ employeeId }: Props) {
+export default function RatingForm({ employeeId, onReviewSubmit }: Props) {
   const [selectedStars, setSelectedStars] = useState<number>(0);  
   const { register, handleSubmit, formState: { errors } } = useForm<RatingFormData>();
   const { data: session } = useSession();
@@ -44,9 +45,8 @@ export default function RatingForm({ employeeId }: Props) {
       date: new Date().toISOString(),
     };
 
-    // Usar toast.promise para manejar las notificaciones
     await toast.promise(
-      postEmployeeReview(ratingData), // Promesa de la operación
+      postEmployeeReview(ratingData),
       {
         pending: "Enviando tu reseña...",
         success: "¡Reseña enviada exitosamente!",
@@ -54,10 +54,11 @@ export default function RatingForm({ employeeId }: Props) {
       }
     )
       .then(() => {
-        router.refresh(); // Refrescar la página si es exitoso
+        router.refresh(); 
+        onReviewSubmit();
       })
       .catch((error) => {
-        console.error(error); // Manejar errores si ocurren
+        console.error(error); 
       });
   };
 
