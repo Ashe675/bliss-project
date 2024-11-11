@@ -16,7 +16,7 @@ export const PendingAppointments = ({ refreshDayByDate }: Props) => {
   const { data, isLoading } = useQuery({
     queryKey: ["appointments", "pending", page],
     queryFn: () =>
-      getPaginationAppointmentsByStatus({ status: "pending", page, take: 1 }),
+      getPaginationAppointmentsByStatus({ status: "pending", page, take: 10 }),
   });
 
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
