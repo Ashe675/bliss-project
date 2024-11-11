@@ -14,25 +14,31 @@ interface Response {
     status: number;
     data?: {
         user?: Session['user']
-        appointments?: AppoinmentWithUsers[]
+        appointments?: AppoinmentWithUsers[],
+        totalPages?: number,
+        page?: number,
     },
     message?: string;
 }
 
 const RequestSchema = z.object({
     status:
-        z.enum(["pending", "accepted", "declined", "canceled"])
+        z.enum(["pending", "accepted", "declined", "canceled"]),
+    page:
+        z.number({ message: 'La paginación deber ser un número' }),
+    take:
+        z.number({ message: 'La paginación deber ser un número' })
 })
 
 
-export const getAppointmentsByStatus = async (status: StatusAppointment): Promise<Response> => {
+export const getPaginationAppointmentsByStatus = async ({ status, page = 1, take = 10 }: { status: StatusAppointment, page: number, take: number }): Promise<Response> => {
     const resAuth = await isAuthenticate()
     if (!resAuth.ok) return resAuth
 
     const resAuthorize = await authorizeRole(['employee', 'user'])
     if (!resAuthorize.ok) return resAuthorize
 
-    const safeData = RequestSchema.safeParse({ status })
+    const safeData = RequestSchema.safeParse({ status, page, take })
 
     if (!safeData.success) {
         return {
@@ -82,14 +88,37 @@ export const getAppointmentsByStatus = async (status: StatusAppointment): Promis
             },
             orderBy: {
                 appointmentDate: 'asc'
+            },
+            take: take,
+            skip: (page - 1) * take,
+        })
+
+        const totalCount = await prisma.appointment.count({
+            where: {
+                status: status,
+                OR: [
+                    {
+                        userScheduledId: user.id
+                    },
+                    {
+                        userSchedulerId: user.id
+                    }
+                ],
+                appointmentDate: {
+                    gte: new Date()
+                }
             }
         })
+
+        const totalPages = Math.ceil(totalCount / take)
 
         return {
             ok: true,
             status: 200,
             data: {
-                appointments: appointmentsByStatus
+                appointments: appointmentsByStatus,
+                totalPages,
+                page
             }
         }
     } catch (error) {

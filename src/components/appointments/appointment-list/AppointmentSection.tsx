@@ -62,7 +62,7 @@ export const AppointmentSection = ({ initialAppointments }: Props) => {
   return (
     <>
       <AppointmentCalendar onDateClick={handleClickDate} />
-      <section className="  pt-3 sm:py-3 sm:pl-6 sm:pr-3">
+      <section className="  pt-3 sm:py-3 sm:pl-7 sm:pr-3">
         <TabGroup>
           <TabList className={` space-x-3 sm:pt-1.5`}>
             <Tab

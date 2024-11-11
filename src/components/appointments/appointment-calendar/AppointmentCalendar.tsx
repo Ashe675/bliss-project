@@ -108,7 +108,7 @@ function renderEventContent(event: EventContentArg) {
   return (
     <div
       className={` relative  mx-auto size-2   ${
-        event.isPast ? "bg-gray-400" : "bg-yellow-500"
+        event.isPast ? "bg-gray-400" : "bg-orange-500"
       } rounded-full `}
     />
   );

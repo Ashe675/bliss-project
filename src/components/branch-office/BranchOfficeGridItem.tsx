@@ -40,7 +40,7 @@ export const BranchOfficeGridItem = ({ branch }: Props) => {
         }`}
       >
         <h2 className="font-semibold text-base sm:text-lg pb-1 truncate">{branch.name}</h2>
-        <div className="space-x-1 flex justify-center items-center">
+        <div className="space-x-1 flex items-center">
           {branch.rating ? (
             <>
               {Array.from({ length: branch.rating }).map((_, index) => (

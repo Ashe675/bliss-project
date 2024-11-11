@@ -25,7 +25,7 @@ export const CustomButton = ({
       onClick={onClick}
       type={`${isSubmit ? "submit" : "button"}`}
       className={clsx(
-        ` rounded-md font-semibold p-1.5 shadow-sm transition-all capitalize disabled:bg-zinc-500 disabled:text-zinc-400`,
+        ` rounded-md font-semibold p-1.5 shadow-sm transition-all capitalize disabled:bg-zinc-500/70 disabled:text-zinc-400/70`,
         className,
         {
           " bg-green-700 hover:bg-green-800": type === "success",

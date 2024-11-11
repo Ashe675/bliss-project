@@ -4,7 +4,6 @@ import { IconHomeFilled, IconUserFilled, IconX } from "@tabler/icons-react";
 import { FaCalendarAlt } from "react-icons/fa";
 import { SidebarItem } from "./SidebarItem";
 import { LogoWhite } from "../logos/LogoWhite";
-import { LogoType } from "../logos/LogoType";
 import { useUIStore } from "@/store";
 import clsx from "clsx";
 import { useSession } from "next-auth/react";
