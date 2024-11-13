@@ -34,8 +34,10 @@ export const AcceptAppointmentModal = ({
   setAppointmentSelected,
   refreshDayByDate,
 }: Props) => {
-  const handleClickBackdrop = () => {
+  const handleClickCancel = () => {
+    if(isLoading) return
     setAppointmentSelected(undefined);
+    closeModal()
   };
   const [error, setError] = useState(
     "La hora final debe ser por lo menos 5 minutos mayor que la hora de la cita."
@@ -123,8 +125,8 @@ export const AcceptAppointmentModal = ({
   return (
     <CustomModal
       isOpen={isOpen}
-      closeModal={closeModal}
-      onClickBackDrop={handleClickBackdrop}
+      closeModal={handleClickCancel}
+      onClickBackDrop={handleClickCancel}
     >
       {appointment && (
         <>

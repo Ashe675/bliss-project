@@ -69,16 +69,18 @@ export const CancelAppointmentModal = ({
     setAppointmentSelected(undefined);
   };
 
-  const handleClickBackdrop = () => {
+  const handleClickCloseModal = () => {
+    if (isLoading) return;
     reset();
     setAppointmentSelected(undefined);
+    closeModal();
   };
 
   return (
     <CustomModal
       isOpen={isOpen}
-      closeModal={closeModal}
-      onClickBackDrop={handleClickBackdrop}
+      closeModal={handleClickCloseModal}
+      onClickBackDrop={handleClickCloseModal}
     >
       {appointment && (
         <>

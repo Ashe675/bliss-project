@@ -8,6 +8,7 @@ interface Props {
   closeModal: () => void;
   children: ReactNode;
   onClickBackDrop?: () => void;
+  className? : string;
 }
 
 export const CustomModal = ({
@@ -15,6 +16,7 @@ export const CustomModal = ({
   closeModal,
   children,
   onClickBackDrop,
+  className
 }: Props) => {
   function close() {
     closeModal();
@@ -38,7 +40,7 @@ export const CustomModal = ({
           <div className="flex min-h-full items-center justify-center p-4">
             <DialogPanel
               transition
-              className="w-full max-w-md rounded-xl bg-primary/50 p-6 backdrop-blur-2xl duration-300 ease-out data-[closed]:transform-[scale(95%)] data-[closed]:opacity-0"
+              className={`w-full max-w-md rounded-xl bg-primary/50 p-6 backdrop-blur-2xl duration-300 ease-out data-[closed]:transform-[scale(95%)] data-[closed]:opacity-0 ${className}`}
             >
               {children}
             </DialogPanel>

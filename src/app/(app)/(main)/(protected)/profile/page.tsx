@@ -1,9 +1,8 @@
-// app/profile/page.tsx
 'use server';
 
 import ProfilePage from '@/components/profile/ProfilePage'; // Asegura que esta ruta sea correcta
-import { auth } from '@/auth.config'; // Asegura que auth esté configurado correctamente
 import { redirect } from 'next/navigation'; // Import correcto para redirecciones del lado del servidor
+import { getUserProfile } from '@/actions';
 
 interface UserProfile {
   firstName: string;
@@ -16,20 +15,20 @@ interface UserProfile {
 }
 
 const Page = async () => {
-  const session = await auth(); // Obtener la sesión desde el servidor
+  const {ok , data } = await getUserProfile();
 
   // Verificación de sesión y redirección inmediata
-  if (!session || !session.user || !session.user.id) {
+  if (!ok || !data) {
     redirect('/login'); // Redirige si no está autenticado
   }
 
-  const userD = session.user;
+  const userD = data.user!;
 
   // Crear el objeto `userProfile` basado en los datos de la sesión
   const userProfile: UserProfile = {
     firstName: userD.firstName || '',
     lastName: userD.lastName || '',
-    avatarUrl: userD.image || '',
+    avatarUrl: userD.profileImage || '',
     username: userD.email || '',
     id: userD.id || '',
     email: userD.email || '',

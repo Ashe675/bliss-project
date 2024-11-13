@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "User" ALTER COLUMN "profileImage" SET DATA TYPE VARCHAR(300);

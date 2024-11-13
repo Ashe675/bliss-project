@@ -27,8 +27,10 @@ export const DeclineAppointmentModal = ({
 }: Props) => {
   const queryClient = useQueryClient();
   const [isLoading, setIsLoading] = useState(false);
-  const handleClickBackdrop = () => {
+  const handleClickCloseModal = () => {
+    if (isLoading) return;
     setAppointmentSelected(undefined);
+    closeModal()
   };
 
   const handleClickDecline = async () => {
@@ -52,8 +54,8 @@ export const DeclineAppointmentModal = ({
   return (
     <CustomModal
       isOpen={isOpen}
-      closeModal={closeModal}
-      onClickBackDrop={handleClickBackdrop}
+      closeModal={handleClickCloseModal}
+      onClickBackDrop={handleClickCloseModal}
     >
       {appointment && (
         <>

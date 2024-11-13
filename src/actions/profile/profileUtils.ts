@@ -25,14 +25,41 @@ export const handleEditProfile = async (firstName: string, lastName: string) => 
 
 
 import prisma from "@/lib/prisma"; // Ajusta la ruta según tu configuración
-import { UserData } from "@/interfaces/user.interface"; // Ajusta la ruta según tu estructura
+import { isAuthenticate } from "@/utils";
+import { Session } from "next-auth";
+import { Role } from "@prisma/client";
+
+interface Response {
+  ok: boolean;
+  status: number;
+  data?: {
+    user?: Session['user'] | {
+      user: string;
+      id: string;
+      firstName: string;
+      lastName: string;
+      email: string | null;
+      password: string;
+      verified: boolean;
+      profileImage: string | null;
+      isActive: boolean | null;
+      description: string | null;
+      role: Role;
+    }
+  },
+  message: string;
+}
 
 
+export const getUserProfile = async (): Promise<Response> => {
+  const resAuth = await isAuthenticate()
+  if (!resAuth.ok) return resAuth
 
-export const getUserProfileById = async (userId: string): Promise<UserData | null> => {
+  const { user } = resAuth.data!;
+
   try {
     const userProfile = await prisma.user.findUnique({
-      where: { id: userId },
+      where: { id: user.id },
       select: {
         firstName: true,
         lastName: true,
@@ -48,11 +75,26 @@ export const getUserProfileById = async (userId: string): Promise<UserData | nul
       },
     });
 
-    if (!userProfile) return null;
+    if (!userProfile) return {
+      ok: false,
+      status: 400,
+      message: 'Usuario no encontrado!'
+    };
 
-    return userProfile as UserData; 
+    return {
+      ok: true,
+      status: 201,
+      message : 'ok',
+      data: {
+        user: userProfile
+      },
+    };
   } catch (error) {
     console.error("Error fetching user profile data:", error);
-    return null;
+    return {
+      ok: false,
+      status: 500,
+      message: 'Server internal error.',
+    };
   }
 };
