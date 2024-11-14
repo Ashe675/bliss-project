@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
 import { Button, Box, TextField } from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -56,7 +58,7 @@ export const AppointmentForm = ({ employeeId, onAppointmentSubmit }: Props) => {
       const appointmentStart = dayjs(appointment.appointmentDate);
       const appointmentEnd = appointment.finalDate
         ? dayjs(appointment.finalDate)
-        : appointmentStart.add(1, 'hour'); // Si no hay finalDate, se asume una duración de 1 hora
+        : appointmentStart.add(1, "hour"); // Si no hay finalDate, se asume una duración de 1 hora
 
       // Deshabilita el tiempo si está dentro del rango de cualquier cita existente
       return time.isAfter(appointmentStart) && time.isBefore(appointmentEnd);
@@ -68,25 +70,28 @@ export const AppointmentForm = ({ employeeId, onAppointmentSubmit }: Props) => {
       const formattedDate = selectedDate.format("YYYY-MM-DD HH:mm:ss");
 
       // Usar toast.promise para manejar la notificación
-      await toast.promise(
-        postClientAppoinment({
-          appointmentDate: new Date(formattedDate),
-          status: "pending",
-          userSchedulerId: userId,
-          userScheduledId: employeeId,
-          description: description,
-        }),
-        {
-          pending: "Agendando cita...",
-          success: "Cita agendada con éxito!",
-          error: "Error al agendar la cita. Intenta nuevamente.",
-        }
-      ).then(() => {
-        router.refresh();
-        onAppointmentSubmit();
-      }).catch((error) => {
-        console.error(error);
-      });
+      await toast
+        .promise(
+          postClientAppoinment({
+            appointmentDate: new Date(formattedDate),
+            status: "pending",
+            userSchedulerId: userId,
+            userScheduledId: employeeId,
+            description: description,
+          }),
+          {
+            pending: "Agendando cita...",
+            success: "Cita agendada con éxito!",
+            error: "Error al agendar la cita. Intenta nuevamente.",
+          }
+        )
+        .then(() => {
+          router.refresh();
+          onAppointmentSubmit();
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     } else {
       toast.error("Por favor, completa todos los campos.");
     }
@@ -118,7 +123,7 @@ export const AppointmentForm = ({ employeeId, onAppointmentSubmit }: Props) => {
             if (view === "hours") {
               return shouldDisableTime(time);
             }
-            return false; 
+            return false;
           }}
         />
 

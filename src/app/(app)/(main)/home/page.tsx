@@ -1,7 +1,9 @@
 export const revalidate = 60;
 
 import { searchBranches } from "@/actions";
+import { auth } from "@/auth.config";
 import { BranchOfficeGrid, Search, Title } from "@/components";
+import { redirect } from "next/navigation";
 interface Props {
   searchParams: {
     page?: string;
@@ -15,6 +17,14 @@ export const metadata = {
 };
 
 export default async function MainPage({ searchParams }: Props) {
+  const session = await auth();
+  if (session?.user && session.user.role === "employee") {
+    redirect(`/employee/${session.user.id}`);
+  }
+  if (session?.user && session.user.role === "admin") {
+    redirect(`/admin`);
+  }
+
   const search = searchParams.search ?? '';
   const branchesData = await searchBranches(search)
 

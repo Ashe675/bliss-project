@@ -10,34 +10,62 @@ import { useSession } from "next-auth/react";
 import { IoLogIn, IoLogOut } from "react-icons/io5";
 import { logout } from "@/actions";
 import Image from "next/image";
+import { useMemo } from "react";
 
-const sidebarItems = [
-  // {
-  //   href: "/",
-  //   icon: <IconHomeFilled />,
-  //   label: "Inicio",
-  // },
-  {
-    href: "/appointments",
-    icon: <FaCalendarAlt size={20} className=" mx-[2px]" />,
-    label: "Citas",
+const sidebarItemsByRole = {
+  user: {
+    items: [
+      {
+        href: "/appointments",
+        icon: <FaCalendarAlt size={20} className=" mx-[2px]" />,
+        label: "Citas",
+      },
+      {
+        href: "/profile",
+        icon: <IconUserFilled />,
+        label: "Perfil",
+      },
+    ],
   },
-
-  {
-    href: "/profile",
-    icon: <IconUserFilled />,
-    label: "Perfil",
+  employee: {
+    items: [
+      {
+        href: "/appointments",
+        icon: <FaCalendarAlt size={20} className=" mx-[2px]" />,
+        label: "Citas",
+      },
+    ],
   },
-];
+  admin: {
+    items: [
+      {
+        href: "/profile",
+        icon: <IconUserFilled />,
+        label: "Perfil",
+      },
+    ],
+  },
+};
 
 export const Sidebar = () => {
   const isSideMenuOpen = useUIStore((state) => state.isSideMenuOpen);
   const closeSideMenu = useUIStore((state) => state.closeSideMenu);
   const { data: session } = useSession();
-
   const isAuthenticated = !!session?.user;
-  // const isAdmin = session?.user.role === "admin";
-  // const isEmployee = session?.user.role === "employee";
+
+  const sidebarItems = useMemo(
+    () => (session?.user ? sidebarItemsByRole[session.user.role].items : []),
+    [session?.user]
+  );
+
+  const isAdmin = session?.user.role === "admin";
+  const isEmployee = session?.user.role === "employee";
+
+  const hrefHome = isEmployee
+    ? `/employee/${session.user.id}`
+    : isAdmin
+    ? "/admin"
+    : "/home";
 
   const signOut = async () => {
     await logout();
@@ -88,10 +116,11 @@ export const Sidebar = () => {
         <nav className=" px-4 py-2">
           <SidebarItem
             onClick={closeSideMenu}
-            href={"/home"}
+            href={hrefHome}
             label={"Inicio"}
             icon={<IconHomeFilled />}
           />
+
           {isAuthenticated &&
             sidebarItems.map((item) => (
               <SidebarItem

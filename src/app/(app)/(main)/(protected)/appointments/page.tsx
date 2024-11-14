@@ -1,4 +1,5 @@
 import { getAppointmentsByUser } from "@/actions";
+import { auth } from "@/auth.config";
 import { AppointmentSection } from "@/components";
 import { notFound } from "next/navigation";
 
@@ -8,6 +9,10 @@ export const metadata = {
 };
 
 export default async function AppointmentPage() {
+  const session = await auth();
+
+  if (session?.user.role === "admin") return notFound();
+
   const res = await getAppointmentsByUser(new Date());
   if (!res || !res.appointments) notFound();
 

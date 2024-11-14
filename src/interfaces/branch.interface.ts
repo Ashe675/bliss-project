@@ -31,6 +31,7 @@ export interface BranchData {
     longevityYear: number;
     registerDate: Date;
     userOwner: UserData;
+    userOwnerId?: string;
     employees: EmployeeData[];
     slug: string;
     officeType: OfficeType;

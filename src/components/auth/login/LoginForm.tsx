@@ -31,9 +31,8 @@ export default function LoginForm() {
       setTimeout(() => {
         setErrorCredentials("");
       }, 3000);
-      return
+      return;
     }
-
     window.location.replace("/home");
   };
 

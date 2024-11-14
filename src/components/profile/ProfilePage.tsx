@@ -1,11 +1,11 @@
 "use client";
 // components/profile/ProfilePage.tsx
-import React, { useState } from 'react';
-import Avatar from '@/components/profile/Avatar'; // Asegúrate de importar el componente Avatar
-import UserInfo from '@/components/profile/UserInfo'; // Asegúrate de importar el componente UserInfo
-import GenericButton from '@/components/ui/buttons/GenericButton'; // Asegúrate de importar el componente GenericButton
-import EditProfileModal from '@/components/ui/modal/EditProfileModal'; // Asegúrate de importar el componente EditProfileModal
-import { MdEditSquare } from 'react-icons/md'; // Asegúrate de importar el icono correspondiente
+import React, { useState } from "react";
+import Avatar from "@/components/profile/Avatar"; // Asegúrate de importar el componente Avatar
+import UserInfo from "@/components/profile/UserInfo"; // Asegúrate de importar el componente UserInfo
+import GenericButton from "@/components/ui/buttons/GenericButton"; // Asegúrate de importar el componente GenericButton
+import EditProfileModal from "@/components/ui/modal/EditProfileModal"; // Asegúrate de importar el componente EditProfileModal
+import { MdEditSquare } from "react-icons/md"; // Asegúrate de importar el icono correspondiente
 
 interface UserProfile {
   firstName: string;
@@ -27,7 +27,7 @@ const ProfilePage = ({ user }: ProfilePageProps) => {
   return (
     <div className="w-[90%] mx-auto mt-10 p-5 shadow-md rounded-lg">
       <div className="flex justify-center">
-        <Avatar src={user.avatarUrl} alt={user.username} />
+        <Avatar src={user.avatarUrl} alt={user.username} className=" size-48" />
       </div>
       <UserInfo
         firstName={user.firstName}

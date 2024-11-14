@@ -21,7 +21,7 @@ export const BackButton: React.FC<HeaderProps> = ({ firstName, lastName }) => {
       />
     </button>
 
-    <h1 className="lg:text-5xl text-3xl font-semibold truncate text-white">
+    <h1 className="lg:text-5xl text-2xl sm:text-3xl font-semibold truncate text-white">
       {firstName} {lastName}
     </h1>
     <div className='size-12 lg:size-20'></div>

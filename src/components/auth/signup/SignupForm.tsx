@@ -41,7 +41,7 @@ export const SignupForm = () => {
 
     await login(res.user.user.toLowerCase(), password);
     setIsLoading(false);
-    window.location.replace("/");
+    window.location.replace("/home");
   };
 
   return (

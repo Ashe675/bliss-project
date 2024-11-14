@@ -1,8 +1,9 @@
 'use server';
 
 import ProfilePage from '@/components/profile/ProfilePage'; // Asegura que esta ruta sea correcta
-import { redirect } from 'next/navigation'; // Import correcto para redirecciones del lado del servidor
+import { notFound } from 'next/navigation'; // Import correcto para redirecciones del lado del servidor
 import { getUserProfile } from '@/actions';
+import { auth } from '@/auth.config';
 
 interface UserProfile {
   firstName: string;
@@ -16,10 +17,13 @@ interface UserProfile {
 
 const Page = async () => {
   const {ok , data } = await getUserProfile();
+  const session = await auth();
+
+  if (session?.user.role === "employee") return notFound();
 
   // Verificación de sesión y redirección inmediata
   if (!ok || !data) {
-    redirect('/login'); // Redirige si no está autenticado
+    notFound(); 
   }
 
   const userD = data.user!;
