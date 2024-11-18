@@ -24,3 +24,15 @@ export interface Review {
     specialty: string;
     rating: number; // Asegúrate de que sea un número
   }
+
+
+
+export interface EmployeeGridData {
+  id: string;
+  firstName: string;
+  lastName: string;
+  branchOfficeId: string;
+  branchOfficeName: string;
+  rating: number;
+  profileImage: string;
+}

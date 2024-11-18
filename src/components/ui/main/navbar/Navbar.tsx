@@ -1,4 +1,4 @@
-import { IconHomeFilled, IconUserFilled } from "@tabler/icons-react";
+import { IconHomeFilled, IconUserFilled, IconUsers } from "@tabler/icons-react";
 import { FaCalendarAlt } from "react-icons/fa";
 import { NavbarItem } from "./NavbarItem";
 import { auth } from "@/auth.config";
@@ -39,6 +39,11 @@ const navbarItemsByRole = {
   },
   admin: {
     items: [
+      {
+        href: "/admin/employees",
+        icon: <IconUsers />,
+        label: "empleados",
+      },
       {
         href: "/home",
         icon: <IconHomeFilled />,
