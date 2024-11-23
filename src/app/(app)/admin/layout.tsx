@@ -1,4 +1,5 @@
 import { auth } from "@/auth.config";
+import { Navbar } from "@/components";
 import { notFound } from "next/navigation";
 
 export default async function AdminLayout({
@@ -11,5 +12,10 @@ export default async function AdminLayout({
 
   if (!isAuthenticated || session.user.role !== "admin") notFound();
 
-  return children;
+  return (
+    <div>
+      {children}
+      <Navbar />
+    </div>
+  );
 }

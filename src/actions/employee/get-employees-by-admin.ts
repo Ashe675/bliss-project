@@ -60,7 +60,7 @@ export const getEmployeesByAdmin = async (search: string): Promise<EmployeeGridD
         // Obtener los detalles de cada usuario usando getEmployeeById
         const transformedUsers: EmployeeGridData[] = await Promise.all(
             users.map(async (user) => {
-                const employeeData = await getEmployeeById(user.id); // Llamada al server action
+                const employeeData = await getEmployeeById(user.id);
 
                 return {
                     id: user.id,
@@ -69,7 +69,7 @@ export const getEmployeesByAdmin = async (search: string): Promise<EmployeeGridD
                     branchOfficeId: user.branchOfficeId || '',
                     branchOfficeName: user.branchOffice?.name || '',
                     profileImage: user.profileImage || '',
-                    rating: employeeData.data?.user?.averageRating || 0, // Usamos el rating calculado
+                    rating: employeeData.data?.user?.averageRating || 0, 
                 };
             })
         );

@@ -167,7 +167,7 @@ const EmployeeProfile = async ({ params }: EmployeeProfileProps) => {
           ) : null}
 
           {session?.user.id === data.user.branchOffice.userOwnerId ? (
-            <AdminToEmployeeActions employeeId={data?.user?.id} />
+            <AdminToEmployeeActions employeeId={data?.user?.id} employeeInfo={data?.user} />
           ) : null}
 
           {session?.user.id &&

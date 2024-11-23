@@ -3,6 +3,7 @@ import { CustomButton, Search, Title } from "@/components";
 import { IconPlus } from "@tabler/icons-react";
 import { getEmployeesByAdmin } from "@/actions/employee/get-employees-by-admin";
 import { EmployeeGrid } from "@/components/employee/EmployeeGrid";
+import Link from "next/link";
 export const revalidate = 60;
 
 interface Props {
@@ -22,10 +23,12 @@ export default async function EmployeesPage({ searchParams }: Props) {
       <>
         <Title title="Empleados" />
         <Search />
-        <CustomButton type="cancel" className="flex items-center mb-4">
+        <Link href="/admin/employees/new">
+        <CustomButton type="secondary" className="flex items-center mb-4">
             Agregar Empleado
             <IconPlus size={20} className=" ml-2" />
         </CustomButton>
+        </Link>
 
         {
             employeesData.length ? (

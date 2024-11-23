@@ -4,17 +4,31 @@ import { useState } from "react";
 import CustomModal from "@/components/ui/modal/CustomModal";
 import { CustomButton } from "@/components/ui/buttons/CustomButton";
 import { IconEdit, IconSquareXFilled } from "@tabler/icons-react";
+import { RegisterEmployeeForm } from "@/components/admin/RegisterEmployeeForm";
 
 interface Props {
   employeeId: string;
+  employeeInfo: EmployeeInfo;
+}
+interface EmployeeInfo {
+  id: string; // Campo obligatorio
+  firstName?: string;
+  lastName?: string;
+  userName?: string;
+  email?: string;
+  password?: string;
+  profileImage?: string | null;
+  phoneNumber?: string | null;
+  branchOfficeId?: string | null;
+  role?: string;
 }
 
-export const AdminToEmployeeActions: React.FC<Props> = ({ employeeId }) => {
+
+
+
+export const AdminToEmployeeActions: React.FC<Props> = ({  employeeInfo }) => {
   const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
-
-
-  console.log("Emplaoyee", employeeId);
 
   const closeModalAppointment = () => {
     setIsModalDeleteOpen(false);
@@ -23,7 +37,6 @@ export const AdminToEmployeeActions: React.FC<Props> = ({ employeeId }) => {
   const closeModalRaiting = () => {
     setIsModalUpdateOpen(false);
   };
-
 
   return (
     <div>
@@ -53,7 +66,7 @@ export const AdminToEmployeeActions: React.FC<Props> = ({ employeeId }) => {
 
       <div>
         <CustomModal isOpen={isModalUpdateOpen} closeModal={closeModalRaiting}>
-          Aqui va el formulario para editar la informacion del empleado
+          <RegisterEmployeeForm isCreating={false} employeeInfo={employeeInfo}/>
         </CustomModal>
 
         <CustomModal
