@@ -5,6 +5,7 @@ import CustomModal from "@/components/ui/modal/CustomModal";
 import { CustomButton } from "@/components/ui/buttons/CustomButton";
 import { IconEdit, IconSquareXFilled } from "@tabler/icons-react";
 import { RegisterEmployeeForm } from "@/components/admin/RegisterEmployeeForm";
+import { DeleteEmployeeConfirmation } from "@/components/admin/DeleteEmployeeConfirmation";
 
 interface Props {
   employeeId: string;
@@ -73,7 +74,10 @@ export const AdminToEmployeeActions: React.FC<Props> = ({  employeeInfo }) => {
           isOpen={isModalDeleteOpen}
           closeModal={closeModalAppointment}
         >
-          Aqui va el mensaje para que el admin confirme eliminar el empleado
+          <DeleteEmployeeConfirmation 
+            employeeInfo={employeeInfo} 
+            closeModalAppointment={closeModalAppointment}
+          />
         </CustomModal>
       </div>
     </div>

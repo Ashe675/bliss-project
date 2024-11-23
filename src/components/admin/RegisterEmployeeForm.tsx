@@ -343,15 +343,6 @@ export const RegisterEmployeeForm = ({isCreating, employeeInfo}:Props) => {
         )}
       </div>
 
-
-
-
-
-
-
-
-
-
       <div className="flex flex-col gap-y-1">
         <label htmlFor="branchOfficeId" className="text-xl">
           Sucursal
