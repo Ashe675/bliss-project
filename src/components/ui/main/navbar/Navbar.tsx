@@ -1,7 +1,9 @@
-import { IconHomeFilled, IconUserFilled, IconUsers } from "@tabler/icons-react";
+import { IconHomeFilled, IconUserFilled } from "@tabler/icons-react";
 import { FaCalendarAlt } from "react-icons/fa";
 import { NavbarItem } from "./NavbarItem";
 import { auth } from "@/auth.config";
+import { HiUsers } from "react-icons/hi";
+import { IoStorefront } from "react-icons/io5";
 
 const navbarItemsByRole = {
   user: {
@@ -40,14 +42,19 @@ const navbarItemsByRole = {
   admin: {
     items: [
       {
-        href: "/admin/employees",
-        icon: <IconUsers />,
-        label: "empleados",
-      },
-      {
         href: "/home",
         icon: <IconHomeFilled />,
         label: "Home",
+      },
+      {
+        href: "/admin/employees",
+        icon: <HiUsers size={24} />,
+        label: "Empleados",
+      },
+      {
+        href: "/admin/branches",
+        icon: <IoStorefront size={22}  className=" mx-[1px]" />,
+        label: "Sucursales",
       },
       {
         href: "/profile",

@@ -33,7 +33,10 @@ export const searchBranches = async (search: string) => {
                 images : true
             },
             orderBy : {
-                rating : 'desc'
+                rating: {
+                    sort: 'desc',
+                    nulls: 'last', // Mueve los valores nulos al final
+                }
             }
         })
 

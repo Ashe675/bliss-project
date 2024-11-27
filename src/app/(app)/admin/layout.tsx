@@ -1,5 +1,4 @@
 import { auth } from "@/auth.config";
-import { Navbar } from "@/components";
 import { notFound } from "next/navigation";
 
 export default async function AdminLayout({
@@ -15,7 +14,6 @@ export default async function AdminLayout({
   return (
     <div>
       {children}
-      <Navbar />
     </div>
   );
 }

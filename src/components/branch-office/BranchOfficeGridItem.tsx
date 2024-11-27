@@ -10,7 +10,7 @@ interface Props {
 export const BranchOfficeGridItem = ({ branch }: Props) => {
   return (
     <Link
-      href={`/branch/${branch.name.replace(/ /g, "_").toLowerCase().trim()}`}
+      href={`/branch/${branch.slug}`}
       key={branch.name}
       className="relative flex flex-col rounded-md hover:scale-105 transition-all shadow-sm max-w-[290px]"
     >
@@ -59,7 +59,7 @@ export const BranchOfficeGridItem = ({ branch }: Props) => {
               ))}
             </>
           ) : (
-            <span>Sin valoraciones</span>
+            <span className=" text-white/50 text-sm" >Sin valoraciones</span>
           )}
         </div>
         <h2 className="pt-2 text-sm">Dirección:</h2>

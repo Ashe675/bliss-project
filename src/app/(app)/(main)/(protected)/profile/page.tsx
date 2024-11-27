@@ -1,5 +1,3 @@
-'use server';
-
 import ProfilePage from '@/components/profile/ProfilePage'; // Asegura que esta ruta sea correcta
 import { notFound } from 'next/navigation'; // Import correcto para redirecciones del lado del servidor
 import { getUserProfile } from '@/actions';

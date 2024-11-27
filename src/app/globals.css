@@ -3,13 +3,21 @@
 @tailwind utilities;
 
 @keyframes fadeIn {
-  0% {opacity: 0;}
-  100% {opacity: 1;}
-} 
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 
 @-webkit-keyframes fadeIn {
-  0% {opacity: 0;}
-  100% {opacity: 1;}
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .fade-in {
@@ -22,7 +30,6 @@
   animation-name: fadeIn;
 }
 
-
 .btn-primary {
   @apply rounded-md bg-primary text-white font-bold p-2 hover:bg-primary/80;
 }
@@ -31,3 +38,6 @@
   @apply rounded-md bg-white/10 text-white font-bold p-2;
 }
 
+.input {
+  @apply bg-tertiary font-light outline-none text-white/80 rounded-md p-1.5 px-2;
+}

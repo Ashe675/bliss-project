@@ -1,13 +1,14 @@
 "use client";
 
 import { IconHomeFilled, IconUserFilled, IconX } from "@tabler/icons-react";
+import { HiUsers } from "react-icons/hi";
 import { FaCalendarAlt } from "react-icons/fa";
 import { SidebarItem } from "./SidebarItem";
 import { LogoWhite } from "../logos/LogoWhite";
 import { useUIStore } from "@/store";
 import clsx from "clsx";
 import { useSession } from "next-auth/react";
-import { IoLogIn, IoLogOut } from "react-icons/io5";
+import { IoLogIn, IoLogOut, IoStorefront } from "react-icons/io5";
 import { logout } from "@/actions";
 import Image from "next/image";
 import { useMemo } from "react";
@@ -38,6 +39,16 @@ const sidebarItemsByRole = {
   },
   admin: {
     items: [
+      {
+        href: "/admin/employees",
+        icon: <HiUsers size={24} />,
+        label: "Empleados",
+      },
+      {
+        href: "/admin/branches",
+        icon: <IoStorefront size={22} className=" mx-[1px]" />,
+        label: "Sucursales",
+      },
       {
         href: "/profile",
         icon: <IconUserFilled />,

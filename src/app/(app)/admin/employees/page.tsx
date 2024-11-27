@@ -1,5 +1,5 @@
 import React from "react"
-import { CustomButton, Search, Title } from "@/components";
+import { CustomButton, Navbar, Search, Title } from "@/components";
 import { IconPlus } from "@tabler/icons-react";
 import { getEmployeesByAdmin } from "@/actions/employee/get-employees-by-admin";
 import { EmployeeGrid } from "@/components/employee/EmployeeGrid";
@@ -25,8 +25,8 @@ export default async function EmployeesPage({ searchParams }: Props) {
         <Search />
         <Link href="/admin/employees/new">
         <CustomButton type="secondary" className="flex items-center mb-4">
-            Agregar Empleado
-            <IconPlus size={20} className=" ml-2" />
+            <span>Agregar Empleado</span>
+            <IconPlus size={20} stroke={3} className=" ml-1" />
         </CustomButton>
         </Link>
 
@@ -39,6 +39,7 @@ export default async function EmployeesPage({ searchParams }: Props) {
             </div>
             )
         }
+        <Navbar />
       </>
     );
   }

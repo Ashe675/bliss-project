@@ -2,6 +2,7 @@ import { searchBranchByName } from "@/actions/branch/search-branch-by-name";
 import { auth } from "@/auth.config";
 import {
   Address,
+  AdminActions,
   Description,
   Employees,
   HeaderBranchOffice,
@@ -56,6 +57,7 @@ const BranchPage = async ({ params }: BranchProps) => {
         officeName={data?.name}
       />
       <Images officeImages={data?.images} />
+      {isAdminBranch && <AdminActions branchSlug={data?.slug ?? ""} />}
       <Rating rating={data?.rating ?? 0} />
       <Address address={data?.address} />
       <Description description={data?.description} />

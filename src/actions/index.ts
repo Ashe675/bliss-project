@@ -1,3 +1,6 @@
+export { createUpdateBranch } from './admin/create-update-branch';
+export { searchAdminBranches } from './admin/search-admin-branches';
+export { getAdminBranchBySlug } from './admin/get-admin-branch-by-slug';
 export { acceptAppointmentById } from './appointments/accept-appointment-by-id';
 export { cancelAppointment } from './appointments/cancel-appointment';
 export { declineAppointmentById } from './appointments/decline-appointment-by-id';
