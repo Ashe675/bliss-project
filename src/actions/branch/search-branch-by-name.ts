@@ -5,7 +5,7 @@ import { BranchData } from "@/interfaces/branch.interface";
 
 export const searchBranchByName = async (search: string): Promise<BranchData | null> => {
     try {
-        const newSearch = search.trim().toLowerCase().replace(/\s+/g, ' ');
+        // const newSearch = search.trim().toLowerCase().replace(/\s+/g, ' ');
 
         const branches = await prisma.branchOffice.findFirst({
             where: {

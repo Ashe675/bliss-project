@@ -4,10 +4,21 @@ import Modal from '@/components/ui/modal/Modal';
 import GenericButton from '@/components/ui/buttons/GenericButton';
 import { handleEditProfile } from '@/actions';
 
+interface UserProfile {
+  firstName: string;
+  lastName: string;
+  avatarUrl: string;
+  username: string;
+  id: string;
+  email: string;
+  verified: boolean;
+}
+
+
 interface EditProfileModalProps {
   isOpen: boolean;
   onClose: () => void;
-  user: any; // Puedes definir un tipo más específico si lo deseas
+  user: UserProfile ; // Puedes definir un tipo más específico si lo deseas
 }
 
 const EditProfileModal: React.FC<EditProfileModalProps> = ({ isOpen, onClose, user }) => {

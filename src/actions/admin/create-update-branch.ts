@@ -35,7 +35,7 @@ interface Response {
     message: string;
 }
 
-export const createUpdateBranch = async (formData: FormData) => {
+export const createUpdateBranch = async (formData: FormData) : Promise<Response> => {
     const resAuth = await isAuthenticate()
     if (!resAuth.ok) return resAuth
 
