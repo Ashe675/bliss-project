@@ -31,10 +31,9 @@ export default function LoginForm() {
       setTimeout(() => {
         setErrorCredentials("");
       }, 3000);
-      return
+      return;
     }
-
-    window.location.replace("/");
+    window.location.replace("/home");
   };
 
   return (
@@ -103,7 +102,7 @@ export default function LoginForm() {
 
         <Link
           href="/auth/signup"
-          className=" text-sm text-gray-400  hover:underline"
+          className=" text-sm text-gray-400  hover:underline inline-block mt-2"
         >
           ¿Aún no tienes una cuenta? Resgístrate
         </Link>

@@ -16,7 +16,7 @@ export const plans = [
       "Gestión de clientes",
       "Gestión de personal (5 empleados)",
     ],
-    imageUrl: "/landing/BeautySalon.png",
+    imageUrl: "/landing/Hero.png",
     price: "10",
   },
   {
@@ -31,15 +31,15 @@ export const plans = [
       "Gestión de clientes",
       "Gestión de personal (30 empleados)",
     ],
-    imageUrl: "/landing/salon.jpg",
+    imageUrl: "/landing/BeautySalon.png",
     price: "40",
   },
 ];
 
 export const Plans: React.FC = () => {
   return (
-    <div id="plans" className="w-full">
       <Container>
+    <div id="plans" className="lg:mx-14 ">
         <div className="md:w-2/3 lg:w-1/2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -54,18 +54,17 @@ export const Plans: React.FC = () => {
             />
           </svg>
 
-          <h2 className="text-center md:text-left my-8 text-2xl font-bold text-gray-700 dark:text-white md:text-4xl">
+          <h2 className="text-center md:text-left my-8 text-2xl font-bold text-white md:text-4xl">
             Planes de suscripción
           </h2>
         </div>
-        {/* <div className="mb-12 space-y-2 text-center">
-          <h2 className="text-3xl font-bold text-gray-800 md:text-4xl dark:text-white">Planes de suscripción</h2>
-        </div> */}
-        <div className="grid gap-8  md:grid-cols-2 lg:grid-cols-3">
+
+
+        <div className="grid gap-8 mx-auto md:grid-cols-2 ">
           {plans.map((plan) => (
             <div
               key={plan.id}
-              className="group p-6 sm:p-8 rounded-3xl bg-white border border-gray-100 dark:shadow-none dark:border-orange-950/20 dark:bg-white bg-opacity-50 shadow-2xl shadow-gray-600/10"
+              className="group p-6 sm:p-8 rounded-3xl bg-white border border-gray-100 shadow-none border-orange-950/20 shadow-gray-600/10"
             >
               <div className="relative overflow-hidden rounded-xl">
                 <Image
@@ -113,11 +112,12 @@ export const Plans: React.FC = () => {
             </div>
           ))}
         </div>
+
         <h2 className="text-center mt-16 text-2xl font-bold text-white md:text-4xl">
           ¡Elige el plan perfecto para tu negocio y transforma tu gestión hoy
           mismo!
         </h2>
-      </Container>
     </div>
+      </Container>
   );
 };

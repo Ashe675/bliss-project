@@ -65,7 +65,7 @@ model User {
   email                 String?           @db.VarChar(80)
   password              String            @db.VarChar(80)
   verified              Boolean           @default(false)
-  profileImage          String?           @db.VarChar(45)
+  profileImage          String?           @db.VarChar(300)
   isActive              Boolean?          @default(true)
   description           String?           @db.VarChar(250)
   phoneNumber           String?
@@ -133,6 +133,7 @@ enum StatusAppointment {
   pending
   accepted
   declined
+  canceled
 }
 
 model Appointment {
@@ -165,3 +166,8 @@ model Post {
   images    Image[]
   createdAt DateTime @default(now())
 }
+
+
+
+
+

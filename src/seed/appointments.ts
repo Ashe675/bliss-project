@@ -3,7 +3,8 @@ import bcryptjs from 'bcryptjs';
 
 interface AppointmentData {
     appointmentDate: Date;
-    finalDate : Date;
+    finalDate: Date;
+    status: "pending" | "accepted" | "declined" | "canceled"
     description: string;
     userScheduler: UserData;
     userScheduled: UserData['user']
@@ -11,13 +12,13 @@ interface AppointmentData {
 
 // Usuarios programados posibles
 const userScheduledOptions = [
-    "jmartinez_employee", 
-    "mgomez_employee", 
-    "lvasquez_employee", 
-    "dhernandez_employee", 
-    "rsanchez_employee", 
-    "pcastro_employee", 
-    "cortega_employee", 
+    "jmartinez_employee",
+    "mgomez_employee",
+    "lvasquez_employee",
+    "dhernandez_employee",
+    "rsanchez_employee",
+    "pcastro_employee",
+    "cortega_employee",
     "rramirez_employee"
 ];
 
@@ -28,9 +29,9 @@ userScheduledOptions.forEach((userScheduled, index) => {
     appointments.push(
         {
             appointmentDate: new Date(new Date().setDate(new Date().getDate() - 1)), // Ayer
-            finalDate : new Date(new Date(new Date().setDate(new Date().getDate() - 1)).setHours(new Date().getHours() + 1)),
+            finalDate: new Date(new Date(new Date().setDate(new Date().getDate() - 1)).setHours(new Date().getHours() + 1)),
             description: `Corte de cabello ${index}`,
-            
+            status: "accepted",
             userScheduler: {
                 firstName: "John",
                 lastName: "Doe",
@@ -44,8 +45,9 @@ userScheduledOptions.forEach((userScheduled, index) => {
         },
         {
             appointmentDate: new Date(new Date().setDate(new Date().getDate() + 1)), // Mañana
-            finalDate : new Date(new Date(new Date().setDate(new Date().getDate() + 1)).setHours(new Date().getHours() + 1)),
+            finalDate: new Date(new Date(new Date().setDate(new Date().getDate() + 1)).setHours(new Date().getHours() + 1)),
             description: `Alisado de cabello ${index}`,
+            status: "accepted",
             userScheduler: {
                 firstName: "Jane",
                 lastName: "Smith",
@@ -58,9 +60,26 @@ userScheduledOptions.forEach((userScheduled, index) => {
             userScheduled: userScheduled
         },
         {
+            appointmentDate: new Date(new Date(new Date().setDate(new Date().getDate() + 1)).setHours(new Date().getHours() + 1)), // mañana
+            finalDate: new Date(new Date(new Date().setDate(new Date().getDate() + 1)).setHours(new Date().getHours() + 2)),
+            description: `Corte de cabello tipo fade y cejas ${index}`,
+            status: "pending",
+            userScheduler: {
+                firstName: "Wisho",
+                lastName: "Lou",
+                user: `wicho${index}@google.com`,
+                email: `wicho${index}@google.com`,
+                password: bcryptjs.hashSync('123456', 10),
+                verified: true,
+                role: "user"
+            },
+            userScheduled: userScheduled
+        },
+        {
             appointmentDate: new Date(new Date().setDate(new Date().getDate() + 2)), // Pasado mañana
-            finalDate : new Date(new Date(new Date().setDate(new Date().getDate() + 2)).setHours(new Date().getHours() + 1)),
+            finalDate: new Date(new Date(new Date().setDate(new Date().getDate() + 2)).setHours(new Date().getHours() + 1)),
             description: `Planchado de cabello ${index}`,
+            status: "canceled",
             userScheduler: {
                 firstName: "Alice",
                 lastName: "Brown",

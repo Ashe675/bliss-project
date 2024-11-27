@@ -1,17 +1,19 @@
+'use client';
+
 import { IconArrowLeft } from '@tabler/icons-react';
+import { useRouter } from 'next/navigation';
 
 interface HeaderProps {
   officeType: string | undefined;
   officeName: string | undefined;
-  isLoading: boolean;
-  onBack: () => void;
 }
 
-export const HeaderBranchOffice: React.FC<HeaderProps> = ({ officeType, officeName, isLoading, onBack }) => {
+export const HeaderBranchOffice: React.FC<HeaderProps> = ({ officeType, officeName }) => {
+  const router = useRouter();
   return (
     <section className="flex items-center gap-3 mb-6">
       <button
-        onClick={onBack}
+        onClick={() => router.back()}
         className="p-2 rounded-full"
       >
         <IconArrowLeft
@@ -25,7 +27,7 @@ export const HeaderBranchOffice: React.FC<HeaderProps> = ({ officeType, officeNa
           : ""}
       </p>
       <p className="text-lg sm:text-3xl lg:text-5xl font-semibold text-white">
-        {isLoading ? "Cargando" : `"${officeName}"`}
+        {officeName}
       </p>
     </section>
   );

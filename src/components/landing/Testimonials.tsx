@@ -26,8 +26,8 @@ const testimonials = [
 
 export const Testimonials: React.FC = () => {
   return (
-    <div className="text-gray-600 dark:text-gray-300" id="reviews">
-      <Container>
+    <Container>
+      <div className="text-gray-300 lg:mx-14" id="reviews">
 
       <div className="md:w-2/3 lg:w-1/2">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-red-800">
@@ -38,7 +38,7 @@ export const Testimonials: React.FC = () => {
           />
         </svg>
 
-        <h2 className=" my-8 text-2xl font-bold text-gray-700 dark:text-white md:text-4xl">
+        <h2 className=" my-8 text-2xl font-bold text-white md:text-4xl">
         Conoce lo que dicen nuestros clientes
         </h2>
       </div>
@@ -58,16 +58,16 @@ export const Testimonials: React.FC = () => {
                   height="400"
                 />
                 <div>
-                  <h6 className="text-lg font-medium text-gray-700 dark:text-white">{testimonial.name}</h6>
-                  <p className="text-sm text-gray-500 dark:text-gray-300">{testimonial.role}</p>
+                  <h6 className="text-lg font-medium text-white">{testimonial.name}</h6>
+                  <p className="text-sm text-gray-300">{testimonial.role}</p>
                 </div>
               </div>
               <p className="mt-8">{testimonial.review}</p>
             </div>
           ))}
         </div>
-      </Container>
     </div>
+      </Container>
   );
 };
 

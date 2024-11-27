@@ -4,6 +4,7 @@ import "./globals.css";
 import { robotoFont } from "@/config/fonts/fonts";
 import { Providers } from "@/components";
 
+
 export const metadata: Metadata = {
   title: {
     template: "%s - Bliss",
@@ -24,7 +25,9 @@ export default function RootLayout({
         className={`antialiased text-white min-h-screen ${robotoFont.className}`}
         style={{ backgroundColor: "#100000" }}
       >
-        <Providers>{children}</Providers>
+        
+          <Providers>{children}</Providers>
+        
       </body>
     </html>
   );

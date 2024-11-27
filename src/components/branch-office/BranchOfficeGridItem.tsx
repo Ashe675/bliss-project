@@ -10,9 +10,9 @@ interface Props {
 export const BranchOfficeGridItem = ({ branch }: Props) => {
   return (
     <Link
-      href={`/branch/${branch.name.replace(/ /g, "_").toLowerCase().trim()}`}
+      href={`/branch/${branch.slug}`}
       key={branch.name}
-      className="relative flex flex-col rounded-md hover:scale-105 transition-all shadow-sm"
+      className="relative flex flex-col rounded-md hover:scale-105 transition-all shadow-sm max-w-[290px]"
     >
       {branch.officeType === "barbershop" ? (
         <span className="bg-secondary text-xs px-2 p-1 top-1 left-0 absolute z-[5] rounded-r-md uppercase font-semibold">
@@ -35,7 +35,7 @@ export const BranchOfficeGridItem = ({ branch }: Props) => {
       </div>
       
       <div
-        className={`text-sm p-3 rounded-b-md flex flex-col flex-1 ${
+        className={`text-sm p-3  rounded-b-md flex flex-col flex-1 ${
           branch.officeType === "barbershop" ? "bg-secondary" : "bg-[#472020]"
         }`}
       >
@@ -59,7 +59,7 @@ export const BranchOfficeGridItem = ({ branch }: Props) => {
               ))}
             </>
           ) : (
-            <span>Sin valoraciones</span>
+            <span className=" text-white/50 text-sm" >Sin valoraciones</span>
           )}
         </div>
         <h2 className="pt-2 text-sm">Dirección:</h2>

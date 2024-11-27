@@ -9,7 +9,7 @@ export const metadata = {
 export default function RegisterPage() {
   return (
     <div className=" text-white pb-3">
-      <div>
+      <div className=" flex justify-center pb-5">
         <Link href={"/"}>
           <Imagotype width={111} height={48} />
         </Link>

@@ -11,6 +11,7 @@ export default async function MainLayout({
 
   return (
     <>
+    
       <div className={` pb-10`}>{children}</div>
       {isAuthenticated && <Navbar />}
     </>

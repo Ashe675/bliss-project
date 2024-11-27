@@ -34,6 +34,7 @@ export const getAppointmentsByMonth = async (startDate: Date, finalDate: Date): 
                         userSchedulerId: resAuth.data?.user.id
                     }
                 ],
+                status : 'accepted',
                 appointmentDate: {
                     gte: startDate,
                     lte: finalDate
@@ -52,7 +53,7 @@ export const getAppointmentsByMonth = async (startDate: Date, finalDate: Date): 
         console.log(error);
         return {
             ok: false,
-            status: 400,
+            status: 500,
             message: 'Server internal error.',
         }
     }
