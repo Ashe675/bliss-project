@@ -322,7 +322,7 @@ export const RegisterEmployeeForm = ({isCreating, employeeInfo}:Props) => {
                 },
               })}
             >
-              <option className="bg-primary border-primary text-white" value="">{isLoadingBranch ? 'Cargando' : 'Seleccione una sucursal is ipdating'}</option>
+              <option className="bg-primary border-primary text-white" value="">{isLoadingBranch ? 'Cargando' : 'Seleccione una sucursal'}</option>
               {branches.map((branch) => (
                 <option className="bg-primary" key={branch.id} value={branch.id}>
                   {branch.name}
