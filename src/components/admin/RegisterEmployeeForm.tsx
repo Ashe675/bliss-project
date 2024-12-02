@@ -8,9 +8,6 @@ import { getBranchesByAdmin } from "@/actions/admin/get-branches-by-id";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { putEmployee } from "@/actions/admin/put-employee";
-// import { FaCameraRetro } from "react-icons/fa";
-// import ImageWidget from "../ui/image-widget/ImageWidget";
-// import Avatar from "../profile/Avatar";
 
 interface Branch {
   id: string;
@@ -52,12 +49,7 @@ export const RegisterEmployeeForm = ({isCreating, employeeInfo}:Props) => {
   const [isLoadingBranch, setIsLoadingBranch] = useState(true);
   const [branches, setBranches] = useState<Branch[]>([]);
   const router = useRouter();
-  // const [profileImage, setProfileImage] = useState<string | null>(null); // URL de la imagen
-  // const [isWidgetOpen, setIsWidgetOpen] = useState(false);
-  // const [selectedBranch, setSelectedBranch] = useState('');
-
-  console.log(employeeInfo);
-  
+  const [selectedBranchId, setSelectedBranchId] = useState(employeeInfo?.branchOfficeId || "")
 
   const {
     register,
@@ -68,6 +60,9 @@ export const RegisterEmployeeForm = ({isCreating, employeeInfo}:Props) => {
 
   const password = watch("password");
 
+  const handleBranchIdChange = (e: React.ChangeEvent<HTMLSelectElement> ) => {
+    setSelectedBranchId(e.target.value);
+  };
 
   useEffect(() => {
     // Llamar a la función para obtener las sucursales
@@ -82,19 +77,6 @@ export const RegisterEmployeeForm = ({isCreating, employeeInfo}:Props) => {
       });
   }, []);
 
-
-  // const handleSubmitImage = async (files: File[]) => {
-  //   try {
-  //     // Simulación de carga de imágenes y obtención de la URL
-  //     console.log("Subiendo imágenes:", files);
-  //     const uploadedImageUrl = "https://example.com/image.jpg"; // Reemplaza por la URL obtenida
-  //     setProfileImage(uploadedImageUrl);
-  //     return true; // Retorna true si la carga fue exitosa
-  //   } catch (error) {
-  //     console.error("Error al subir las imágenes:", error);
-  //     return false; // Retorna false si hubo un error
-  //   }
-  // };
 
   const handleUpdate = async (data: RegisterData) => {
     setIsLoading(true);
@@ -138,17 +120,6 @@ export const RegisterEmployeeForm = ({isCreating, employeeInfo}:Props) => {
     console.log("Datos del empleado:", employeeData);
     
 
-    // const res = await postEmployee(employeeData);
-
-    // if (!res.ok || !res.user) {
-    //   setError(res.message);
-    //   setIsLoading(false);
-    //   setTimeout(() => setError(""), 3000);
-    //   return;
-    // }
-
-   
-
 
     await toast.promise(
       postEmployee(employeeData),
@@ -176,13 +147,6 @@ export const RegisterEmployeeForm = ({isCreating, employeeInfo}:Props) => {
       <h1 className=" text-2xl sm:text-4xl font-bold mt-3 mb-4 text-center text-white">
         {isCreating ? "Registrar Empleado" : "Actualizar Empleado"}
       </h1>
-{/* 
-      <Avatar
-        src={profileImage}
-        alt={"User Profile"}
-        className=" mx-auto size-36  md:size-60"
-      /> */}
-
 
       <div className=" flex flex-col gap-y-1">
         <label htmlFor="firstName" className=" text-xl  ">
@@ -347,51 +311,30 @@ export const RegisterEmployeeForm = ({isCreating, employeeInfo}:Props) => {
         <label htmlFor="branchOfficeId" className="text-xl">
           Sucursal
         </label>
-        <select
-          id="branchOfficeId"
-          value={employeeInfo?.branchOfficeId || ""}
-          className="bg-primary/50 font-light outline-none text-white/80 rounded-md p-1.5 px-2"
-          {...register("branchOfficeId", {
-            required: "Seleccionar una sucursal es obligatorio.",
-          })}
-        >
-          <option className="bg-primary border-primary text-white" value="">{isLoadingBranch ? 'Cargando' : 'Seleccione una sucursal'}</option>
-          {branches.map((branch) => (
-            <option className="bg-primary" key={branch.id} value={branch.id}>
-              {branch.name}
-            </option>
-          ))}
-        </select>
+            <select
+              id="branchOfficeId"
+              value={selectedBranchId}
+              className="bg-primary/50 font-light outline-none text-white/80 rounded-md p-1.5 px-2"
+              {...register("branchOfficeId", {
+                required: "Seleccionar una sucursal es obligatorio.",
+                onChange: (e) => {
+                  handleBranchIdChange(e); 
+                },
+              })}
+            >
+              <option className="bg-primary border-primary text-white" value="">{isLoadingBranch ? 'Cargando' : 'Seleccione una sucursal is ipdating'}</option>
+              {branches.map((branch) => (
+                <option className="bg-primary" key={branch.id} value={branch.id}>
+                  {branch.name}
+                </option>
+              ))}
+            </select>
         {errors.branchOfficeId && (
           <span className="text-red-500 text-xs font-light">
             {errors.branchOfficeId.message}
           </span>
         )}
       </div>
-
-
-
-
-
-
-
-      {/* <button
-          onClick={() => setIsWidgetOpen(true)}
-          className="flex flex-col w-1/2 justify-center items-center bottom-2 right-2 bg-primary text-white rounded-md p-4  hover:scale-105 transition-all duration-100 mx-auto hover:bg-red-950"
-          aria-label="Subir Imagen"
-        >
-          Subir Imagen
-          <FaCameraRetro className="mt-2" size={40}/>
-      </button> */}
-
-      {/* <ImageWidget
-        isWidgetOpen={isWidgetOpen}
-        closeWidget={() => setIsWidgetOpen(false)}
-        handleSubmitImage={handleSubmitImage}
-        maxFiles={5}
-        maxSize={2} 
-        isSquare={false}
-      /> */}
 
       <div>
         {error && (

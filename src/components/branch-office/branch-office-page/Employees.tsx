@@ -22,11 +22,9 @@ export const Employees: React.FC<Props> = ({ employees }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (employees.length > 0) {
-      setIsLoading(false);
-    }
-  }, [employees]);
-
+    setIsLoading(false);
+  }, []);
+  
   return (
     <section className="ml-4">
       <h2 className="text-2xl font-semibold mb-2">Empleados</h2>
