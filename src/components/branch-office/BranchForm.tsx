@@ -8,7 +8,7 @@ import { BranchWithServices } from "@/interfaces";
 
 import { BranchOfficeImages } from "./branch-office-images/BranchOfficeImages";
 import ImageInput from "../ui/image-input/ImageInput";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createUpdateBranch } from "@/actions";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
@@ -36,6 +36,12 @@ export const BranchForm = ({ branch }: Props) => {
   const toastId = useRef<null | number | string>(null);
   const router = useRouter();
 
+  useEffect(() => {
+    if (images.length > 0) {
+      setErrorImages("");
+    }
+  }, [images]);
+
   const {
     register,
     formState: { errors },
@@ -53,9 +59,7 @@ export const BranchForm = ({ branch }: Props) => {
   const onSubmit = async (data: FormInputs) => {
     setErrorImages("");
     if (!branch && images.length <= 0) {
-      return setErrorImages(
-        "Se debe de subir al menos una imagen de la sucursal."
-      );
+      setErrorImages("Se debe de subir al menos una imagen de la sucursal.");
     }
     const formData = new FormData();
     if (branch) {
@@ -94,7 +98,7 @@ export const BranchForm = ({ branch }: Props) => {
         icon: <IconSquareRoundedCheckFilled className=" text-green-500" />,
       });
       if (!branch) {
-        router.replace('/admin/branches')
+        router.replace("/admin/branches");
       } else {
         router.refresh();
       }
@@ -292,15 +296,15 @@ export const BranchForm = ({ branch }: Props) => {
             )}
           </div>
         )}
-        <CustomButton
-          isSubmit={true}
-          disabled={isLoading}
-          type="primary"
-          className=" w-full"
-        >
-          Guardar
-        </CustomButton>
       </div>
+      <CustomButton
+        isSubmit={true}
+        disabled={isLoading}
+        type="primary"
+        className=" w-full sm:col-span-2 mx-auto max-w-lg mt-4"
+      >
+        Guardar
+      </CustomButton>
     </form>
   );
 };

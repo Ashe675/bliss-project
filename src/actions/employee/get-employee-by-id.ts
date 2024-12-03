@@ -33,6 +33,7 @@ interface BranchOffice {
     name: string;
     address: string;
     officeType: string;
+    slug : string;
     images: Array<{
         id: string;
         url: string;
@@ -112,6 +113,7 @@ export const getEmployeeById = async (userId: string): Promise<Response> => {
                         name: true,
                         officeType: true,
                         address: true,
+                        slug: true,
                         images: {
                             select: {
                                 id: true,

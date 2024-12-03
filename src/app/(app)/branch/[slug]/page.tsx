@@ -57,7 +57,7 @@ const BranchPage = async ({ params }: BranchProps) => {
         officeName={data?.name}
       />
       <Images officeImages={data?.images} />
-      {isAdminBranch && <AdminActions branchSlug={data?.slug ?? ""} />}
+      {isAdminBranch && <AdminActions branchSlug={data?.slug ?? ""} officeName={data?.name} />}
       <Rating rating={data?.rating ?? 0} />
       <Address address={data?.address} />
       <Description description={data?.description} />

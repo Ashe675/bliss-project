@@ -130,7 +130,7 @@ const EmployeeProfile = async ({ params }: EmployeeProfileProps) => {
                   </div>
                 </div>
               ) : (
-                <Link href={`/branch/${data?.user?.branchOffice?.name}`}>
+                <Link href={`/branch/${data?.user?.branchOffice?.slug}`}>
                   {" "}
                   <div className="bg-primary space-x-3 text-white items-center flex rounded-lg">
                     <div className="justify-self-center w-20 h-20 md:w-24 md:h-24 overflow-hidden rounded-lg border-2 border-primary">

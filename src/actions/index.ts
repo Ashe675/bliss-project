@@ -1,6 +1,7 @@
+export { deleteImageByUrl } from './images/delete-image-by-url';
 export { createUpdateBranch } from './admin/create-update-branch';
-export { searchAdminBranches } from './admin/search-admin-branches';
 export { getAdminBranchBySlug } from './admin/get-admin-branch-by-slug';
+export { searchAdminBranches } from './admin/search-admin-branches';
 export { acceptAppointmentById } from './appointments/accept-appointment-by-id';
 export { cancelAppointment } from './appointments/cancel-appointment';
 export { declineAppointmentById } from './appointments/decline-appointment-by-id';
@@ -12,6 +13,7 @@ export { getTotalAppointmentsByStatus } from './appointments/get-total-appointme
 export { authenticate, login } from './auth/login';
 export { logout } from './auth/logout';
 export { registerUser } from './auth/register';
+export { deleteBranchBySlug } from './branch/delete-branch-by-slug';
 export * from './branch/search-branch';
 export { getEmployeeById } from './employee/get-employee-by-id';
 export { getEmployeePosts } from './employee/get-employee-post';
