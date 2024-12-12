@@ -32,7 +32,7 @@ const ProfilePage = ({ user }: ProfilePageProps) => {
       <UserInfo
         firstName={user.firstName}
         lastName={user.lastName}
-        id={user.id}
+        username = {user.username}
         email={user.email}
         verified={user.verified}
       />
