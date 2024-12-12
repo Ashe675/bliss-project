@@ -167,19 +167,24 @@ const EmployeeProfile = async ({ params }: EmployeeProfileProps) => {
           ) : null}
 
           {session?.user.id === data.user.branchOffice.userOwnerId ? (
-            <AdminToEmployeeActions employeeId={data?.user?.id} employeeInfo={data?.user} />
+            <AdminToEmployeeActions
+              employeeId={data?.user?.id}
+              employeeInfo={data?.user}
+            />
           ) : null}
 
-          {session?.user.id &&
-          session.user.role !== "admin" &&
-          session.user.role !== "employee" ? (
+          {session?.user.role !== "admin" &&
+          session?.user.role !== "employee" ? (
             <ClientToEmployeeActions
               employeeId={data?.user?.id}
               canReview={canReview || false}
             />
           ) : null}
 
-          <Posts posts={data?.posts || []} isTheSameEmployee = {isTheSameEmployee} />
+          <Posts
+            posts={data?.posts || []}
+            isTheSameEmployee={isTheSameEmployee}
+          />
 
           <Comments
             totalRatings={data?.user?.totalRatings || 0}

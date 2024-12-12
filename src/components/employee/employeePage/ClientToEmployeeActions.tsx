@@ -9,17 +9,24 @@ import {
 } from "@tabler/icons-react";
 import RatingForm from "./RatingForm";
 import { AppointmentForm } from "./AppoinmentForm";
-import { toast } from "react-toastify";  // Importamos el toast
+import { toast } from "react-toastify"; // Importamos el toast
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 interface Props {
   employeeId: string;
   canReview: boolean;
 }
 
-export const ClientToEmployeeActions: React.FC<Props> = ({ employeeId, canReview }) => {
+export const ClientToEmployeeActions: React.FC<Props> = ({
+  employeeId,
+  canReview,
+}) => {
   const [isModalRatingOpen, setIsModalRatingOpen] = useState(false);
   const [isModalAppoinmentOpen, setIsModalAppoinmentOpen] = useState(false);
-  
+  const { data: session } = useSession();
+  const router = useRouter();
+
   const closeModalAppointment = () => {
     setIsModalAppoinmentOpen(false);
   };
@@ -28,7 +35,18 @@ export const ClientToEmployeeActions: React.FC<Props> = ({ employeeId, canReview
     setIsModalRatingOpen(false);
   };
 
+  const hanldeOpenAppointment = () => {
+    if (!session?.user) {
+      return router.push("/auth/login");
+    }
+    setIsModalAppoinmentOpen(true);
+  };
+
   const handleOpenRatingModal = () => {
+    if (!session?.user) {
+      return router.push("/auth/login");
+    }
+
     if (!canReview) {
       toast("Ya has hecho una reseña para este empleado.");
     } else {
@@ -38,13 +56,13 @@ export const ClientToEmployeeActions: React.FC<Props> = ({ employeeId, canReview
 
   return (
     <div>
-      <div className="flex space-x-10 justify-between sm:justify-center ">
+      <div className="flex space-x-2 sm:space-x-10 justify-between sm:justify-center ">
         <CustomButton
           type="primary"
-          className="w-32"
+          className="w-44"
           onClick={handleOpenRatingModal} // Usamos la función aquí
         >
-          <div className="flex justify-center">
+          <div className="flex justify-center items-center">
             <p>Calificar</p>
             <IconCarambolaFilled size={20} className="ml-2" />
           </div>
@@ -52,11 +70,11 @@ export const ClientToEmployeeActions: React.FC<Props> = ({ employeeId, canReview
 
         <CustomButton
           type="cancel"
-          className="w-32"
-          onClick={() => setIsModalAppoinmentOpen(true)}
+          className="w-44"
+          onClick={hanldeOpenAppointment}
         >
-          <div className="flex justify-center">
-            <p>Contactar</p>
+          <div className="flex justify-center items-center">
+            <p>Agendar Cita</p>
             <IconMessageCirclePlus size={20} className="ml-2" />
           </div>
         </CustomButton>
@@ -64,8 +82,8 @@ export const ClientToEmployeeActions: React.FC<Props> = ({ employeeId, canReview
 
       <div>
         <CustomModal isOpen={isModalRatingOpen} closeModal={closeModalRaiting}>
-          <RatingForm 
-            employeeId={employeeId} 
+          <RatingForm
+            employeeId={employeeId}
             onReviewSubmit={closeModalRaiting}
           />
         </CustomModal>
@@ -74,12 +92,11 @@ export const ClientToEmployeeActions: React.FC<Props> = ({ employeeId, canReview
           isOpen={isModalAppoinmentOpen}
           closeModal={closeModalAppointment}
         >
-          <AppointmentForm 
-            employeeId={employeeId} 
+          <AppointmentForm
+            employeeId={employeeId}
             onAppointmentSubmit={closeModalAppointment}
           />
         </CustomModal>
-    
       </div>
     </div>
   );
