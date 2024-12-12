@@ -63,7 +63,7 @@ export const deleteImageFromCloud = async (publicIdOrUrl: string) => {
     const publicId = getPublicIdFromUrl(publicIdOrUrl)
     try {
         const res = await cloudinary.uploader.destroy(publicId)
-        console.log(res)
+     
         return res.result === "ok"
     } catch (error) {
         console.error("Error eliminando la imagen en Cloudinary:", error);

@@ -16,6 +16,7 @@ interface Props {
   classNameImageItem?: string;
   children?: React.ReactNode;
   isError?: boolean;
+  title?: string;
 }
 
 export default function ImageWidget({
@@ -28,6 +29,7 @@ export default function ImageWidget({
   classNameImageItem,
   children,
   isError,
+  title,
 }: Props) {
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -122,6 +124,12 @@ export default function ImageWidget({
       {!isLoading ? (
         <>
           <section className=" space-y-6">
+            {children && (
+              <div>
+                {title && <h1 className=" text-xl ">{title}</h1>}
+                {children}
+              </div>
+            )}
             {selectedImages.length < maxFiles && (
               <div
                 {...getRootProps()}
@@ -193,7 +201,6 @@ export default function ImageWidget({
           <SpinnerCircle size={60} />
         </div>
       )}
-      {children}
       <div className=" flex gap-2 pt-6">
         <CustomButton
           type="cancel"

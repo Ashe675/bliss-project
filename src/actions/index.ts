@@ -1,4 +1,3 @@
-export { deleteImageByUrl } from './images/delete-image-by-url';
 export { createUpdateBranch } from './admin/create-update-branch';
 export { getAdminBranchBySlug } from './admin/get-admin-branch-by-slug';
 export { searchAdminBranches } from './admin/search-admin-branches';
@@ -15,9 +14,12 @@ export { logout } from './auth/logout';
 export { registerUser } from './auth/register';
 export { deleteBranchBySlug } from './branch/delete-branch-by-slug';
 export * from './branch/search-branch';
+export { createPost } from './employee/create-post';
+export { deletePostById } from './employee/delete-post-by-id';
 export { getEmployeeById } from './employee/get-employee-by-id';
 export { getEmployeePosts } from './employee/get-employee-post';
 export { getEmployeeRating } from './employee/get-employee-raiting';
+export { deleteImageByUrl } from './images/delete-image-by-url';
 export { getUserProfile, handleEditProfile } from './profile/profileUtils';
 export { uploadProfileImage } from './profile/upload-profile-image';
 

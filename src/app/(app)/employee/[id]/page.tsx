@@ -179,7 +179,7 @@ const EmployeeProfile = async ({ params }: EmployeeProfileProps) => {
             />
           ) : null}
 
-          <Posts posts={data?.posts || []} />
+          <Posts posts={data?.posts || []} isTheSameEmployee = {isTheSameEmployee} />
 
           <Comments
             totalRatings={data?.user?.totalRatings || 0}
